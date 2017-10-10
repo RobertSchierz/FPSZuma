@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using BansheeGz.BGSpline.Curve;
+using System;
 
 namespace BansheeGz.BGSpline.Components
 {
@@ -97,6 +98,11 @@ namespace BansheeGz.BGSpline.Components
         {
             //clamp
             Distance = distance;
+        }
+
+        internal T AddComponent<T>()
+        {
+            throw new NotImplementedException();
         }
     }
 }

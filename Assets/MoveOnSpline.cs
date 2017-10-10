@@ -7,14 +7,12 @@ using UnityEngine;
 public class MoveOnSpline : MonoBehaviour {
 
     public BGCurve curve;
-    public BGCcMath mathe;
+    private BGCcMath mathe;
     public BGCcCursor cursor;
-    public BGCcCursorObjectTranslate movedObject;
+    //private BGCcCursorObjectTranslate movedObject;
    
 
-    //public float speed = 10f;
-    //private Transform target;
-    //private int wavepointIndex = 0;
+ 
 
     
     private float min = 0.0f;
@@ -24,34 +22,33 @@ public class MoveOnSpline : MonoBehaviour {
     public float seconds = 10.0f;
 
 
-    // Use this for initialization
+
     void Start () {
 
-       // target = Waypoints.points[0];
+        this.distanceratio = this.min;
+
+        this.curve = FindObjectOfType<BGCurve>();
 
         this.mathe = this.curve.GetComponent<BGCcMath>();
-        this.cursor = this.curve.GetComponent<BGCcCursor>();
-        this.movedObject = this.mathe.GetComponent<BGCcCursorObjectTranslate>();
+
+        this.cursor = this.mathe.gameObject.AddComponent<BGCcCursor>();
+       
+
+       // this.movedObject = this.cursor.gameObject.AddComponent<BGCcCursorObjectTranslate>();
+        
+
+       // this.movedObject.ObjectToManipulate = gameObject.transform;
 
 
-        this.movedObject.ObjectToManipulate = gameObject.transform;
 
-
-        //var point = this.curve.Points[0];
-
-       // transform.position = point.PositionWorld;
+      
 
        
 
 
-        this.distanceratio = this.min;
-
-
-
-
     }
 	
-	// Update is called once per frame
+
 	void Update () {
 
      
@@ -60,39 +57,13 @@ public class MoveOnSpline : MonoBehaviour {
         {
             this.cursor.DistanceRatio = this.distanceratio;
             this.distanceratio += ((this.steps * Time.deltaTime) / this.seconds);
-            print(Time.time);
+            transform.position = this.mathe.CalcPositionByDistanceRatio(this.distanceratio);
+
+
         }
 
         
 
-
-        /*
-
-        Vector3 dir = target.position - transform.position;
-        transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
-
-        if (Vector3.Distance(transform.position, target.position) <= 0.2f)
-        {
-            GetNextWaypoint();
-        
-   
-        }*/
-
-
     }
-
-    /*
-    void GetNextWaypoint()
-    {
-        if (wavepointIndex >= Waypoints.points.Length - 1)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        wavepointIndex++;
-        target = Waypoints.points[wavepointIndex];
-    }
-    */
 
 }
