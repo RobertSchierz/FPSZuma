@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 54239478196734698}
   - component: {fileID: 114981338345439848}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Bubble 3
   m_TagString: Bubble
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,7 +57,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 715123abf7597cb408a07b3f0cf5fa15, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

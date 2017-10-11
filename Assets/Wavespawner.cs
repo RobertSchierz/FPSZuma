@@ -5,9 +5,15 @@ using UnityEngine;
 
 public class Wavespawner : MonoBehaviour {
 
-    public Transform bubblePrefab;
+   
     public Transform spawnPoint;
     public Transform bubbles;
+
+    public Transform[] bubbleprefabs = new Transform[4];
+
+
+
+
 
     public BGCurve curve;
 
@@ -30,27 +36,35 @@ public class Wavespawner : MonoBehaviour {
 
     void Start()
     {
+
+       
         this.curve = FindObjectOfType<BGCurve>();
         this.spawnPoint.transform.position = this.curve.Points[0].PositionLocal;
 
         Startpoint.onBuildBubble += handleOnBuildBubble;
 
         this.introbubblenumber = this.bubblecountperwave / 10;
-        this.introbubblespeed = this.bubblespeed / 8.0f;
+        this.introbubblespeed = this.bubblespeed / 5.0f;
         this.actualbubblespeed = introbubblespeed;
    
     }
+
+ 
+
+    
 
     void handleOnBuildBubble()
     {
         if (bubbles.childCount < this.bubblecountperwave)
         {
             
+
             if (bubbles.childCount == this.introbubblenumber)
             {
                 this.actualbubblespeed = this.bubblespeed;
             }
             spawnBubble();
+            
         }
     }
 
@@ -58,7 +72,7 @@ public class Wavespawner : MonoBehaviour {
     {
         if (countdown <= 0f && !this.wavespaned)
         {
-            //StartCoroutine( spawnWave());
+
             spawnBubble();
             this.wavespaned = true;
 
@@ -73,22 +87,17 @@ public class Wavespawner : MonoBehaviour {
         
     }
 
-    /*IEnumerator spawnWave()
+    public Transform randomizePrefabs()
     {
-       
-        for (int i = 0; i < bubblecountperwave; i++)
-        {
-
-            spawnBubble();
-            yield return new WaitForSeconds(0.1f);
-        }
-
-       
-    }*/
+        int randomnumber = Random.Range(0, 4);
+        Debug.Log(randomnumber);
+        return this.bubbleprefabs[randomnumber];
+    }
 
     void spawnBubble()
     {
-       var bubble =  Instantiate(bubblePrefab, spawnPoint.position, spawnPoint.rotation);
+     
+       var bubble =  Instantiate(this.randomizePrefabs(), spawnPoint.position, spawnPoint.rotation);
         bubble.transform.parent = this.bubbles.transform;
     }
 

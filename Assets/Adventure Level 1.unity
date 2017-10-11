@@ -268,7 +268,7 @@ MonoBehaviour:
   bubbles: {fileID: 440795884}
   curve: {fileID: 0}
   bubblecountperwave: 100
-  bubblespeed: 30
+  bubblespeed: 20
   actualbubblespeed: 0
 --- !u!4 &1336642943
 Transform:
@@ -503,6 +503,64 @@ Prefab:
     - target: {fileID: 4577117477877012, guid: b0851854c7146284b837620605dfb9b3, type: 2}
       propertyPath: m_RootOrder
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4577117477877012, guid: b0851854c7146284b837620605dfb9b3, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4577117477877012, guid: b0851854c7146284b837620605dfb9b3, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -1.5987631
+      objectReference: {fileID: 0}
+    - target: {fileID: 4600021028327810, guid: b0851854c7146284b837620605dfb9b3, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -3.675
+      objectReference: {fileID: 0}
+    - target: {fileID: 4786604283686860, guid: b0851854c7146284b837620605dfb9b3, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114336762944820336, guid: b0851854c7146284b837620605dfb9b3,
+        type: 2}
+      propertyPath: controlFirstLocal.x
+      value: 0.17022943
+      objectReference: {fileID: 0}
+    - target: {fileID: 114336762944820336, guid: b0851854c7146284b837620605dfb9b3,
+        type: 2}
+      propertyPath: controlFirstLocal.y
+      value: -0.39300898
+      objectReference: {fileID: 0}
+    - target: {fileID: 114336762944820336, guid: b0851854c7146284b837620605dfb9b3,
+        type: 2}
+      propertyPath: controlFirstLocal.z
+      value: 0.9714117
+      objectReference: {fileID: 0}
+    - target: {fileID: 114336762944820336, guid: b0851854c7146284b837620605dfb9b3,
+        type: 2}
+      propertyPath: controlSecondLocal.x
+      value: -0.17022943
+      objectReference: {fileID: 0}
+    - target: {fileID: 114336762944820336, guid: b0851854c7146284b837620605dfb9b3,
+        type: 2}
+      propertyPath: controlSecondLocal.y
+      value: 0.39300898
+      objectReference: {fileID: 0}
+    - target: {fileID: 114336762944820336, guid: b0851854c7146284b837620605dfb9b3,
+        type: 2}
+      propertyPath: controlSecondLocal.z
+      value: -0.9714117
+      objectReference: {fileID: 0}
+    - target: {fileID: 4453749070142360, guid: b0851854c7146284b837620605dfb9b3, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -3.5057821
+      objectReference: {fileID: 0}
+    - target: {fileID: 4453749070142360, guid: b0851854c7146284b837620605dfb9b3, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 3.688
+      objectReference: {fileID: 0}
+    - target: {fileID: 4453749070142360, guid: b0851854c7146284b837620605dfb9b3, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b0851854c7146284b837620605dfb9b3, type: 2}
