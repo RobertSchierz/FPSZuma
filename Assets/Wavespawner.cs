@@ -7,6 +7,7 @@ public class Wavespawner : MonoBehaviour {
 
     public Transform bubblePrefab;
     public Transform spawnPoint;
+    public Transform bubbles;
 
     public BGCurve curve;
 
@@ -20,13 +21,25 @@ public class Wavespawner : MonoBehaviour {
     {
         this.curve = FindObjectOfType<BGCurve>();
         this.spawnPoint.transform.position = this.curve.Points[0].PositionLocal;
+
+        Startpoint.onBuildBubble += handleOnBuildBubble;
+   
+    }
+
+    void handleOnBuildBubble()
+    {
+        if (bubbles.childCount < this.bubblecountperwave)
+        {
+            spawnBubble();
+        }
     }
 
     void Update()
     {
         if (countdown <= 0f && !this.wavespaned)
         {
-            StartCoroutine( spawnWave());
+            //StartCoroutine( spawnWave());
+            spawnBubble();
             this.wavespaned = true;
 
         }else if (!this.wavespaned)
@@ -40,7 +53,7 @@ public class Wavespawner : MonoBehaviour {
         
     }
 
-    IEnumerator spawnWave()
+    /*IEnumerator spawnWave()
     {
        
         for (int i = 0; i < bubblecountperwave; i++)
@@ -51,11 +64,12 @@ public class Wavespawner : MonoBehaviour {
         }
 
        
-    }
+    }*/
 
     void spawnBubble()
     {
-        Instantiate(bubblePrefab, spawnPoint.position, spawnPoint.rotation);
+       var bubble =  Instantiate(bubblePrefab, spawnPoint.position, spawnPoint.rotation);
+        bubble.transform.parent = this.bubbles.transform;
     }
 
 

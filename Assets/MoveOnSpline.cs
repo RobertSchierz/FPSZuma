@@ -16,7 +16,7 @@ public class MoveOnSpline : MonoBehaviour {
     private float max = 1.0f;
     private float steps = 1.0f;
     private float distanceratio;
-    public float seconds = 3.0f;
+    public float seconds = 10.0f;
 
 
 
