@@ -93,8 +93,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b43df41bd5e793d44b9b7d170d107720, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curve: {fileID: 114899174697795958, guid: c4bb8e0ef8974fe48962fb256c35bce9, type: 2}
-  seconds: 10
+  curve: {fileID: 0}
+  cursor: {fileID: 0}
+  seconds: 3
 --- !u!135 &135433082130495662
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -9,17 +9,14 @@ public class MoveOnSpline : MonoBehaviour {
     public BGCurve curve;
     private BGCcMath mathe;
     public BGCcCursor cursor;
-    //private BGCcCursorObjectTranslate movedObject;
+  
    
-
- 
-
     
     private float min = 0.0f;
     private float max = 1.0f;
     private float steps = 1.0f;
     private float distanceratio;
-    public float seconds = 10.0f;
+    public float seconds = 3.0f;
 
 
 
@@ -33,18 +30,6 @@ public class MoveOnSpline : MonoBehaviour {
 
         this.cursor = this.mathe.gameObject.AddComponent<BGCcCursor>();
        
-
-       // this.movedObject = this.cursor.gameObject.AddComponent<BGCcCursorObjectTranslate>();
-        
-
-       // this.movedObject.ObjectToManipulate = gameObject.transform;
-
-
-
-      
-
-       
-
 
     }
 	
@@ -60,6 +45,9 @@ public class MoveOnSpline : MonoBehaviour {
             transform.position = this.mathe.CalcPositionByDistanceRatio(this.distanceratio);
 
 
+        }else
+        {
+            Destroy(gameObject);
         }
 
         
