@@ -11,11 +11,22 @@ public class Wavespawner : MonoBehaviour {
 
     public BGCurve curve;
 
-    public float timeBetweenBubbles = 0.5f;
+    //First Start
     private float countdown = 2f;
     private bool wavespaned = false;
 
-    private int bubblecountperwave = 10; 
+
+
+    // Bubble Attributes
+    public int bubblecountperwave = 10;
+    public float bubblespeed = 10.0f;
+
+    // First Start - Intro
+    private int introbubblenumber;
+    private float introbubblespeed;
+    public float actualbubblespeed;
+
+
 
     void Start()
     {
@@ -23,6 +34,10 @@ public class Wavespawner : MonoBehaviour {
         this.spawnPoint.transform.position = this.curve.Points[0].PositionLocal;
 
         Startpoint.onBuildBubble += handleOnBuildBubble;
+
+        this.introbubblenumber = this.bubblecountperwave / 10;
+        this.introbubblespeed = this.bubblespeed / 8.0f;
+        this.actualbubblespeed = introbubblespeed;
    
     }
 
@@ -30,6 +45,11 @@ public class Wavespawner : MonoBehaviour {
     {
         if (bubbles.childCount < this.bubblecountperwave)
         {
+            
+            if (bubbles.childCount == this.introbubblenumber)
+            {
+                this.actualbubblespeed = this.bubblespeed;
+            }
             spawnBubble();
         }
     }

@@ -22,8 +22,8 @@ GameObject:
   - component: {fileID: 33354200071083328}
   - component: {fileID: 135433082130495662}
   - component: {fileID: 23728116297146848}
-  - component: {fileID: 114168482594722552}
   - component: {fileID: 54239478196734698}
+  - component: {fileID: 114981338345439848}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Bubble
@@ -98,7 +98,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &114168482594722552
+--- !u!114 &114981338345439848
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -111,7 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   curve: {fileID: 0}
   cursor: {fileID: 0}
-  seconds: 10
+  seconds: 0
 --- !u!135 &135433082130495662
 SphereCollider:
   m_ObjectHideFlags: 1

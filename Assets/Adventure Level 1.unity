@@ -267,7 +267,9 @@ MonoBehaviour:
   spawnPoint: {fileID: 36401301}
   bubbles: {fileID: 440795884}
   curve: {fileID: 0}
-  timeBetweenBubbles: 0.5
+  bubblecountperwave: 100
+  bubblespeed: 30
+  actualbubblespeed: 0
 --- !u!4 &1336642943
 Transform:
   m_ObjectHideFlags: 0
