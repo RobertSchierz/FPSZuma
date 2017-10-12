@@ -96,7 +96,7 @@ public class Wavespawner : MonoBehaviour {
 
         if (this.leveldifficult != 0)
         {
-
+          
         if (this.lastbubbleprefabindex == randomprefabindex)
         {
             if (calculateNewMix()) {
@@ -116,7 +116,20 @@ public class Wavespawner : MonoBehaviour {
         int randomdetermitter = Random.Range(this.leveldifficult, 11);
         if (randomdetermitter > this.leveldifficult)
         {
-            return false;
+            if (this.leveldifficult > 5 && this.leveldifficult < 10)
+            {
+                if (Random.Range(0,2) == 0)
+                {
+                    return true;
+                }else
+                {
+                    return false;
+                }
+            }else
+            {
+                return false;
+            }
+            
         }else
         {
             return true;
