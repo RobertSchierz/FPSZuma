@@ -262,13 +262,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d24b5a06f2efa87459ddc3177f76261d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bubblePrefab: {fileID: 4779836592121344, guid: f5e83ed075fa774428645831f4441326,
-    type: 2}
   spawnPoint: {fileID: 36401301}
   bubbles: {fileID: 440795884}
+  bubbleprefabs:
+  - {fileID: 4779836592121344, guid: f5e83ed075fa774428645831f4441326, type: 2}
+  - {fileID: 4779836592121344, guid: 26a559c33e2971349a3f7854b20f4d2b, type: 2}
+  - {fileID: 4779836592121344, guid: 984bc86f326d7654fb9c1a3ee9badcc3, type: 2}
+  - {fileID: 4779836592121344, guid: 9d550ed073324634c842665e04fa3afe, type: 2}
+  leveldifficult: 1
   curve: {fileID: 0}
   bubblecountperwave: 100
-  bubblespeed: 20
+  bubblespeed: 9
   actualbubblespeed: 0
 --- !u!4 &1336642943
 Transform:

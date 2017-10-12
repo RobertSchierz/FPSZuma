@@ -5,14 +5,15 @@ using UnityEngine;
 
 public class Wavespawner : MonoBehaviour {
 
-   
+    
     public Transform spawnPoint;
     public Transform bubbles;
 
     public Transform[] bubbleprefabs = new Transform[4];
+    private int lastbubbleprefabindex;
 
-
-
+    [Range(0,10)]
+    public int leveldifficult = 0;
 
 
     public BGCurve curve;
@@ -89,9 +90,39 @@ public class Wavespawner : MonoBehaviour {
 
     public Transform randomizePrefabs()
     {
-        int randomnumber = Random.Range(0, 4);
-        Debug.Log(randomnumber);
-        return this.bubbleprefabs[randomnumber];
+        int randomprefabindex = Random.Range(0, 4);
+
+        
+
+        if (this.leveldifficult != 0)
+        {
+
+        if (this.lastbubbleprefabindex == randomprefabindex)
+        {
+            if (calculateNewMix()) {
+                    randomprefabindex = Random.Range(0, 4);
+                }
+         }
+        }
+    
+
+        this.lastbubbleprefabindex = randomprefabindex;
+      
+        return this.bubbleprefabs[randomprefabindex];
+    }
+
+    bool calculateNewMix()
+    {
+        int randomdetermitter = Random.Range(this.leveldifficult, 11);
+        if (randomdetermitter > this.leveldifficult)
+        {
+            return false;
+        }else
+        {
+            return true;
+        }
+
+
     }
 
     void spawnBubble()
