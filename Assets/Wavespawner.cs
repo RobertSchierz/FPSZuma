@@ -15,6 +15,8 @@ public class Wavespawner : MonoBehaviour {
     [Range(0,10)]
     public int leveldifficult = 0;
 
+    private bool lostgame = false;
+
 
     public BGCurve curve;
 
@@ -43,20 +45,23 @@ public class Wavespawner : MonoBehaviour {
         this.spawnPoint.transform.position = this.curve.Points[0].PositionLocal;
 
         Startpoint.onBuildBubble += handleOnBuildBubble;
+        MoveOnSpline.onLostGame += handleOnLostGame;
 
         this.introbubblenumber = this.bubblecountperwave / 10;
-        this.introbubblespeed = this.bubblespeed / 5.0f;
+        this.introbubblespeed = this.bubblespeed / 5f;
         this.actualbubblespeed = introbubblespeed;
    
     }
 
  
-
+    void handleOnLostGame(){
+        this.lostgame = true;
+        }
     
 
     void handleOnBuildBubble()
     {
-        if (bubbles.childCount < this.bubblecountperwave)
+        if (bubbles.childCount < this.bubblecountperwave && !this.lostgame)
         {
             
 
@@ -140,9 +145,13 @@ public class Wavespawner : MonoBehaviour {
 
     void spawnBubble()
     {
-     
-       var bubble =  Instantiate(this.randomizePrefabs(), spawnPoint.position, spawnPoint.rotation);
-        bubble.transform.parent = this.bubbles.transform;
+    
+        
+            var bubble = Instantiate(this.randomizePrefabs(), spawnPoint.position, spawnPoint.rotation);
+            bubble.transform.parent = this.bubbles.transform;
+        
+
+  
     }
 
 

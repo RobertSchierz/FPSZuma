@@ -235,6 +235,134 @@ Transform:
   m_PrefabParentObject: {fileID: 4654371063720176, guid: b0851854c7146284b837620605dfb9b3,
     type: 2}
   m_PrefabInternal: {fileID: 1694884594}
+--- !u!1 &969606625
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 969606627}
+  - component: {fileID: 969606626}
+  m_Layer: 0
+  m_Name: Path 1[9]
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &969606626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 969606625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 225ae2218b76c4f4980b49b463e9ab12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlType: 1
+  positionLocal: {x: 0, y: 0, z: 0}
+  controlFirstLocal: {x: 0.08255243, y: -0.20141307, z: 1.3535757}
+  controlSecondLocal: {x: -0.08255243, y: 0.20141307, z: -1.3535757}
+  pointTransform: {fileID: 0}
+  curve: {fileID: 1102785826}
+  fieldsValues:
+  - boolValues: 
+    intValues: 
+    floatValues: []
+    stringValues: []
+    vector3Values: []
+    boundsValues: []
+    colorValues: []
+    quaternionValues: []
+    animationCurveValues: []
+    gameObjectValues: []
+    componentValues: []
+    bgCurveValues: []
+    bgCurvePointComponentValues: []
+    bgCurvePointGOValues: []
+--- !u!4 &969606627
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 969606625}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.9905362, y: 0, z: -3.257001}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 672894804}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1102785826 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114759019540510452, guid: b0851854c7146284b837620605dfb9b3,
+    type: 2}
+  m_PrefabInternal: {fileID: 1694884594}
+  m_Script: {fileID: 11500000, guid: e70f079e2a6bf364e8185b765fbe61c0, type: 3}
+--- !u!1 &1184024866
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1184024868}
+  - component: {fileID: 1184024867}
+  m_Layer: 0
+  m_Name: Path 1[7]
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1184024867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1184024866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 225ae2218b76c4f4980b49b463e9ab12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlType: 1
+  positionLocal: {x: 0, y: 0, z: 0}
+  controlFirstLocal: {x: 0.029125452, y: -0.14965433, z: -0.883399}
+  controlSecondLocal: {x: -0.029125452, y: 0.14965433, z: 0.883399}
+  pointTransform: {fileID: 0}
+  curve: {fileID: 1102785826}
+  fieldsValues:
+  - boolValues: 
+    intValues: 
+    floatValues: []
+    stringValues: []
+    vector3Values: []
+    boundsValues: []
+    colorValues: []
+    quaternionValues: []
+    animationCurveValues: []
+    gameObjectValues: []
+    componentValues: []
+    bgCurveValues: []
+    bgCurvePointComponentValues: []
+    bgCurvePointGOValues: []
+--- !u!4 &1184024868
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1184024866}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.2498095, y: 0, z: -2.1417317}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 672894804}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1336642941
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,10 +397,10 @@ MonoBehaviour:
   - {fileID: 4779836592121344, guid: 26a559c33e2971349a3f7854b20f4d2b, type: 2}
   - {fileID: 4779836592121344, guid: 984bc86f326d7654fb9c1a3ee9badcc3, type: 2}
   - {fileID: 4779836592121344, guid: 9d550ed073324634c842665e04fa3afe, type: 2}
-  leveldifficult: 1
+  leveldifficult: 0
   curve: {fileID: 0}
   bubblecountperwave: 100
-  bubblespeed: 9
+  bubblespeed: 10
   actualbubblespeed: 0
 --- !u!4 &1336642943
 Transform:
@@ -286,6 +414,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1415771961
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1415771963}
+  - component: {fileID: 1415771962}
+  m_Layer: 0
+  m_Name: Path 1[8]
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1415771962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1415771961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 225ae2218b76c4f4980b49b463e9ab12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlType: 1
+  positionLocal: {x: 0, y: 0, z: 0}
+  controlFirstLocal: {x: -0.038816642, y: -0.04288738, z: 0.0014122963}
+  controlSecondLocal: {x: 0.038816642, y: 0.04288738, z: -0.0014122963}
+  pointTransform: {fileID: 0}
+  curve: {fileID: 1102785826}
+  fieldsValues:
+  - boolValues: 
+    intValues: 
+    floatValues: []
+    stringValues: []
+    vector3Values: []
+    boundsValues: []
+    colorValues: []
+    quaternionValues: []
+    animationCurveValues: []
+    gameObjectValues: []
+    componentValues: []
+    bgCurveValues: []
+    bgCurvePointComponentValues: []
+    bgCurvePointGOValues: []
+--- !u!4 &1415771963
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1415771961}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.3812666, y: 0, z: -1.318464}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 672894804}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1474084178
 GameObject:
@@ -370,7 +559,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1474084178}
   m_LocalRotation: {x: 0.32602406, y: -0, z: -0, w: 0.9453615}
-  m_LocalPosition: {x: 2.378, y: 4.573, z: -6.267}
+  m_LocalPosition: {x: 2.49, y: 12.54, z: -16.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -441,6 +630,67 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1612839301
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1612839303}
+  - component: {fileID: 1612839302}
+  m_Layer: 0
+  m_Name: Path 1[10]
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1612839302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1612839301}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 225ae2218b76c4f4980b49b463e9ab12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlType: 1
+  positionLocal: {x: 0, y: 0, z: 0}
+  controlFirstLocal: {x: -0.91486824, y: -0.8850988, z: 0.7803108}
+  controlSecondLocal: {x: 0.91486824, y: 0.8850988, z: -0.7803108}
+  pointTransform: {fileID: 0}
+  curve: {fileID: 1102785826}
+  fieldsValues:
+  - boolValues: 
+    intValues: 
+    floatValues: []
+    stringValues: []
+    vector3Values: []
+    boundsValues: []
+    colorValues: []
+    quaternionValues: []
+    animationCurveValues: []
+    gameObjectValues: []
+    componentValues: []
+    bgCurveValues: []
+    bgCurvePointComponentValues: []
+    bgCurvePointGOValues: []
+--- !u!4 &1612839303
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1612839301}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.027033448, y: 0, z: -7.9865975}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 672894804}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1694884594
 Prefab:
   m_ObjectHideFlags: 0
@@ -448,6 +698,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114759019540510452, guid: b0851854c7146284b837620605dfb9b3,
+        type: 2}
+      propertyPath: pointsGameObjects.Array.size
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 4654371063720176, guid: b0851854c7146284b837620605dfb9b3, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -514,7 +769,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4577117477877012, guid: b0851854c7146284b837620605dfb9b3, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -1.5987631
+      value: -3.2357507
       objectReference: {fileID: 0}
     - target: {fileID: 4600021028327810, guid: b0851854c7146284b837620605dfb9b3, type: 2}
       propertyPath: m_LocalPosition.z
@@ -566,6 +821,111 @@ Prefab:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114968857762785236, guid: b0851854c7146284b837620605dfb9b3,
+        type: 2}
+      propertyPath: fields
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4577117477877012, guid: b0851854c7146284b837620605dfb9b3, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -2.2903736
+      objectReference: {fileID: 0}
+    - target: {fileID: 114739372350819310, guid: b0851854c7146284b837620605dfb9b3,
+        type: 2}
+      propertyPath: controlFirstLocal.z
+      value: -1.0220346
+      objectReference: {fileID: 0}
+    - target: {fileID: 114739372350819310, guid: b0851854c7146284b837620605dfb9b3,
+        type: 2}
+      propertyPath: controlSecondLocal.z
+      value: 1.0220346
+      objectReference: {fileID: 0}
+    - target: {fileID: 114759019540510452, guid: b0851854c7146284b837620605dfb9b3,
+        type: 2}
+      propertyPath: pointsGameObjects.Array.data[7]
+      value: 
+      objectReference: {fileID: 1184024867}
+    - target: {fileID: 114759019540510452, guid: b0851854c7146284b837620605dfb9b3,
+        type: 2}
+      propertyPath: pointsGameObjects.Array.data[8]
+      value: 
+      objectReference: {fileID: 1415771962}
+    - target: {fileID: 114759019540510452, guid: b0851854c7146284b837620605dfb9b3,
+        type: 2}
+      propertyPath: pointsGameObjects.Array.data[9]
+      value: 
+      objectReference: {fileID: 969606626}
+    - target: {fileID: 114759019540510452, guid: b0851854c7146284b837620605dfb9b3,
+        type: 2}
+      propertyPath: pointsGameObjects.Array.data[10]
+      value: 
+      objectReference: {fileID: 1612839302}
+    - target: {fileID: 114759019540510452, guid: b0851854c7146284b837620605dfb9b3,
+        type: 2}
+      propertyPath: pointsGameObjects.Array.data[11]
+      value: 
+      objectReference: {fileID: 1940133147}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b0851854c7146284b837620605dfb9b3, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1940133146
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1940133148}
+  - component: {fileID: 1940133147}
+  m_Layer: 0
+  m_Name: Path 1[11]
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1940133147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1940133146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 225ae2218b76c4f4980b49b463e9ab12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlType: 1
+  positionLocal: {x: 0, y: 0, z: 0}
+  controlFirstLocal: {x: -0.06247716, y: -0.029767659, z: -0.061694626}
+  controlSecondLocal: {x: 0.06247716, y: 0.029767659, z: 0.061694626}
+  pointTransform: {fileID: 0}
+  curve: {fileID: 1102785826}
+  fieldsValues:
+  - boolValues: 
+    intValues: 
+    floatValues: []
+    stringValues: []
+    vector3Values: []
+    boundsValues: []
+    colorValues: []
+    quaternionValues: []
+    animationCurveValues: []
+    gameObjectValues: []
+    componentValues: []
+    bgCurveValues: []
+    bgCurvePointComponentValues: []
+    bgCurvePointGOValues: []
+--- !u!4 &1940133148
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1940133146}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.047594, y: 0, z: -6.148068}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 672894804}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
