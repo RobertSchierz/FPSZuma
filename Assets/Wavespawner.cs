@@ -31,14 +31,19 @@ public class Wavespawner : MonoBehaviour
 
     // Bubble Attributes
     public int bubblecountperwave = 10;
-    public float bubblespeed = 10.0f;
+    [Range(15, 100)]
+    public float bubblespeed = 15.0f;
 
     // First Start - Intro
     private int introbubblenumber;
     private float introbubblespeed;
     public float actualbubblespeed;
 
+    private bool spawnque = false;
+
     private GameMaster gamemasterattributes;
+
+
 
     void Start()
     {
@@ -51,12 +56,13 @@ public class Wavespawner : MonoBehaviour
 
         this.bubbles = this.gamemasterattributes.bubbles;
 
-        Startpoint.onBuildBubble += handleOnBuildBubble;
+        
         MoveOnSpline.onLostGame += handleOnLostGame;
 
         this.introbubblenumber = this.bubblecountperwave / 10;
         this.introbubblespeed = this.bubblespeed / 5f;
         this.actualbubblespeed = introbubblespeed;
+
 
     }
 
@@ -67,28 +73,18 @@ public class Wavespawner : MonoBehaviour
     }
 
 
-    void handleOnBuildBubble()
-    {
-        if (bubbles.childCount < this.bubblecountperwave && !this.lostgame)
-        {
-
-
-            if (bubbles.childCount == this.introbubblenumber)
-            {
-                this.actualbubblespeed = this.bubblespeed;
-            }
-            spawnBubble();
-
-        }
-    }
+  
 
     void Update()
     {
+
+
         if (countdown <= 0f && !this.wavespaned)
         {
 
             spawnBubble();
             this.wavespaned = true;
+            this.spawnque = true;
 
         }
         else if (!this.wavespaned)
@@ -96,11 +92,26 @@ public class Wavespawner : MonoBehaviour
             countdown -= Time.deltaTime;
         }
 
-        /* if (this.bubbles.GetChild(this.bubbles.childCount - 1).gameObject.GetComponent<MoveOnSpline>().cursor.Distance > 0.5)
-         {
-             Debug.Log(this.bubbles.GetChild(this.bubbles.childCount - 1).gameObject.GetComponent<MoveOnSpline>().cursor.Distance);
-         }
-         */
+
+
+
+        if (this.spawnque && this.bubbles.childCount < this.bubblecountperwave && !this.lostgame)
+        {
+            if (bubbles.childCount == this.introbubblenumber)
+            {
+                this.actualbubblespeed = this.bubblespeed;
+            }
+
+            
+            if (this.bubbles.GetChild(this.bubbles.childCount -1).GetComponent<Bubble>().distance > 0.5f)
+            {
+                spawnBubble();
+            }
+
+        }
+
+
+
 
 
 
@@ -166,6 +177,7 @@ public class Wavespawner : MonoBehaviour
 
         var bubble = Instantiate(this.randomizePrefabs(), spawnPoint.position, spawnPoint.rotation);
         bubble.transform.parent = this.bubbles.transform;
+
 
     }
 

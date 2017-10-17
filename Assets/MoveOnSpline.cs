@@ -14,8 +14,8 @@ public class MoveOnSpline : MonoBehaviour
     private float min = 0.0f;
     private float max = 1.0f;
     private float steps = 1.0f;
-    public float distanceratio;
-    public float seconds;
+    private float distanceratio;
+    private float seconds;
 
     private Transform bubbles;
     private Transform beforebubble;

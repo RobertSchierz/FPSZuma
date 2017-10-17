@@ -24,7 +24,7 @@ public class Bubble : MonoBehaviour
     public BGCcCursor cursor;
     public float distance;
     public float distanceratio;
-   
+
 
     [Space]
     [Header("Chain Attributes")]
@@ -50,7 +50,7 @@ public class Bubble : MonoBehaviour
         this.checkBubbleState();
 
 
-        
+
 
 
 
@@ -70,19 +70,21 @@ public class Bubble : MonoBehaviour
         if (this.bubbles.childCount == this.wavespawner.bubblecountperwave)
         {
             this.islastbubble = true;
-        }else
+        }
+        else
         {
             if (!this.isfirstbubble)
             {
                 this.bubbles.GetChild(this.bubbles.childCount - 2).GetComponent<Bubble>().afterbubble = transform;
             }
-            
+
         }
     }
 
-    void update()
+    void Update()
     {
-
+        this.distance = this.cursor.Distance;
+        this.distanceratio = this.cursor.DistanceRatio;
     }
 
 }
