@@ -33,7 +33,6 @@ public class MoveOnSpline : MonoBehaviour {
 
         this.bubbles = GameObject.FindGameObjectWithTag("GameController").GetComponent<Wavespawner>().bubbles;
 
-        
 
         this.distanceratio = this.min;
 

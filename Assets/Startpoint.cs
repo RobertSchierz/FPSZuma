@@ -13,7 +13,7 @@ public class Startpoint : MonoBehaviour
         
         if (other.tag == "Bubble")
         {
-
+   
             if (onBuildBubble != null)
             {
                 onBuildBubble();

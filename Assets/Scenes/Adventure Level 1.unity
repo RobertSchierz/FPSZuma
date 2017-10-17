@@ -400,7 +400,7 @@ MonoBehaviour:
   leveldifficult: 0
   curve: {fileID: 0}
   bubblecountperwave: 100
-  bubblespeed: 10
+  bubblespeed: 15
   actualbubblespeed: 0
 --- !u!4 &1336642943
 Transform:

@@ -86,7 +86,12 @@ public class Wavespawner : MonoBehaviour {
         {
             countdown -= Time.deltaTime;
         }
-        
+
+       /* if (this.bubbles.GetChild(this.bubbles.childCount - 1).gameObject.GetComponent<MoveOnSpline>().cursor.Distance > 0.5)
+        {
+            Debug.Log(this.bubbles.GetChild(this.bubbles.childCount - 1).gameObject.GetComponent<MoveOnSpline>().cursor.Distance);
+        }
+        */
             
         
 
