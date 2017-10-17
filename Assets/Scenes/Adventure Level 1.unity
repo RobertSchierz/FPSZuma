@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 36401302}
   m_Layer: 0
   m_Name: Startpoint
-  m_TagString: Untagged
+  m_TagString: Startpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -736,9 +736,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 36401301}
   leveldifficult: 0
-  bubblecountperwave: 100
+  bubblecountperwave: 200
   bubblespeed: 15
   actualbubblespeed: 0
+  thisbubble: {fileID: 0}
+  onpathcounter: 0
 --- !u!4 &1336642943
 Transform:
   m_ObjectHideFlags: 0
