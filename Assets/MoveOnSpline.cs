@@ -4,94 +4,106 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveOnSpline : MonoBehaviour {
+public class MoveOnSpline : MonoBehaviour
+{
 
-    public BGCurve curve;
-    public BGCcMath mathe;
-    public BGCcCursor cursor;
-    
+    private BGCurve curve;
+    private BGCcMath mathe;
+    private BGCcCursor cursor;
+
     private float min = 0.0f;
     private float max = 1.0f;
     private float steps = 1.0f;
     public float distanceratio;
     public float seconds;
 
-    public Transform bubbles;
-    public Transform lastbubble;
+    private Transform bubbles;
+    private Transform beforebubble;
+    private Transform afterbubble;
 
-    private bool isfirstbubble = false;
+    private bool isfirstbubble;
+    private bool islastbubble;
 
     public delegate void lostGame();
     public static event lostGame onLostGame;
 
+    private GameObject gamemaster;
+    private GameMaster gamemasterattributes;
+
+    private Bubble bubbleattributes;
 
 
+    void Start()
+    {
 
+        this.gamemaster = GameObject.FindGameObjectWithTag("GameController");
+        this.gamemasterattributes = this.gamemaster.GetComponent<GameMaster>();
 
-    void Start () {
+        this.bubbleattributes = transform.gameObject.GetComponent<Bubble>();
 
-
-        this.bubbles = GameObject.FindGameObjectWithTag("GameController").GetComponent<Wavespawner>().bubbles;
-
+        this.bubbles = this.gamemasterattributes.bubbles;
 
         this.distanceratio = this.min;
 
-        this.curve = FindObjectOfType<BGCurve>();
+        this.curve = this.bubbleattributes.curve;
 
-        this.mathe = this.curve.GetComponent<BGCcMath>();
+        this.mathe = this.bubbleattributes.mathe;
 
-        this.cursor = this.mathe.gameObject.AddComponent<BGCcCursor>();
+        this.cursor = this.bubbleattributes.cursor;
 
-        if (this.bubbles.GetChild(0).gameObject == gameObject)
-        {
-            this.isfirstbubble = true;
-         
+        this.beforebubble = this.bubbleattributes.beforebubble;
 
-        }else
-        {
-            this.lastbubble = this.bubbles.GetChild(this.bubbles.childCount - 2);
-        }
-     
+        this.afterbubble = this.bubbleattributes.afterbubble;
+
+        this.isfirstbubble = bubbleattributes.isfirstbubble;
+
+        this.islastbubble = bubbleattributes.islastbubble;
+
+
+
 
     }
-	
-
-	void Update () {
 
 
-        
+    void Update()
+    {
 
-        this.seconds = GameObject.FindGameObjectWithTag("GameController").GetComponent<Wavespawner>().actualbubblespeed;
+
+
+
+        this.seconds = this.gamemaster.GetComponent<Wavespawner>().actualbubblespeed;
 
         if (this.distanceratio <= this.max)
         {
 
-            
-            if (this.isfirstbubble) {
+
+            if (this.isfirstbubble)
+            {
                 this.cursor.DistanceRatio = this.distanceratio;
                 this.distanceratio += ((this.steps * Time.deltaTime) / this.seconds);
                 transform.position = this.mathe.CalcPositionByDistanceRatio(this.distanceratio);
-            }else
+            }
+            else
             {
-             
-                this.cursor.Distance = this.lastbubble.gameObject.GetComponent<MoveOnSpline>().cursor.Distance - this.lastbubble.gameObject.transform.localScale.x;
+
+                this.cursor.Distance = this.beforebubble.gameObject.GetComponent<MoveOnSpline>().cursor.Distance - this.beforebubble.gameObject.transform.localScale.x;
                 transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance);
             }
 
-          
+
 
         }
         else
         {
             if (this.isfirstbubble)
             {
-                transform.position = Waypoints.points[Waypoints.points.Length-1].position;
+                transform.position = Waypoints.points[Waypoints.points.Length - 1].position;
                 Debug.Log("Verloren");
                 onLostGame();
             }
         }
 
-        
+
 
     }
 

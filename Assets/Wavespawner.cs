@@ -3,22 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wavespawner : MonoBehaviour {
+public class Wavespawner : MonoBehaviour
+{
 
-    
-    public Transform spawnPoint;
-    public Transform bubbles;
 
-    public Transform[] bubbleprefabs = new Transform[4];
+
+
+
+    private Transform[] bubbleprefabs;
     private int lastbubbleprefabindex;
+    public Transform spawnPoint;
 
-    [Range(0,10)]
+    [Range(0, 10)]
     public int leveldifficult = 0;
 
     private bool lostgame = false;
 
 
-    public BGCurve curve;
+    private BGCurve curve;
+    private Transform bubbles;
 
     //First Start
     private float countdown = 2f;
@@ -35,14 +38,18 @@ public class Wavespawner : MonoBehaviour {
     private float introbubblespeed;
     public float actualbubblespeed;
 
-
+    private GameMaster gamemasterattributes;
 
     void Start()
     {
+        this.gamemasterattributes = transform.gameObject.GetComponent<GameMaster>();
 
-       
-        this.curve = FindObjectOfType<BGCurve>();
+        this.bubbleprefabs = this.gamemasterattributes.bubbleprefabs;
+
+        this.curve = this.gamemasterattributes.curve;
         this.spawnPoint.transform.position = this.curve.Points[0].PositionLocal;
+
+        this.bubbles = this.gamemasterattributes.bubbles;
 
         Startpoint.onBuildBubble += handleOnBuildBubble;
         MoveOnSpline.onLostGame += handleOnLostGame;
@@ -50,27 +57,28 @@ public class Wavespawner : MonoBehaviour {
         this.introbubblenumber = this.bubblecountperwave / 10;
         this.introbubblespeed = this.bubblespeed / 5f;
         this.actualbubblespeed = introbubblespeed;
-   
+
     }
 
- 
-    void handleOnLostGame(){
+
+    void handleOnLostGame()
+    {
         this.lostgame = true;
-        }
-    
+    }
+
 
     void handleOnBuildBubble()
     {
         if (bubbles.childCount < this.bubblecountperwave && !this.lostgame)
         {
-            
+
 
             if (bubbles.childCount == this.introbubblenumber)
             {
                 this.actualbubblespeed = this.bubblespeed;
             }
             spawnBubble();
-            
+
         }
     }
 
@@ -82,42 +90,44 @@ public class Wavespawner : MonoBehaviour {
             spawnBubble();
             this.wavespaned = true;
 
-        }else if (!this.wavespaned)
+        }
+        else if (!this.wavespaned)
         {
             countdown -= Time.deltaTime;
         }
 
-       /* if (this.bubbles.GetChild(this.bubbles.childCount - 1).gameObject.GetComponent<MoveOnSpline>().cursor.Distance > 0.5)
-        {
-            Debug.Log(this.bubbles.GetChild(this.bubbles.childCount - 1).gameObject.GetComponent<MoveOnSpline>().cursor.Distance);
-        }
-        */
-            
-        
+        /* if (this.bubbles.GetChild(this.bubbles.childCount - 1).gameObject.GetComponent<MoveOnSpline>().cursor.Distance > 0.5)
+         {
+             Debug.Log(this.bubbles.GetChild(this.bubbles.childCount - 1).gameObject.GetComponent<MoveOnSpline>().cursor.Distance);
+         }
+         */
 
-        
+
+
+
     }
 
     public Transform randomizePrefabs()
     {
         int randomprefabindex = Random.Range(0, 4);
 
-        
+
 
         if (this.leveldifficult != 0)
         {
-          
-        if (this.lastbubbleprefabindex == randomprefabindex)
-        {
-            if (calculateNewMix()) {
+
+            if (this.lastbubbleprefabindex == randomprefabindex)
+            {
+                if (calculateNewMix())
+                {
                     randomprefabindex = Random.Range(0, 4);
                 }
-         }
+            }
         }
-    
+
 
         this.lastbubbleprefabindex = randomprefabindex;
-      
+
         return this.bubbleprefabs[randomprefabindex];
     }
 
@@ -128,19 +138,22 @@ public class Wavespawner : MonoBehaviour {
         {
             if (this.leveldifficult > 5 && this.leveldifficult < 10)
             {
-                if (Random.Range(0,2) == 0)
+                if (Random.Range(0, 2) == 0)
                 {
                     return true;
-                }else
+                }
+                else
                 {
                     return false;
                 }
-            }else
+            }
+            else
             {
                 return false;
             }
-            
-        }else
+
+        }
+        else
         {
             return true;
         }
@@ -150,13 +163,10 @@ public class Wavespawner : MonoBehaviour {
 
     void spawnBubble()
     {
-    
-        
-            var bubble = Instantiate(this.randomizePrefabs(), spawnPoint.position, spawnPoint.rotation);
-            bubble.transform.parent = this.bubbles.transform;
-        
 
-  
+        var bubble = Instantiate(this.randomizePrefabs(), spawnPoint.position, spawnPoint.rotation);
+        bubble.transform.parent = this.bubbles.transform;
+
     }
 
 

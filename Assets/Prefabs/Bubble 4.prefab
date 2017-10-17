@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 135433082130495662}
   - component: {fileID: 23728116297146848}
   - component: {fileID: 54239478196734698}
+  - component: {fileID: 114700656749331648}
   - component: {fileID: 114981338345439848}
   m_Layer: 0
   m_Name: Bubble 4
@@ -98,6 +99,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114700656749331648
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1865892272348604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7138c6acaa8d9a44b618d836311771a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Gamemaster: {fileID: 0}
+  bubble: {fileID: 0}
+  speciality: 0
+  isfirstbubble: 0
+  curve: {fileID: 0}
+  mathe: {fileID: 0}
+  cursor: {fileID: 0}
+  distance: 0
+  distanceratio: 0
+  bubbles: {fileID: 0}
+  lastbubble: {fileID: 0}
 --- !u!114 &114981338345439848
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -109,9 +132,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b43df41bd5e793d44b9b7d170d107720, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curve: {fileID: 0}
-  cursor: {fileID: 0}
+  distanceratio: 0
   seconds: 0
+  bubbles: {fileID: 0}
+  lastbubble: {fileID: 0}
 --- !u!135 &135433082130495662
 SphereCollider:
   m_ObjectHideFlags: 1
