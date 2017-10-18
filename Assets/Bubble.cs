@@ -33,7 +33,6 @@ public class Bubble : MonoBehaviour
     public Transform afterbubble;
     public bool isfirstbubble = false;
     public bool islastbubble = false;
-    public bool isonpath = false;
 
     void Start()
     {
@@ -86,16 +85,6 @@ public class Bubble : MonoBehaviour
     {
         this.distance = this.cursor.Distance;
         this.distanceratio = this.cursor.DistanceRatio;
-        if (this.distance > 0.5f && !this.isonpath)
-        {
-            this.wavespawner.onpathcounter++;
-            this.isonpath = true;
-        }
-        else if(this.distance < 0.5f && this.isonpath)
-        {
-            this.isonpath = false;
-            this.wavespawner.onpathcounter--;
-        }
     }
 
 }

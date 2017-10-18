@@ -42,9 +42,7 @@ public class Wavespawner : MonoBehaviour
     private bool spawnque = false;
 
     private GameMaster gamemasterattributes;
-    public Transform thisbubble;
 
-    public int onpathcounter = 0;
 
 
 
@@ -100,17 +98,16 @@ public class Wavespawner : MonoBehaviour
 
         if (this.spawnque && this.bubbles.childCount < this.bubblecountperwave && !this.lostgame)
         {
-            if (this.onpathcounter == this.introbubblenumber)
+            if (bubbles.childCount == this.introbubblenumber)
             {
                 this.actualbubblespeed = this.bubblespeed;
             }
 
-            spawnBubble();
 
-            /*if (this.bubbles.GetChild(this.bubbles.childCount -1).GetComponent<Bubble>().distance > 0.5f)
+            if (this.bubbles.GetChild(this.bubbles.childCount -1).GetComponent<Bubble>().distance > this.bubbleprefabs[0].transform.localScale.x)
             {
-              spawnBubble();  
-            }*/
+                spawnBubble();
+            }
 
         }
 
@@ -181,7 +178,7 @@ public class Wavespawner : MonoBehaviour
 
         var bubble = Instantiate(this.randomizePrefabs(), spawnPoint.position, spawnPoint.rotation);
         bubble.transform.parent = this.bubbles.transform;
-        this.thisbubble = bubble;
+        
 
 
     }
