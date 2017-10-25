@@ -5,8 +5,8 @@ using UnityEngine;
 public class Cameralook : MonoBehaviour {
 
 
-
-
+    [Range(0.0f, 2.0f)]
+    public float sensitivity = 1.0f;
     public float minimumX = -360F;
     public float maximumX = 360F;
 
@@ -31,7 +31,7 @@ public class Cameralook : MonoBehaviour {
 
         rotAverageX = 0f;
 
-        rotationX += Input.GetAxis("Mouse X");
+        rotationX += Input.GetAxis("Mouse X") * sensitivity;
 
         rotArrayX.Add(rotationX);
 

@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 156352871}
   - component: {fileID: 156352870}
   m_Layer: 0
-  m_Name: BGCurve[27]
+  m_Name: BGCurve[28]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -310,7 +310,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 802435585}
-  m_RootOrder: 28
+  m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &178544951
 GameObject:
@@ -444,7 +444,7 @@ GameObject:
   - component: {fileID: 255721115}
   - component: {fileID: 255721114}
   m_Layer: 0
-  m_Name: BGCurve[19]
+  m_Name: BGCurve[20]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -463,8 +463,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlType: 1
   positionLocal: {x: 0, y: 0, z: 0}
-  controlFirstLocal: {x: 0.5554392, y: -0.14016652, z: 0.2789681}
-  controlSecondLocal: {x: -0.5554392, y: 0.14016652, z: -0.2789681}
+  controlFirstLocal: {x: 0.45647466, y: 0, z: 0.2789681}
+  controlSecondLocal: {x: -0.45647466, y: -0, z: -0.2789681}
   pointTransform: {fileID: 0}
   curve: {fileID: 802435584}
   fieldsValues:
@@ -489,11 +489,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 255721113}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.89460087, y: 0.15649998, z: -1.6627754}
+  m_LocalPosition: {x: 0.89460087, y: 0.15649998, z: -1.7235677}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 802435585}
-  m_RootOrder: 20
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &278209784
 GameObject:
@@ -505,7 +505,7 @@ GameObject:
   - component: {fileID: 278209786}
   - component: {fileID: 278209785}
   m_Layer: 0
-  m_Name: BGCurve[25]
+  m_Name: BGCurve[26]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -554,7 +554,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 802435585}
-  m_RootOrder: 26
+  m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &440795883
 GameObject:
@@ -655,7 +655,7 @@ GameObject:
   - component: {fileID: 515941656}
   - component: {fileID: 515941655}
   m_Layer: 0
-  m_Name: BGCurve[26]
+  m_Name: BGCurve[27]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -704,7 +704,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 802435585}
-  m_RootOrder: 27
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &599120002
 GameObject:
@@ -996,6 +996,7 @@ MonoBehaviour:
   - {fileID: 755334739}
   - {fileID: 1815702117}
   - {fileID: 994526067}
+  - {fileID: 1506073566}
   - {fileID: 255721114}
   - {fileID: 1059052614}
   - {fileID: 1708543994}
@@ -1048,6 +1049,7 @@ Transform:
   - {fileID: 755334740}
   - {fileID: 1815702118}
   - {fileID: 994526068}
+  - {fileID: 1506073567}
   - {fileID: 255721115}
   - {fileID: 1059052615}
   - {fileID: 1708543995}
@@ -1132,8 +1134,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlType: 1
   positionLocal: {x: 0, y: 0, z: 0}
-  controlFirstLocal: {x: 0.099043965, y: -0.1034894, z: 0.28791416}
-  controlSecondLocal: {x: -0.099043965, y: 0.1034894, z: -0.28791416}
+  controlFirstLocal: {x: 0.099043965, y: 0, z: 0.28791416}
+  controlSecondLocal: {x: -0.099043965, y: -0, z: -0.28791416}
   pointTransform: {fileID: 0}
   curve: {fileID: 802435584}
   fieldsValues:
@@ -1174,7 +1176,7 @@ GameObject:
   - component: {fileID: 1059052615}
   - component: {fileID: 1059052614}
   m_Layer: 0
-  m_Name: BGCurve[20]
+  m_Name: BGCurve[21]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1223,7 +1225,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 802435585}
-  m_RootOrder: 21
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1081302026
 GameObject:
@@ -1235,7 +1237,7 @@ GameObject:
   - component: {fileID: 1081302028}
   - component: {fileID: 1081302027}
   m_Layer: 0
-  m_Name: BGCurve[24]
+  m_Name: BGCurve[25]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1284,7 +1286,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 802435585}
-  m_RootOrder: 25
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1082484187
 GameObject:
@@ -1298,6 +1300,7 @@ GameObject:
   - component: {fileID: 1082484190}
   - component: {fileID: 1082484189}
   - component: {fileID: 1082484188}
+  - component: {fileID: 1082484193}
   m_Layer: 0
   m_Name: Firstperson
   m_TagString: MainCamera
@@ -1368,13 +1371,28 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1082484187}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: 0.93113494, z: -0, w: 0.36467493}
   m_LocalPosition: {x: -0.231, y: 0.891, z: 0.225}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 137.225, z: 0}
+--- !u!114 &1082484193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1082484187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 955a37076b1639045b902993d7459e1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensitivity: 0.5
+  minimumX: -360
+  maximumX: 360
+  frameCounter: 20
 --- !u!1 &1156239530
 GameObject:
   m_ObjectHideFlags: 0
@@ -1446,7 +1464,7 @@ GameObject:
   - component: {fileID: 1194260362}
   - component: {fileID: 1194260361}
   m_Layer: 0
-  m_Name: BGCurve[23]
+  m_Name: BGCurve[24]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1495,7 +1513,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 802435585}
-  m_RootOrder: 24
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1290863177
 GameObject:
@@ -1650,7 +1668,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 36401301}
   leveldifficult: 0
   bubblecountperwave: 200
-  bubblespeed: 29.7
+  bubblespeed: 20.6
   actualbubblespeed: 0
 --- !u!4 &1336642943
 Transform:
@@ -1683,6 +1701,67 @@ MonoBehaviour:
   - {fileID: 4779836592121344, guid: 26a559c33e2971349a3f7854b20f4d2b, type: 2}
   - {fileID: 4779836592121344, guid: 984bc86f326d7654fb9c1a3ee9badcc3, type: 2}
   - {fileID: 4779836592121344, guid: 9d550ed073324634c842665e04fa3afe, type: 2}
+--- !u!1 &1506073565
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1506073567}
+  - component: {fileID: 1506073566}
+  m_Layer: 0
+  m_Name: BGCurve[19]
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1506073566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1506073565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 225ae2218b76c4f4980b49b463e9ab12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controlType: 1
+  positionLocal: {x: 0, y: 0, z: 0}
+  controlFirstLocal: {x: 0.05641508, y: -0, z: 0.12210107}
+  controlSecondLocal: {x: -0.05641508, y: 0, z: -0.12210107}
+  pointTransform: {fileID: 0}
+  curve: {fileID: 802435584}
+  fieldsValues:
+  - boolValues: 
+    intValues: 
+    floatValues: []
+    stringValues: []
+    vector3Values: []
+    boundsValues: []
+    colorValues: []
+    quaternionValues: []
+    animationCurveValues: []
+    gameObjectValues: []
+    componentValues: []
+    bgCurveValues: []
+    bgCurvePointComponentValues: []
+    bgCurvePointGOValues: []
+--- !u!4 &1506073567
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1506073565}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.6133739, y: 0.15649998, z: -1.1427455}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 802435585}
+  m_RootOrder: 20
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1520966090
 Prefab:
   m_ObjectHideFlags: 0
@@ -1804,7 +1883,7 @@ GameObject:
   - component: {fileID: 1549603440}
   - component: {fileID: 1549603439}
   m_Layer: 0
-  m_Name: BGCurve[22]
+  m_Name: BGCurve[23]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1853,7 +1932,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 802435585}
-  m_RootOrder: 23
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1581410664
 GameObject:
@@ -1884,8 +1963,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlType: 1
   positionLocal: {x: 0, y: 0, z: 0}
-  controlFirstLocal: {x: 0.2328825, y: -0.098121464, z: 0.2700181}
-  controlSecondLocal: {x: -0.2328825, y: 0.098121464, z: -0.2700181}
+  controlFirstLocal: {x: 0.25984454, y: 0, z: 0.20947099}
+  controlSecondLocal: {x: -0.25984454, y: -0, z: -0.20947099}
   pointTransform: {fileID: 0}
   curve: {fileID: 802435584}
   fieldsValues:
@@ -1910,7 +1989,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1581410664}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.7933962, y: 0.1565, z: -2.2034943}
+  m_LocalPosition: {x: 1.8379052, y: 0.15649998, z: -2.27032}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 802435585}
@@ -1987,7 +2066,7 @@ GameObject:
   - component: {fileID: 1708543995}
   - component: {fileID: 1708543994}
   m_Layer: 0
-  m_Name: BGCurve[21]
+  m_Name: BGCurve[22]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2036,7 +2115,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 802435585}
-  m_RootOrder: 22
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1767324732
 GameObject:
@@ -2048,7 +2127,7 @@ GameObject:
   - component: {fileID: 1767324734}
   - component: {fileID: 1767324733}
   m_Layer: 0
-  m_Name: BGCurve[28]
+  m_Name: BGCurve[29]
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2097,7 +2176,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 802435585}
-  m_RootOrder: 29
+  m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1807494137
 GameObject:
