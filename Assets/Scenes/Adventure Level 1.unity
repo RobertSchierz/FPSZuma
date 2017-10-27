@@ -861,6 +861,33 @@ Transform:
   m_Father: {fileID: 802435585}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &666304910 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100012, guid: 6eb001ad76418724b94f774ff827b754, type: 3}
+  m_PrefabInternal: {fileID: 1520966090}
+--- !u!114 &666304913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 666304910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2955d636b7f558f4ca7c465cfe076027, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &666304914
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 666304910}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.0505369, y: 1.3592502, z: 2.0876384}
+  m_Center: {x: -0.011686444, y: -0.09228906, z: 0.0035982132}
 --- !u!1 &694931117
 GameObject:
   m_ObjectHideFlags: 0
@@ -1843,7 +1870,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 36401301}
   leveldifficult: 0
   bubblecountperwave: 200
-  bubblespeed: 30.3
+  bubblespeed: 32.3
   actualbubblespeed: 0
 --- !u!4 &1336642943
 Transform:
@@ -1979,6 +2006,10 @@ Prefab:
     - target: {fileID: 100012, guid: 6eb001ad76418724b94f774ff827b754, type: 3}
       propertyPath: m_Name
       value: Level 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100012, guid: 6eb001ad76418724b94f774ff827b754, type: 3}
+      propertyPath: m_TagString
+      value: Level
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6eb001ad76418724b94f774ff827b754, type: 3}

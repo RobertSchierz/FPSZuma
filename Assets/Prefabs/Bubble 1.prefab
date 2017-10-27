@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 54239478196734698}
   - component: {fileID: 114722179583563168}
   - component: {fileID: 114981338345439848}
+  - component: {fileID: 114485797810776166}
   m_Layer: 0
   m_Name: Bubble 1
   m_TagString: Bubble
@@ -99,6 +100,31 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114485797810776166
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1865892272348604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7138c6acaa8d9a44b618d836311771a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Gamemaster: {fileID: 0}
+  bubble: {fileID: 0}
+  speciality: 0
+  isshooted: 0
+  curve: {fileID: 0}
+  mathe: {fileID: 0}
+  cursor: {fileID: 0}
+  distance: 0
+  distanceratio: 0
+  bubbles: {fileID: 0}
+  beforebubble: {fileID: 0}
+  afterbubble: {fileID: 0}
+  isfirstbubble: 0
+  islastbubble: 0
 --- !u!114 &114722179583563168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -113,6 +139,7 @@ MonoBehaviour:
   Gamemaster: {fileID: 0}
   bubble: {fileID: 0}
   speciality: 0
+  isshooted: 0
   curve: {fileID: 0}
   mathe: {fileID: 0}
   cursor: {fileID: 0}

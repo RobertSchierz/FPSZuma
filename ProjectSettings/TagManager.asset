@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bubble
   - Startpoint
+  - Level
   layers:
   - Default
   - TransparentFX

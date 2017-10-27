@@ -9,7 +9,7 @@ public class Leveltrigger : MonoBehaviour {
 
     void OnTriggerExit(Collider col)
     {
-        Destroy(col.gameObject);
+        //Destroy(col.gameObject);
         onOutoflevel();
     }
 }

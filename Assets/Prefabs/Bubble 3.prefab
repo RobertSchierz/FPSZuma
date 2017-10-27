@@ -113,6 +113,7 @@ MonoBehaviour:
   Gamemaster: {fileID: 0}
   bubble: {fileID: 0}
   speciality: 0
+  isshooted: 0
   curve: {fileID: 0}
   mathe: {fileID: 0}
   cursor: {fileID: 0}

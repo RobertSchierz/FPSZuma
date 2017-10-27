@@ -98,7 +98,7 @@ public class MoveOnSpline : MonoBehaviour
             if (this.isfirstbubble)
             {
                 transform.position = Waypoints.points[Waypoints.points.Length - 1].position;
-                Debug.Log("Verloren");
+                //Debug.Log("Verloren");
                 onLostGame();
             }
         }

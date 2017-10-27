@@ -18,7 +18,8 @@ public class ShootBubble : MonoBehaviour {
     void Start () {
         this.camera = gameObject;
         this.level = GameObject.FindGameObjectWithTag("Level");
-        Leveltrigger.onOutoflevel += handleBubbleoutr;
+        Leveltrigger.onOutoflevel += handleBubbleout;
+        
     }
 	
 	
@@ -32,17 +33,19 @@ public class ShootBubble : MonoBehaviour {
 
     }
 
-    void handleBubbleoutr()
+    void handleBubbleout()
     {
 
-        Debug.Log("Bubble hat Level verlassen");
+        //Debug.Log("Bubble hat Level verlassen");
 
     }
 
     private void shootBubble()
     {
-       this.shootedbubble =  Instantiate(randomizePrefabs(), this.camera.transform.position, this.camera.transform.rotation);
-        this.shootedbubble.gameObject.GetComponent<Rigidbody>().AddForce(this.camera.transform.forward * bubbleforce);
+        Vector3 shootpos = new Vector3(this.camera.transform.position.x, Waypoints.points[1].transform.position.y, this.camera.transform.position.z);
+       this.shootedbubble =  Instantiate(randomizePrefabs(), shootpos, this.camera.transform.rotation);
+       this.shootedbubble.gameObject.GetComponent<Rigidbody>().AddForce(this.camera.transform.forward * bubbleforce);
+        this.shootedbubble.GetComponent<Bubble>().isshooted = true;
  
     }
 

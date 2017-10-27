@@ -3,6 +3,7 @@ using BansheeGz.BGSpline.Curve;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [System.Serializable]
 public class Bubble : MonoBehaviour
@@ -16,6 +17,7 @@ public class Bubble : MonoBehaviour
     [Header("Own Attributes")]
     public GameObject bubble;
     public int speciality;
+    public bool isshooted = false;
 
     [Space]
     [Header("Math Attributes")]
@@ -46,15 +48,16 @@ public class Bubble : MonoBehaviour
         this.mathe = this.curve.GetComponent<BGCcMath>();
         this.cursor = this.mathe.gameObject.AddComponent<BGCcCursor>();
 
-
-        this.checkBubbleState();
-
-
-
-
-
+        if (!this.isshooted)
+        {
+            this.checkBubbleState();
+        }
 
     }
+
+   
+
+
 
     void checkBubbleState()
     {
@@ -83,6 +86,7 @@ public class Bubble : MonoBehaviour
 
     void Update()
     {
+        this.bubble.transform.rotation = Quaternion.identity;
         this.distance = this.cursor.Distance;
         this.distanceratio = this.cursor.DistanceRatio;
     }
