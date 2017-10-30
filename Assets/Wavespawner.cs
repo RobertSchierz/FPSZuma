@@ -33,6 +33,7 @@ public class Wavespawner : MonoBehaviour
     public int bubblecountperwave = 10;
     [Range(15, 100)]
     public float bubblespeed = 15.0f;
+    private float bubblescaleaverage;
 
     // First Start - Intro
     private int introbubblenumber;
@@ -51,6 +52,7 @@ public class Wavespawner : MonoBehaviour
         this.gamemasterattributes = transform.gameObject.GetComponent<GameMaster>();
 
         this.bubbleprefabs = this.gamemasterattributes.bubbleprefabs;
+        this.bubblescaleaverage = this.gamemasterattributes.bubblesizeaverage;
 
         this.curve = this.gamemasterattributes.curve;
         this.spawnPoint.transform.position = this.curve.Points[0].PositionLocal;
@@ -104,7 +106,7 @@ public class Wavespawner : MonoBehaviour
             }
 
 
-            if (this.bubbles.GetChild(this.bubbles.childCount -1).GetComponent<Bubble>().distance > this.bubbleprefabs[0].transform.localScale.x)
+            if (this.bubbles.GetChild(this.bubbles.childCount -1).GetComponent<Bubble>().distance > this.bubblescaleaverage)
             {
                 spawnBubble();
             }

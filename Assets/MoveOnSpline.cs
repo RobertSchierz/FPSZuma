@@ -31,6 +31,7 @@ public class MoveOnSpline : MonoBehaviour
     private GameMaster gamemasterattributes;
 
     private Bubble bubbleattributes;
+    private int bubblesinserted;
 
 
     void Start()
@@ -68,7 +69,7 @@ public class MoveOnSpline : MonoBehaviour
     void Update()
     {
 
-
+        this.bubblesinserted = this.bubbleattributes.bubblesinserted;
 
 
         this.seconds = this.gamemaster.GetComponent<Wavespawner>().actualbubblespeed;
@@ -85,9 +86,9 @@ public class MoveOnSpline : MonoBehaviour
             }
             else
             {
-
-                this.cursor.Distance = this.beforebubble.gameObject.GetComponent<MoveOnSpline>().cursor.Distance - this.beforebubble.gameObject.transform.localScale.x;
-                transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance);
+               
+                this.cursor.Distance = this.beforebubble.gameObject.GetComponent<Bubble>().distance - this.gamemasterattributes.bubblesizeaverage;
+                transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance + (this.bubblesinserted * this.gamemasterattributes.bubblesizeaverage));
             }
 
 

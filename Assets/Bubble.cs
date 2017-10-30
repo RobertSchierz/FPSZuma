@@ -35,6 +35,8 @@ public class Bubble : MonoBehaviour
     public Transform afterbubble;
     public bool isfirstbubble = false;
     public bool islastbubble = false;
+    public Transform[] movedbubblerow;
+    public int bubblesinserted;
 
     void Start()
     {
@@ -47,6 +49,10 @@ public class Bubble : MonoBehaviour
         this.curve = this.gamemasterattributes.curve;
         this.mathe = this.curve.GetComponent<BGCcMath>();
         this.cursor = this.mathe.gameObject.AddComponent<BGCcCursor>();
+
+        this.bubblesinserted = 0;
+
+        this.movedbubblerow = new Transform[this.bubbles.childCount];
 
         if (!this.isshooted)
         {
@@ -68,6 +74,10 @@ public class Bubble : MonoBehaviour
         else
         {
             this.beforebubble = this.bubbles.GetChild(this.bubbles.childCount - 2);
+            for (int i = 0; i < this.bubbles.childCount; i++)
+            {
+                this.movedbubblerow[i] = this.bubbles.GetChild(i);
+            }
         }
 
         if (this.bubbles.childCount == this.wavespawner.bubblecountperwave)

@@ -1869,7 +1869,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 36401301}
   leveldifficult: 0
-  bubblecountperwave: 200
+  bubblecountperwave: 100
   bubblespeed: 32.3
   actualbubblespeed: 0
 --- !u!4 &1336642943
@@ -1903,6 +1903,7 @@ MonoBehaviour:
   - {fileID: 4779836592121344, guid: 26a559c33e2971349a3f7854b20f4d2b, type: 2}
   - {fileID: 4779836592121344, guid: 984bc86f326d7654fb9c1a3ee9badcc3, type: 2}
   - {fileID: 4779836592121344, guid: 9d550ed073324634c842665e04fa3afe, type: 2}
+  bubblesizeaverage: 0
 --- !u!1 &1506073565
 GameObject:
   m_ObjectHideFlags: 0

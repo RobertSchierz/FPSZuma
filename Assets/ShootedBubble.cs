@@ -35,10 +35,34 @@ public class ShootedBubble : MonoBehaviour {
             }else if (distancetoafterbubble < distancetobeforebubble)
             {
                 Debug.Log("after");
+                insertBubbleInRow(bubbleattr, 2);
             }
 
         }
 
+    }
+
+    private void insertBubbleInRow(Bubble targetbubbleattr, int rowdecision)
+    {
+        if (rowdecision == 1)
+        {
+
+
+
+
+
+
+        }else if (rowdecision == 2)
+        {
+
+            for (int i = 0; i < targetbubbleattr.movedbubblerow.Length; i++)
+            {
+                targetbubbleattr.movedbubblerow[i].GetComponent<Bubble>().bubblesinserted++;
+            }
+
+
+
+        }
     }
 
     // Update is called once per frame
