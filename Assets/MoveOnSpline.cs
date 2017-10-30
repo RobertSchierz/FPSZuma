@@ -80,13 +80,18 @@ public class MoveOnSpline : MonoBehaviour
 
             if (this.isfirstbubble)
             {
+                /*  this.cursor.DistanceRatio = this.distanceratio;
+                  this.distanceratio += ((this.steps * Time.deltaTime) / this.seconds);
+                  transform.position = this.mathe.CalcPositionByDistanceRatio(this.distanceratio);*/
+
                 this.cursor.DistanceRatio = this.distanceratio;
                 this.distanceratio += ((this.steps * Time.deltaTime) / this.seconds);
                 transform.position = this.mathe.CalcPositionByDistanceRatio(this.distanceratio);
+
             }
             else
             {
-               
+
                 this.cursor.Distance = this.beforebubble.gameObject.GetComponent<Bubble>().distance - this.gamemasterattributes.bubblesizeaverage;
                 transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance + (this.bubblesinserted * this.gamemasterattributes.bubblesizeaverage));
             }
