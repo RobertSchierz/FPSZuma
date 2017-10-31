@@ -84,9 +84,9 @@ public class MoveOnSpline : MonoBehaviour
                   this.distanceratio += ((this.steps * Time.deltaTime) / this.seconds);
                   transform.position = this.mathe.CalcPositionByDistanceRatio(this.distanceratio);*/
 
-                this.cursor.DistanceRatio = this.distanceratio;
-                this.distanceratio += ((this.steps * Time.deltaTime) / this.seconds);
-                transform.position = this.mathe.CalcPositionByDistanceRatio(this.distanceratio);
+                
+                this.cursor.Distance += ((this.mathe.GetDistance() * Time.deltaTime) / this.seconds);
+                transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance + (this.bubblesinserted * this.gamemasterattributes.bubblesizeaverage));
 
             }
             else

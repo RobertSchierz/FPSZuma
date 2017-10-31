@@ -7,10 +7,11 @@ public class ShootedBubble : MonoBehaviour {
 
     public bool hitted = false;
     public GameObject targetbubble;
+    public Transform bubbles;
 
 
     void Start () {
-		
+        this.bubbles = gameObject.GetComponent<Bubble>().bubbles;
 	}
 
     void OnCollisionEnter(Collision collision)
@@ -54,19 +55,39 @@ public class ShootedBubble : MonoBehaviour {
 
         }else if (rowdecision == 2)
         {
-
+            
             for (int i = 0; i < targetbubbleattr.movedbubblerow.Length; i++)
             {
                 targetbubbleattr.movedbubblerow[i].GetComponent<Bubble>().bubblesinserted++;
             }
+            setHirarchyIndex(targetbubbleattr, rowdecision);
 
 
 
         }
     }
 
-    // Update is called once per frame
-    void Update () {
-		
-	}
+    private void setHirarchyIndex(Bubble targetbubbleattr, int rowdecision)
+    {
+        transform.SetParent(this.bubbles);
+
+        if (rowdecision == 1)
+        {
+
+        }
+        else if (rowdecision == 2)
+        {
+            transform.SetSiblingIndex(this.targetbubble.transform.GetSiblingIndex() + 1);
+            for (int i = transform.GetSiblingIndex(); i < this.bubbles.childCount; i++)
+            {
+                this.bubbles.GetChild(i).GetComponent<Bubble>().checkBubblerowInfront();
+            }
+
+        }
+
+      
+
+        }
+
+ 
 }
