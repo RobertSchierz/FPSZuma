@@ -40,6 +40,7 @@ public class ShootedBubble : MonoBehaviour
             if (distancetoafterbubble > distancetobeforebubble)
             {
                 Debug.Log("before");
+                insertBubbleInRow(bubbleattr, 1);
             }
             else if (distancetoafterbubble < distancetobeforebubble)
             {
@@ -56,10 +57,10 @@ public class ShootedBubble : MonoBehaviour
         if (rowdecision == 1)
         {
 
-
-
-
-
+            for (int i = 0; i < targetbubbleattr.movedbubblerow.Length-1; i++)
+            {
+                targetbubbleattr.movedbubblerow[i].GetComponent<Bubble>().bubblesinserted++;
+            }
 
         }
         else if (rowdecision == 2)
@@ -83,14 +84,16 @@ public class ShootedBubble : MonoBehaviour
 
         if (rowdecision == 1)
         {
-
+            this.bubbleattr.beforebubble = targetbubbleattr.beforebubble;
+            this.bubbleattr.afterbubble = this.targetbubble.transform;
+            targetbubbleattr.beforebubble = transform;
+            this.bubbleattr.bubblesinserted = this.bubbleattr.beforebubble.GetComponent<Bubble>().bubblesinserted;
         }
         else if (rowdecision == 2)
         {
             this.bubbleattr.beforebubble = targetbubble.transform;
             this.bubbleattr.afterbubble = targetbubbleattr.afterbubble;
             targetbubbleattr.afterbubble = transform;
-            this.bubbleattr.afterbubble.GetComponent<Bubble>().beforebubble = transform;
             this.bubbleattr.bubblesinserted = targetbubbleattr.bubblesinserted;
         }
     }
@@ -101,7 +104,11 @@ public class ShootedBubble : MonoBehaviour
 
         if (rowdecision == 1)
         {
-
+            transform.SetSiblingIndex(this.targetbubble.transform.GetSiblingIndex());
+            for (int i = transform.GetSiblingIndex(); i < this.bubbles.childCount; i++)
+            {
+                this.bubbles.GetChild(i).GetComponent<Bubble>().checkBubblerowInfront();
+            }
         }
         else if (rowdecision == 2)
         {
