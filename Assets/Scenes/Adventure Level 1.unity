@@ -1869,8 +1869,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 36401301}
   leveldifficult: 0
-  bubblecountperwave: 100
-  bubblespeed: 32
+  bubblecountperwave: 20
+  bubblespeed: 60
   actualbubblespeed: 0
 --- !u!4 &1336642943
 Transform:

@@ -64,14 +64,13 @@ public class Bubble : MonoBehaviour
    
     public void checkBubblerowInfront()
     {
-        if (!this.isfirstbubble)
-        {
+       
             this.movedbubblerow = new Transform[this.bubble.transform.GetSiblingIndex() +1];
             for (int i = 0; i <= this.bubble.transform.GetSiblingIndex(); i++)
             {
                 this.movedbubblerow[i] = this.bubbles.GetChild(i);
             }
-        }
+        
       
     }
 
@@ -81,6 +80,8 @@ public class Bubble : MonoBehaviour
         if (this.bubbles.GetChild(0).gameObject == gameObject)
         {
             this.isfirstbubble = true;
+            this.movedbubblerow[0] = transform;
+            //this.beforebubble = transform;
         }
         else
         {

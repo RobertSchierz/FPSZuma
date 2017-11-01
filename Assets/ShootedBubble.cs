@@ -31,22 +31,62 @@ public class ShootedBubble : MonoBehaviour
 
 
             targetbubble = collision.contacts[0].otherCollider.gameObject;
-            Bubble bubbleattr = targetbubble.GetComponent<Bubble>();
+            Bubble targetbubbleattr = targetbubble.GetComponent<Bubble>();
 
-
-            float distancetoafterbubble = Vector3.Distance(bubbleattr.afterbubble.transform.position, transform.position);
-            float distancetobeforebubble = Vector3.Distance(bubbleattr.beforebubble.transform.position, transform.position);
-
-            if (distancetoafterbubble > distancetobeforebubble)
+            if (!targetbubbleattr.isfirstbubble && !targetbubbleattr.islastbubble)
             {
-                Debug.Log("before");
-                insertBubbleInRow(bubbleattr, 1);
-            }
-            else if (distancetoafterbubble < distancetobeforebubble)
+                float distancetoafterbubble = Vector3.Distance(targetbubbleattr.afterbubble.transform.position, transform.position);
+                float distancetobeforebubble = Vector3.Distance(targetbubbleattr.beforebubble.transform.position, transform.position);
+
+                if (distancetoafterbubble > distancetobeforebubble)
+                {
+                    Debug.Log("before");
+                    insertBubbleInRow(targetbubbleattr, 1);
+                }
+                else if (distancetoafterbubble < distancetobeforebubble)
+                {
+                    Debug.Log("after");
+                    insertBubbleInRow(targetbubbleattr, 2);
+                }
+            } else if (targetbubbleattr.isfirstbubble && !targetbubbleattr.islastbubble)
             {
-                Debug.Log("after");
-                insertBubbleInRow(bubbleattr, 2);
+                Debug.Log("firstbubble hit");
+
+
+                Vector3 temppossbefore = targetbubbleattr.mathe.CalcPositionByDistance(targetbubbleattr.distance + targetbubbleattr.transform.localScale.x);
+                Vector3 temppossafter = targetbubbleattr.mathe.CalcPositionByDistance(targetbubbleattr.distance - targetbubbleattr.transform.localScale.x);
+
+
+                float ditsanceafter = Vector3.Distance(temppossafter, transform.position);
+                float distancebefore = Vector3.Distance(temppossbefore, transform.position);
+
+                if (ditsanceafter > distancebefore)
+                {
+                    Debug.Log("before");
+                    targetbubbleattr.isfirstbubble = false;
+                    this.bubbleattr.isfirstbubble = true;
+                    
+                    insertBubbleInRow(targetbubbleattr, 1);
+
+                }
+                else if (ditsanceafter < distancebefore)
+                {
+                    Debug.Log("after");
+                    insertBubbleInRow(targetbubbleattr, 2);
+                }
+
+
+                //insertBubbleInRow(bubbleattr, 2);
+
+
             }
+            else if (targetbubbleattr.islastbubble && !targetbubbleattr.isfirstbubble)
+            {
+                Debug.Log("lastbubble hit");
+                insertBubbleInRow(targetbubbleattr, 1);
+
+            }
+
 
         }
 
@@ -84,10 +124,24 @@ public class ShootedBubble : MonoBehaviour
 
         if (rowdecision == 1)
         {
-            this.bubbleattr.beforebubble = targetbubbleattr.beforebubble;
-            this.bubbleattr.afterbubble = this.targetbubble.transform;
-            targetbubbleattr.beforebubble = transform;
-            this.bubbleattr.bubblesinserted = this.bubbleattr.beforebubble.GetComponent<Bubble>().bubblesinserted;
+            if (this.bubbleattr.isfirstbubble)
+            {
+                this.bubbleattr.afterbubble = this.targetbubble.transform;
+                targetbubbleattr.beforebubble = transform;
+                this.bubbleattr.bubblesinserted = this.bubbleattr.afterbubble.GetComponent<Bubble>().bubblesinserted + 1;
+                this.bubbleattr.cursor.Distance = targetbubbleattr.distance;
+
+
+            }
+            else if (!this.bubbleattr.isfirstbubble)
+            {
+                this.bubbleattr.beforebubble = targetbubbleattr.beforebubble;
+                this.bubbleattr.afterbubble = this.targetbubble.transform;
+                targetbubbleattr.beforebubble = transform;
+                this.bubbleattr.bubblesinserted = this.bubbleattr.beforebubble.GetComponent<Bubble>().bubblesinserted;
+            }
+
+     
         }
         else if (rowdecision == 2)
         {
