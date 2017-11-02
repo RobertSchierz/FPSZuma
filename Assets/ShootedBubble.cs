@@ -76,14 +76,36 @@ public class ShootedBubble : MonoBehaviour
                 }
 
 
-                //insertBubbleInRow(bubbleattr, 2);
-
 
             }
             else if (targetbubbleattr.islastbubble && !targetbubbleattr.isfirstbubble)
             {
                 Debug.Log("lastbubble hit");
-                insertBubbleInRow(targetbubbleattr, 1);
+
+                Vector3 temppossbefore = targetbubbleattr.mathe.CalcPositionByDistance(targetbubbleattr.distance + targetbubbleattr.transform.localScale.x);
+                Vector3 temppossafter = targetbubbleattr.mathe.CalcPositionByDistance(targetbubbleattr.distance - targetbubbleattr.transform.localScale.x);
+
+
+                float ditsanceafter = Vector3.Distance(temppossafter, transform.position);
+                float distancebefore = Vector3.Distance(temppossbefore, transform.position);
+
+                if (ditsanceafter > distancebefore)
+                {
+                    Debug.Log("before");
+                
+
+                    insertBubbleInRow(targetbubbleattr, 1);
+
+                }
+                else if (ditsanceafter < distancebefore)
+                {
+                    Debug.Log("after");
+
+                    targetbubbleattr.islastbubble  = false;
+                    this.bubbleattr.islastbubble = true;
+                    insertBubbleInRow(targetbubbleattr, 2);
+
+                }
 
             }
 
