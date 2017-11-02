@@ -10,8 +10,8 @@ public class Bubble : MonoBehaviour
 {
     [Header("Controller Attributes")]
     public GameObject Gamemaster;
-    private GameMaster gamemasterattributes;
-    private Wavespawner wavespawner;
+    public GameMaster gamemasterattributes;
+    public Wavespawner wavespawner;
 
     [Space]
     [Header("Own Attributes")]
@@ -96,14 +96,14 @@ public class Bubble : MonoBehaviour
         {
             this.islastbubble = true;
         }
-        else
+       
+        
+        if (!this.isfirstbubble)
         {
-            if (!this.isfirstbubble)
-            {
-                this.bubbles.GetChild(this.bubbles.childCount - 2).GetComponent<Bubble>().afterbubble = transform;
-            }
-
+            this.bubbles.GetChild(this.bubbles.childCount - 2).GetComponent<Bubble>().afterbubble = transform;
         }
+
+        
     }
 
     void Update()
