@@ -67,8 +67,13 @@ public class ShootedBubble : MonoBehaviour
         }
 
         insertedBubbleHandler(targetbubbleattr);
+        checkNeighboursOfBubble(targetbubbleattr);
 
+    }
 
+    private void checkNeighboursOfBubble(Bubble targetbubbleattr)
+    {
+        
     }
 
     private void insertedBubbleHandler(Bubble targetbubbleattr)

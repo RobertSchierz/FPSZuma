@@ -13,6 +13,7 @@ public class Wavespawner : MonoBehaviour
     private Transform[] bubbleprefabs;
     private int lastbubbleprefabindex;
     public Transform spawnPoint;
+    private int prefabindex;
 
     [Range(0, 10)]
     public int leveldifficult = 0;
@@ -142,6 +143,8 @@ public class Wavespawner : MonoBehaviour
 
         this.lastbubbleprefabindex = randomprefabindex;
 
+        this.prefabindex = randomprefabindex;
+
         return this.bubbleprefabs[randomprefabindex];
     }
 
@@ -180,6 +183,8 @@ public class Wavespawner : MonoBehaviour
 
         var bubble = Instantiate(this.randomizePrefabs(), spawnPoint.position, spawnPoint.rotation);
         bubble.transform.parent = this.bubbles.transform;
+        bubble.GetComponent<Bubble>().bubblecolor = this.prefabindex;
+       
         
 
 
