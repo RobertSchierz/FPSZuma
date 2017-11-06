@@ -7,10 +7,10 @@ public class ShootBubble : MonoBehaviour
 {
 
     public GameObject camera;
-    private Transform shootedbubble;
-    public Transform[] bubbleprefabs = new Transform[4];
-    private GameMaster gamemasterattributes;
-    private int prefabindex;
+    private Transform shootedBubble;
+    public Transform[] bubblePrefabs = new Transform[4];
+    private GameMaster gameMasterAttributes;
+    private int prefabIndex;
 
     private GameObject level;
 
@@ -46,11 +46,11 @@ public class ShootBubble : MonoBehaviour
 
     private void shootBubble()
     {
-        Vector3 shootpos = new Vector3(this.camera.transform.position.x, Waypoints.points[1].transform.position.y, this.camera.transform.position.z);
-        this.shootedbubble = Instantiate(randomizePrefabs(), shootpos, this.camera.transform.rotation);
-        this.shootedbubble.gameObject.GetComponent<Rigidbody>().AddForce(this.camera.transform.forward * bubbleforce);
-        this.shootedbubble.GetComponent<Bubble>().isshooted = true;
-        this.shootedbubble.GetComponent<Bubble>().bubblecolor = this.prefabindex;
+        Vector3 shootPos = new Vector3(this.camera.transform.position.x, Waypoints.points[1].transform.position.y, this.camera.transform.position.z);
+        this.shootedBubble = Instantiate(randomizePrefabs(), shootPos, this.camera.transform.rotation);
+        this.shootedBubble.gameObject.GetComponent<Rigidbody>().AddForce(this.camera.transform.forward * bubbleforce);
+        this.shootedBubble.GetComponent<Bubble>().isShooted = true;
+        this.shootedBubble.GetComponent<Bubble>().bubbleColor = this.prefabIndex;
 
     }
 
@@ -58,8 +58,8 @@ public class ShootBubble : MonoBehaviour
 
     public Transform randomizePrefabs()
     {
-        int randomprefabindex = UnityEngine.Random.Range(0, 4);
-        this.prefabindex = randomprefabindex;
-        return this.bubbleprefabs[randomprefabindex];
+        int randomPrefabIndex = UnityEngine.Random.Range(0, 4);
+        this.prefabIndex = randomPrefabIndex;
+        return this.bubblePrefabs[randomPrefabIndex];
     }
 }

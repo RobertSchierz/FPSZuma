@@ -6,14 +6,10 @@ using UnityEngine;
 public class Wavespawner : MonoBehaviour
 {
 
-
-
-
-
-    private Transform[] bubbleprefabs;
-    private int lastbubbleprefabindex;
+    private Transform[] bubblePrefabs;
+    private int lastBubblePrefabindex;
     public Transform spawnPoint;
-    private int prefabindex;
+    private int prefabIndex;
 
     [Range(0, 10)]
     public int leveldifficult = 0;
@@ -31,41 +27,41 @@ public class Wavespawner : MonoBehaviour
 
 
     // Bubble Attributes
-    public int bubblecountperwave = 10;
+    public int bubbleCountPerWave = 10;
     [Range(15, 100)]
     public float bubblespeed = 15.0f;
-    private float bubblescaleaverage;
+    private float bubblescaleAverage;
 
     // First Start - Intro
-    private int introbubblenumber;
-    private float introbubblespeed;
-    public float actualbubblespeed;
+    private int introBubbleNumber;
+    private float introBubblespeed;
+    public float actualBubblespeed;
 
     private bool spawnque = false;
 
-    private GameMaster gamemasterattributes;
+    private GameMaster gameMasterAttributes;
 
 
 
 
     void Start()
     {
-        this.gamemasterattributes = transform.gameObject.GetComponent<GameMaster>();
+        this.gameMasterAttributes = transform.gameObject.GetComponent<GameMaster>();
 
-        this.bubbleprefabs = this.gamemasterattributes.bubbleprefabs;
-        this.bubblescaleaverage = this.gamemasterattributes.bubblesizeaverage;
+        this.bubblePrefabs = this.gameMasterAttributes.bubbleprefabs;
+        this.bubblescaleAverage = this.gameMasterAttributes.bubbleSizeAverage;
 
-        this.curve = this.gamemasterattributes.curve;
+        this.curve = this.gameMasterAttributes.curve;
         this.spawnPoint.transform.position = this.curve.Points[0].PositionLocal;
 
-        this.bubbles = this.gamemasterattributes.bubbles;
+        this.bubbles = this.gameMasterAttributes.bubbles;
 
         
         MoveOnSpline.onLostGame += handleOnLostGame;
 
-        this.introbubblenumber = this.bubblecountperwave / 10;
-        this.introbubblespeed = this.bubblespeed / 5f;
-        this.actualbubblespeed = introbubblespeed;
+        this.introBubbleNumber = this.bubbleCountPerWave / 10;
+        this.introBubblespeed = this.bubblespeed / 5f;
+        this.actualBubblespeed = introBubblespeed;
 
 
     }
@@ -99,15 +95,15 @@ public class Wavespawner : MonoBehaviour
 
 
 
-        if (this.spawnque && this.bubbles.childCount < this.bubblecountperwave && !this.lostgame)
+        if (this.spawnque && this.bubbles.childCount < this.bubbleCountPerWave && !this.lostgame)
         {
-            if (bubbles.childCount == this.introbubblenumber)
+            if (bubbles.childCount == this.introBubbleNumber)
             {
-                this.actualbubblespeed = this.bubblespeed;
+                this.actualBubblespeed = this.bubblespeed;
             }
 
 
-            if (this.bubbles.GetChild(this.bubbles.childCount -1).GetComponent<Bubble>().distance > this.bubblescaleaverage)
+            if (this.bubbles.GetChild(this.bubbles.childCount -1).GetComponent<Bubble>().distance > this.bubblescaleAverage)
             {
                 spawnBubble();
             }
@@ -124,34 +120,34 @@ public class Wavespawner : MonoBehaviour
 
     public Transform randomizePrefabs()
     {
-        int randomprefabindex = Random.Range(0, 4);
+        int randomPrefabIndex = Random.Range(0, 4);
 
 
 
         if (this.leveldifficult != 0)
         {
 
-            if (this.lastbubbleprefabindex == randomprefabindex)
+            if (this.lastBubblePrefabindex == randomPrefabIndex)
             {
                 if (calculateNewMix())
                 {
-                    randomprefabindex = Random.Range(0, 4);
+                    randomPrefabIndex = Random.Range(0, 4);
                 }
             }
         }
 
 
-        this.lastbubbleprefabindex = randomprefabindex;
+        this.lastBubblePrefabindex = randomPrefabIndex;
 
-        this.prefabindex = randomprefabindex;
+        this.prefabIndex = randomPrefabIndex;
 
-        return this.bubbleprefabs[randomprefabindex];
+        return this.bubblePrefabs[randomPrefabIndex];
     }
 
     bool calculateNewMix()
     {
-        int randomdetermitter = Random.Range(this.leveldifficult, 11);
-        if (randomdetermitter > this.leveldifficult)
+        int randomDetermitter = Random.Range(this.leveldifficult, 11);
+        if (randomDetermitter > this.leveldifficult)
         {
             if (this.leveldifficult > 5 && this.leveldifficult < 10)
             {
@@ -183,7 +179,7 @@ public class Wavespawner : MonoBehaviour
 
         var bubble = Instantiate(this.randomizePrefabs(), spawnPoint.position, spawnPoint.rotation);
         bubble.transform.parent = this.bubbles.transform;
-        bubble.GetComponent<Bubble>().bubblecolor = this.prefabindex;
+        bubble.GetComponent<Bubble>().bubbleColor = this.prefabIndex;
        
         
 

@@ -13,12 +13,12 @@ public class GameMaster : MonoBehaviour {
 
     public Transform[] bubbleprefabs = new Transform[4];
 
-    public float bubblesizeaverage;
+    public float bubbleSizeAverage;
 
 
     void Start() {
         this.curve = FindObjectOfType<BGCurve>();
-        this.bubblesizeaverage = this.bubbleprefabs[0].transform.localScale.x;
+        this.bubbleSizeAverage = this.bubbleprefabs[0].transform.localScale.x;
     }
 	
 

@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class MoveOnSpline : MonoBehaviour
 {
-
     private BGCurve curve;
     private BGCcMath mathe;
     private BGCcCursor cursor;
@@ -14,51 +13,51 @@ public class MoveOnSpline : MonoBehaviour
     private float min = 0.0f;
     private float max = 1.0f;
     private float steps = 1.0f;
-    private float distanceratio;
+    private float distanceRatio;
     private float seconds;
 
     private Transform bubbles;
-    private Transform beforebubble;
-    private Transform afterbubble;
+    private Transform beforeBubble;
+    private Transform afterBubble;
 
-    private bool isfirstbubble;
-    private bool islastbubble;
+    private bool isFirstBubble;
+    private bool isLastBubble;
 
     public delegate void lostGame();
     public static event lostGame onLostGame;
 
     private GameObject gamemaster;
-    private GameMaster gamemasterattributes;
+    private GameMaster gameMasterAttributes;
 
-    private Bubble bubbleattributes;
-    private int bubblesinserted;
+    private Bubble bubbleAttributes;
+    private int bubblesInserted;
 
 
     void Start()
     {
 
         this.gamemaster = GameObject.FindGameObjectWithTag("GameController");
-        this.gamemasterattributes = this.gamemaster.GetComponent<GameMaster>();
+        this.gameMasterAttributes = this.gamemaster.GetComponent<GameMaster>();
 
-        this.bubbleattributes = transform.gameObject.GetComponent<Bubble>();
+        this.bubbleAttributes = transform.gameObject.GetComponent<Bubble>();
 
-        this.bubbles = this.gamemasterattributes.bubbles;
+        this.bubbles = this.gameMasterAttributes.bubbles;
 
-        this.distanceratio = this.min;
+        this.distanceRatio = this.min;
 
-        this.curve = this.bubbleattributes.curve;
+        this.curve = this.bubbleAttributes.curve;
 
-        this.mathe = this.bubbleattributes.mathe;
+        this.mathe = this.bubbleAttributes.mathe;
 
-        this.cursor = this.bubbleattributes.cursor;
+        this.cursor = this.bubbleAttributes.cursor;
 
-        this.beforebubble = this.bubbleattributes.beforebubble;
+        this.beforeBubble = this.bubbleAttributes.beforeBubble;
 
-        this.afterbubble = this.bubbleattributes.afterbubble;
+        this.afterBubble = this.bubbleAttributes.afterBubble;
 
-        this.isfirstbubble = bubbleattributes.isfirstbubble;
+        this.isFirstBubble = bubbleAttributes.isFirstBubble;
 
-        this.islastbubble = bubbleattributes.islastbubble;
+        this.isLastBubble = bubbleAttributes.isLastBubble;
 
 
 
@@ -69,16 +68,16 @@ public class MoveOnSpline : MonoBehaviour
     void Update()
     {
 
-        this.bubblesinserted = this.bubbleattributes.bubblesinserted;
+        this.bubblesInserted = this.bubbleAttributes.bubblesInserted;
 
 
-        this.seconds = this.gamemaster.GetComponent<Wavespawner>().actualbubblespeed;
+        this.seconds = this.gamemaster.GetComponent<Wavespawner>().actualBubblespeed;
 
-        if (this.distanceratio <= this.max)
+        if (this.distanceRatio <= this.max)
         {
 
 
-            if (this.isfirstbubble)
+            if (this.isFirstBubble)
             {
                 /*  this.cursor.DistanceRatio = this.distanceratio;
                   this.distanceratio += ((this.steps * Time.deltaTime) / this.seconds);
@@ -86,14 +85,14 @@ public class MoveOnSpline : MonoBehaviour
 
                 
                 this.cursor.Distance += ((this.mathe.GetDistance() * Time.deltaTime) / this.seconds);
-                transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance + (this.bubblesinserted * this.gamemasterattributes.bubblesizeaverage));
+                transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance + (this.bubblesInserted * this.gameMasterAttributes.bubbleSizeAverage));
 
             }
             else
             {
 
-                this.cursor.Distance = this.beforebubble.gameObject.GetComponent<Bubble>().distance - this.gamemasterattributes.bubblesizeaverage;
-                transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance + (this.bubblesinserted * this.gamemasterattributes.bubblesizeaverage));
+                this.cursor.Distance = this.beforeBubble.gameObject.GetComponent<Bubble>().distance - this.gameMasterAttributes.bubbleSizeAverage;
+                transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance + (this.bubblesInserted * this.gameMasterAttributes.bubbleSizeAverage));
             }
 
 
@@ -101,7 +100,7 @@ public class MoveOnSpline : MonoBehaviour
         }
         else
         {
-            if (this.isfirstbubble)
+            if (this.isFirstBubble)
             {
                 transform.position = Waypoints.points[Waypoints.points.Length - 1].position;
                 //Debug.Log("Verloren");

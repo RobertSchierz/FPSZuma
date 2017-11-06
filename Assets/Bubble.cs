@@ -10,15 +10,15 @@ public class Bubble : MonoBehaviour
 {
     [Header("Controller Attributes")]
     public GameObject Gamemaster;
-    public GameMaster gamemasterattributes;
-    public Wavespawner wavespawner;
+    public GameMaster gameMasterAttributes;
+    public Wavespawner waveSpawner;
 
     [Space]
     [Header("Own Attributes")]
     public GameObject bubble;
     public int speciality;
-    public bool isshooted = false;
-    public int bubblecolor;
+    public bool isShooted = false;
+    public int bubbleColor;
 
     [Space]
     [Header("Math Attributes")]
@@ -26,36 +26,36 @@ public class Bubble : MonoBehaviour
     public BGCcMath mathe;
     public BGCcCursor cursor;
     public float distance;
-    public float distanceratio;
+    public float distanceRatio;
 
 
     [Space]
     [Header("Chain Attributes")]
     public Transform bubbles;
-    public Transform beforebubble;
-    public Transform afterbubble;
-    public bool isfirstbubble = false;
-    public bool islastbubble = false;
-    public Transform[] movedbubblerow;
-    public int bubblesinserted;
+    public Transform beforeBubble;
+    public Transform afterBubble;
+    public bool isFirstBubble = false;
+    public bool isLastBubble = false;
+    public Transform[] movedBubbleRow;
+    public int bubblesInserted;
 
     void Start()
     {
         this.Gamemaster = GameObject.FindGameObjectWithTag("GameController");
-        this.gamemasterattributes = this.Gamemaster.GetComponent<GameMaster>();
-        this.wavespawner = this.Gamemaster.GetComponent<Wavespawner>();
+        this.gameMasterAttributes = this.Gamemaster.GetComponent<GameMaster>();
+        this.waveSpawner = this.Gamemaster.GetComponent<Wavespawner>();
 
         this.bubble = transform.gameObject;
-        this.bubbles = this.gamemasterattributes.bubbles;
-        this.curve = this.gamemasterattributes.curve;
+        this.bubbles = this.gameMasterAttributes.bubbles;
+        this.curve = this.gameMasterAttributes.curve;
         this.mathe = this.curve.GetComponent<BGCcMath>();
         this.cursor = this.mathe.gameObject.AddComponent<BGCcCursor>();
 
-        this.bubblesinserted = 0;
+        this.bubblesInserted = 0;
 
-        this.movedbubblerow = new Transform[this.bubbles.childCount];
+        this.movedBubbleRow = new Transform[this.bubbles.childCount];
 
-        if (!this.isshooted)
+        if (!this.isShooted)
         {
             this.checkBubbleState();
         }
@@ -66,10 +66,10 @@ public class Bubble : MonoBehaviour
     public void checkBubblerowInfront()
     {
        
-            this.movedbubblerow = new Transform[this.bubble.transform.GetSiblingIndex() +1];
+            this.movedBubbleRow = new Transform[this.bubble.transform.GetSiblingIndex() +1];
             for (int i = 0; i <= this.bubble.transform.GetSiblingIndex(); i++)
             {
-                this.movedbubblerow[i] = this.bubbles.GetChild(i);
+                this.movedBubbleRow[i] = this.bubbles.GetChild(i);
             }
         
       
@@ -80,28 +80,28 @@ public class Bubble : MonoBehaviour
     {
         if (this.bubbles.GetChild(0).gameObject == gameObject)
         {
-            this.isfirstbubble = true;
-            this.movedbubblerow[0] = transform;
+            this.isFirstBubble = true;
+            this.movedBubbleRow[0] = transform;
             //this.beforebubble = transform;
         }
         else
         {
-            this.beforebubble = this.bubbles.GetChild(this.bubbles.childCount - 2);
+            this.beforeBubble = this.bubbles.GetChild(this.bubbles.childCount - 2);
             for (int i = 0; i < this.bubbles.childCount; i++)
             {
-                this.movedbubblerow[i] = this.bubbles.GetChild(i);
+                this.movedBubbleRow[i] = this.bubbles.GetChild(i);
             }
         }
 
-        if (this.bubbles.childCount == this.wavespawner.bubblecountperwave)
+        if (this.bubbles.childCount == this.waveSpawner.bubbleCountPerWave)
         {
-            this.islastbubble = true;
+            this.isLastBubble = true;
         }
        
         
-        if (!this.isfirstbubble)
+        if (!this.isFirstBubble)
         {
-            this.bubbles.GetChild(this.bubbles.childCount - 2).GetComponent<Bubble>().afterbubble = transform;
+            this.bubbles.GetChild(this.bubbles.childCount - 2).GetComponent<Bubble>().afterBubble = transform;
         }
 
         
@@ -111,7 +111,7 @@ public class Bubble : MonoBehaviour
     {
         this.bubble.transform.rotation = Quaternion.identity;
         this.distance = this.cursor.Distance;
-        this.distanceratio = this.cursor.DistanceRatio;
+        this.distanceRatio = this.cursor.DistanceRatio;
     }
 
 }
