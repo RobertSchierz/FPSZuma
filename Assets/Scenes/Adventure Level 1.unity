@@ -1528,10 +1528,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera: {fileID: 0}
   bubblePrefabs:
-  - {fileID: 4779836592121344, guid: f5e83ed075fa774428645831f4441326, type: 2}
-  - {fileID: 4779836592121344, guid: 26a559c33e2971349a3f7854b20f4d2b, type: 2}
-  - {fileID: 4779836592121344, guid: 984bc86f326d7654fb9c1a3ee9badcc3, type: 2}
-  - {fileID: 4779836592121344, guid: 9d550ed073324634c842665e04fa3afe, type: 2}
+  - {fileID: 4779836592121344, guid: 64b593cd14477f548bcd81feb8a3e253, type: 2}
+  - {fileID: 4779836592121344, guid: 659cdee3aa8ad1141a303111fa937dfb, type: 2}
+  - {fileID: 4779836592121344, guid: 8af5fb73861dce446b3fe2c7cec7ad63, type: 2}
+  - {fileID: 4779836592121344, guid: edc08f04e3075124cad2795d655dcfc0, type: 2}
   bubbleforce: 200
 --- !u!1 &1156239530
 GameObject:
@@ -1869,7 +1869,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 36401301}
   leveldifficult: 0
-  bubbleCountPerWave: 10
+  bubbleCountPerWave: 30
   bubblespeed: 58
   actualBubblespeed: 0
 --- !u!4 &1336642943

@@ -67,22 +67,93 @@ public class ShootedBubble : MonoBehaviour
         }
 
         insertedBubbleHandler(targetbubbleattr);
-        checkNeighboursOfBubble();
+        handleExplosion();
+
 
     }
 
-    private void checkNeighboursOfBubble()
+    private void handleExplosion()
     {
-        Bubble beforeBubbleAttr = this.bubbleAttr.beforeBubble.GetComponent<Bubble>();
-        Bubble afterBubbleAttr = this.bubbleAttr.afterBubble.GetComponent<Bubble>();
-        if (this.bubbleAttr.bubbleColor == beforeBubbleAttr.bubbleColor)
+        int leftColorBorderIndex = -1;
+        int rightColorBorderIndex = -1;
+
+        if (!this.bubbleAttr.isFirstBubble && !this.bubbleAttr.isLastBubble)
         {
-            Debug.Log("right");
-        }else if (this.bubbleAttr.bubbleColor == afterBubbleAttr.bubbleColor)
+            leftColorBorderIndex = checkNeighboursOfBubble("left");
+            rightColorBorderIndex = checkNeighboursOfBubble("right");
+        }else if (this.bubbleAttr.isFirstBubble)
         {
-            Debug.Log("left");
+            leftColorBorderIndex = checkNeighboursOfBubble("left");
+        }
+        else if (this.bubbleAttr.isLastBubble)
+        {
+            rightColorBorderIndex = checkNeighboursOfBubble("right");
+        }
+
+        if (checkIfExplode(leftColorBorderIndex, rightColorBorderIndex))
+        {
+            Debug.Log("Explode");
+        }
+
+    }
+
+    private bool checkIfExplode(int leftColorBorderIndex, int rightColorBorderIndex)
+    {
+        if (leftColorBorderIndex == -1) { leftColorBorderIndex = transform.GetSiblingIndex(); };
+        if (rightColorBorderIndex == -1) { rightColorBorderIndex = transform.GetSiblingIndex(); };
+
+        if (Mathf.Abs(leftColorBorderIndex - rightColorBorderIndex) >= 2)
+        {
+            return true;
+        }else
+        {
+            return false;
         }
     }
+
+    private int checkNeighboursOfBubble(string decision)
+    {
+
+        int leftColorBorderIndex = -1;
+        int rightColorBorderIndex = -1;
+
+        if (decision.Equals("left"))
+        {
+            for (int i = transform.GetSiblingIndex() + 1; i < this.bubbles.childCount; i++)
+            {
+                if (this.bubbles.GetChild(i).GetComponent<Bubble>().bubbleColor == this.bubbleAttr.bubbleColor)
+                {
+                    leftColorBorderIndex = i;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            return leftColorBorderIndex;
+        }
+        else if (decision.Equals("right"))
+        {
+            for (int i = transform.GetSiblingIndex() - 1; i >= 0; i--)
+            {
+                if (this.bubbles.GetChild(i).GetComponent<Bubble>().bubbleColor == this.bubbleAttr.bubbleColor)
+                {
+                    rightColorBorderIndex = i;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            return rightColorBorderIndex;
+        }
+        else
+        {
+            return -1;
+        }
+
+    }
+
 
     private void insertedBubbleHandler(Bubble targetbubbleattr)
     {

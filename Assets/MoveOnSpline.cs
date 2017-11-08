@@ -79,7 +79,7 @@ public class MoveOnSpline : MonoBehaviour
 
             if (this.isFirstBubble)
             {
-                /*  this.cursor.DistanceRatio = this.distanceratio;
+                /*this.cursor.DistanceRatio = this.distanceratio;
                   this.distanceratio += ((this.steps * Time.deltaTime) / this.seconds);
                   transform.position = this.mathe.CalcPositionByDistanceRatio(this.distanceratio);*/
 
