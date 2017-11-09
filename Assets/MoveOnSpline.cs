@@ -69,9 +69,8 @@ public class MoveOnSpline : MonoBehaviour
     {
 
         this.bubblesInserted = this.bubbleAttributes.bubblesInserted;
-
-
         this.seconds = this.gamemaster.GetComponent<Wavespawner>().actualBubblespeed;
+
 
         if (this.distanceRatio <= this.max)
         {
@@ -82,9 +81,9 @@ public class MoveOnSpline : MonoBehaviour
                 /*this.cursor.DistanceRatio = this.distanceratio;
                   this.distanceratio += ((this.steps * Time.deltaTime) / this.seconds);
                   transform.position = this.mathe.CalcPositionByDistanceRatio(this.distanceratio);*/
-
                 
                 this.cursor.Distance += ((this.mathe.GetDistance() * Time.deltaTime) / this.seconds);
+              
                 transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance + (this.bubblesInserted * this.gameMasterAttributes.bubbleSizeAverage));
 
             }

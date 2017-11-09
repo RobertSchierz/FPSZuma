@@ -93,8 +93,17 @@ public class ShootedBubble : MonoBehaviour
         if (checkIfExplode(leftColorBorderIndex, rightColorBorderIndex))
         {
             Debug.Log("Explode");
+            explodeBubbles(leftColorBorderIndex, rightColorBorderIndex);
         }
 
+    }
+
+    private void explodeBubbles(int leftColorBorderIndex, int rightColorBorderIndex)
+    {
+        for (int i = rightColorBorderIndex; i <= leftColorBorderIndex; i++)
+        {
+            Destroy(this.bubbles.GetChild(i).gameObject);
+        }
     }
 
     private bool checkIfExplode(int leftColorBorderIndex, int rightColorBorderIndex)
