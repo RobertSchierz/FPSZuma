@@ -25,8 +25,7 @@ public class Bubble : MonoBehaviour
     public BGCurve curve;
     public BGCcMath mathe;
     public BGCcCursor cursor;
-    public float distance;
-    public float distanceRatio;
+
 
 
     [Space]
@@ -38,6 +37,7 @@ public class Bubble : MonoBehaviour
     public bool isLastBubble = false;
     public Transform[] movedBubbleRow;
     public int bubblesInserted;
+    public bool interpolate = false;
 
     void Start()
     {
@@ -110,8 +110,6 @@ public class Bubble : MonoBehaviour
     void Update()
     {
         this.bubble.transform.rotation = Quaternion.identity;
-        this.distance = this.cursor.Distance;
-        this.distanceRatio = this.cursor.DistanceRatio;
     }
 
 }

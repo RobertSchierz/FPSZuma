@@ -15,6 +15,8 @@ public class GameMaster : MonoBehaviour {
 
     public float bubbleSizeAverage;
 
+    public bool stopAll = false;
+
 
     void Start() {
         this.curve = FindObjectOfType<BGCurve>();

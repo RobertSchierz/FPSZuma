@@ -36,6 +36,7 @@ public class ShootedBubble : MonoBehaviour
             targetBubble = collision.contacts[0].otherCollider.gameObject;
             Bubble targetBubbleAttr = targetBubble.GetComponent<Bubble>();
             handleInsertBubble(targetBubbleAttr);
+            //this.gameMaster.stopAll = true;
 
 
         }
@@ -44,8 +45,8 @@ public class ShootedBubble : MonoBehaviour
 
     private void handleInsertBubble(Bubble targetbubbleattr)
     {
-        Vector3 bubblePosBefore = targetbubbleattr.mathe.CalcPositionByDistance(targetbubbleattr.distance + this.gameMaster.bubbleSizeAverage);
-        Vector3 bubblePosAfter = targetbubbleattr.mathe.CalcPositionByDistance(targetbubbleattr.distance - this.gameMaster.bubbleSizeAverage);
+        Vector3 bubblePosBefore = targetbubbleattr.mathe.CalcPositionByDistance(targetbubbleattr.cursor.Distance + this.gameMaster.bubbleSizeAverage);
+        Vector3 bubblePosAfter = targetbubbleattr.mathe.CalcPositionByDistance(targetbubbleattr.cursor.Distance - this.gameMaster.bubbleSizeAverage);
 
         //Debug.DrawRay(bubbleposbefore, Vector3.up, Color.green, 2);
         //Debug.DrawRay(bubbleposafter, Vector3.up, Color.blue, 2);
@@ -102,7 +103,7 @@ public class ShootedBubble : MonoBehaviour
     {
         for (int i = rightColorBorderIndex; i <= leftColorBorderIndex; i++)
         {
-            Destroy(this.bubbles.GetChild(i).gameObject);
+           // Destroy(this.bubbles.GetChild(i).gameObject);
         }
     }
 
@@ -194,7 +195,7 @@ public class ShootedBubble : MonoBehaviour
                 targetBubbleAttr.beforeBubble = transform;
                 this.bubbleAttr.afterBubble = targetBubbleAttr.transform;
                 this.bubbleAttr.bubblesInserted = targetBubbleAttr.bubblesInserted + 1;
-                this.bubbleAttr.cursor.Distance = targetBubbleAttr.distance;
+                this.bubbleAttr.cursor.Distance = targetBubbleAttr.cursor.Distance;
             }
             else
             {
@@ -243,6 +244,8 @@ public class ShootedBubble : MonoBehaviour
         for (int i = 0; i < rowinfrontlength; i++)
         {
             targetBubbleAttr.movedBubbleRow[i].GetComponent<Bubble>().bubblesInserted++;
+            targetBubbleAttr.movedBubbleRow[i].GetComponent<Bubble>().interpolate = true;
+            
         }
     }
 

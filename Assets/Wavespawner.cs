@@ -30,16 +30,18 @@ public class Wavespawner : MonoBehaviour
     public int bubbleCountPerWave = 10;
     [Range(15, 100)]
     public float bubblespeed = 15.0f;
-    private float bubblescaleAverage;
+
 
     // First Start - Intro
     private int introBubbleNumber;
     private float introBubblespeed;
     public float actualBubblespeed;
+    public bool rollInRow = true;
 
     private bool spawnque = false;
 
     private GameMaster gameMasterAttributes;
+    private Transform bubble;
 
 
 
@@ -49,7 +51,6 @@ public class Wavespawner : MonoBehaviour
         this.gameMasterAttributes = transform.gameObject.GetComponent<GameMaster>();
 
         this.bubblePrefabs = this.gameMasterAttributes.bubbleprefabs;
-        this.bubblescaleAverage = this.gameMasterAttributes.bubbleSizeAverage;
 
         this.curve = this.gameMasterAttributes.curve;
         this.spawnPoint.transform.position = this.curve.Points[0].PositionLocal;
@@ -85,7 +86,7 @@ public class Wavespawner : MonoBehaviour
             spawnBubble();
             this.wavespaned = true;
             this.spawnque = true;
-
+            return;
         }
         else if (!this.wavespaned)
         {
@@ -94,18 +95,33 @@ public class Wavespawner : MonoBehaviour
 
 
 
-
         if (this.spawnque && this.bubbles.childCount < this.bubbleCountPerWave && !this.lostgame)
         {
-            if (bubbles.childCount == this.introBubbleNumber)
+         
+
+            if (this.bubbles.GetChild(this.bubbles.childCount -1).GetComponent<Bubble>().cursor.Distance >= this.gameMasterAttributes.bubbleSizeAverage && !this.gameMasterAttributes.stopAll)
+            {
+                
+                spawnBubble();
+
+
+                /* Debug.Log("eigener: " +  this.bubble.GetComponent<MoveOnSpline>().distanceCalc);
+
+                 this.bubble.GetComponent<MoveOnSpline>().distanceCalc = this.bubbles.GetChild(this.bubbles.childCount - 2).GetComponent<MoveOnSpline>().distanceCalc - this.gameMasterAttributes.bubbleSizeAverage;
+                 Debug.Log("neuer: " + this.bubble.GetComponent<MoveOnSpline>().distanceCalc);
+
+                 Debug.Log(this.bubbles.GetChild(this.bubbles.childCount - 2).GetComponent<MoveOnSpline>().distanceCalc - this.gameMasterAttributes.bubbleSizeAverage);
+
+                 Debug.Break();
+                 */
+
+
+
+            }
+            if (this.bubbles.childCount == this.introBubbleNumber)
             {
                 this.actualBubblespeed = this.bubblespeed;
-            }
-
-
-            if (this.bubbles.GetChild(this.bubbles.childCount -1).GetComponent<Bubble>().distance > this.bubblescaleAverage)
-            {
-                spawnBubble();
+                this.rollInRow = false;
             }
 
         }
@@ -177,11 +193,12 @@ public class Wavespawner : MonoBehaviour
     void spawnBubble()
     {
 
-        var bubble = Instantiate(this.randomizePrefabs(), spawnPoint.position, spawnPoint.rotation);
-        bubble.transform.parent = this.bubbles.transform;
-        bubble.GetComponent<Bubble>().bubbleColor = this.prefabIndex;
-       
+        this.bubble = Instantiate(this.randomizePrefabs(), spawnPoint.position, spawnPoint.rotation);
+        this.bubble.transform.parent = this.bubbles.transform;
+        this.bubble.GetComponent<Bubble>().bubbleColor = this.prefabIndex;
         
+
+
 
 
     }
