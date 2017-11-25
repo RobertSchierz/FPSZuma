@@ -120,8 +120,6 @@ MonoBehaviour:
   curve: {fileID: 0}
   mathe: {fileID: 0}
   cursor: {fileID: 0}
-  distance: 0
-  distanceRatio: 0
   bubbles: {fileID: 0}
   beforeBubble: {fileID: 0}
   afterBubble: {fileID: 0}
@@ -129,6 +127,7 @@ MonoBehaviour:
   isLastBubble: 0
   movedBubbleRow: []
   bubblesInserted: 0
+  interpolate: 0
 --- !u!114 &114981338345439848
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -140,6 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b43df41bd5e793d44b9b7d170d107720, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanceCalc: 0
 --- !u!135 &135433082130495662
 SphereCollider:
   m_ObjectHideFlags: 1

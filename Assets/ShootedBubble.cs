@@ -12,6 +12,7 @@ public class ShootedBubble : MonoBehaviour
     private Bubble bubbleAttr;
     private GameMaster gameMaster;
     private MoveOnSpline moveOnSplineAttr;
+    private Wavespawner waveSpawner;
 
     private bool insertBefore = false;
     private bool insertAfter = false;
@@ -23,6 +24,7 @@ public class ShootedBubble : MonoBehaviour
         this.bubbleAttr = gameObject.GetComponent<Bubble>();
         this.bubbles = this.bubbleAttr.bubbles;
         this.gameMaster = this.bubbleAttr.gameMasterAttributes;
+        this.waveSpawner = this.bubbleAttr.waveSpawner;
 
 
     }
@@ -34,16 +36,18 @@ public class ShootedBubble : MonoBehaviour
         {
 
             this.hitted = true;
+            //this.gameMaster.stopAll = true;
+            //this.waveSpawner.rollInRow = true;
             targetBubble = collision.contacts[0].otherCollider.gameObject;
             Bubble targetBubbleAttr = targetBubble.GetComponent<Bubble>();
             MoveOnSpline targetMoveOnSplineAttr = targetBubble.GetComponent<MoveOnSpline>();
             handleInsertBubble(targetBubbleAttr, targetMoveOnSplineAttr);
-            //this.gameMaster.stopAll = true;
-
 
         }
 
     }
+
+  
 
     private void handleInsertBubble(Bubble targetbubbleattr, MoveOnSpline targetMoveOnSplineAttr)
     {
@@ -168,18 +172,20 @@ public class ShootedBubble : MonoBehaviour
     {
         if (this.insertBefore)
         {
+            gameObject.AddComponent<MoveOnSpline>();
             addInsertedBubbleAttrToRow(targetbubbleattr, targetbubbleattr.movedBubbleRow.Length - 1);
             setHirarchyIndex(targetbubbleattr, this.targetBubble.transform.GetSiblingIndex());
-            gameObject.AddComponent<MoveOnSpline>();
+            
             this.moveOnSplineAttr = gameObject.GetComponent<MoveOnSpline>();
             setNewValuesForBubbles(targetbubbleattr, targetMoveOnSplineAttr);
             
         }
         else if (this.insertAfter)
         {
+            gameObject.AddComponent<MoveOnSpline>();
             addInsertedBubbleAttrToRow(targetbubbleattr, targetbubbleattr.movedBubbleRow.Length);
             setHirarchyIndex(targetbubbleattr, this.targetBubble.transform.GetSiblingIndex() + 1);
-            gameObject.AddComponent<MoveOnSpline>();
+            
             this.moveOnSplineAttr = gameObject.GetComponent<MoveOnSpline>();
             setNewValuesForBubbles(targetbubbleattr, targetMoveOnSplineAttr);
             
@@ -197,9 +203,8 @@ public class ShootedBubble : MonoBehaviour
                 this.bubbleAttr.isFirstBubble = true;
                 targetBubbleAttr.beforeBubble = transform;
                 this.bubbleAttr.afterBubble = targetBubbleAttr.transform;
-                this.bubbleAttr.bubblesInserted = targetBubbleAttr.bubblesInserted + 1;
-                
-                this.moveOnSplineAttr.distanceCalc = targetMoveOnSplineAttr.distanceCalc;
+                //this.bubbleAttr.bubblesInserted = targetBubbleAttr.bubblesInserted + 1;
+                this.moveOnSplineAttr.distanceCalc = targetMoveOnSplineAttr.distanceCalc + this.gameMaster.bubbleSizeAverage;
             }
             else
             {
@@ -207,8 +212,8 @@ public class ShootedBubble : MonoBehaviour
                 this.bubbleAttr.beforeBubble = targetBubbleAttr.beforeBubble;
                 this.bubbleAttr.afterBubble = this.targetBubble.transform;
                 targetBubbleAttr.beforeBubble = transform;
-                this.bubbleAttr.bubblesInserted = this.bubbleAttr.afterBubble.GetComponent<Bubble>().bubblesInserted + 1;
-                this.moveOnSplineAttr.distanceCalc = this.bubbleAttr.afterBubble.GetComponent<MoveOnSpline>().distanceCalc;
+                //this.bubbleAttr.bubblesInserted = this.bubbleAttr.afterBubble.GetComponent<Bubble>().bubblesInserted + 1;
+                this.moveOnSplineAttr.distanceCalc = this.bubbleAttr.afterBubble.GetComponent<MoveOnSpline>().distanceCalc + this.gameMaster.bubbleSizeAverage;
             }
 
         }
@@ -220,8 +225,8 @@ public class ShootedBubble : MonoBehaviour
                 this.bubbleAttr.isLastBubble = true;
                 targetBubbleAttr.afterBubble = transform;
                 this.bubbleAttr.beforeBubble = targetBubble.transform;
-                this.bubbleAttr.bubblesInserted = targetBubbleAttr.bubblesInserted;
-                this.moveOnSplineAttr.distanceCalc = targetMoveOnSplineAttr.distanceCalc - this.gameMaster.bubbleSizeAverage;
+                //this.bubbleAttr.bubblesInserted = targetBubbleAttr.bubblesInserted;
+                this.moveOnSplineAttr.distanceCalc = targetMoveOnSplineAttr.distanceCalc ;
                 
             }
             else
@@ -230,10 +235,8 @@ public class ShootedBubble : MonoBehaviour
                 this.bubbleAttr.beforeBubble = targetBubble.transform;
                 this.bubbleAttr.afterBubble = targetBubbleAttr.afterBubble;
                 targetBubbleAttr.afterBubble = transform;
-              
-                this.bubbleAttr.bubblesInserted = this.bubbleAttr.afterBubble.GetComponent<Bubble>().bubblesInserted + 1;
-                
-                this.moveOnSplineAttr.distanceCalc = this.bubbleAttr.afterBubble.GetComponent<MoveOnSpline>().distanceCalc;
+               // this.bubbleAttr.bubblesInserted = this.bubbleAttr.afterBubble.GetComponent<Bubble>().bubblesInserted + 1;
+                this.moveOnSplineAttr.distanceCalc = this.bubbleAttr.afterBubble.GetComponent<MoveOnSpline>().distanceCalc + this.gameMaster.bubbleSizeAverage;
             }
         }
     }
@@ -253,8 +256,14 @@ public class ShootedBubble : MonoBehaviour
     {
         for (int i = 0; i < rowinfrontlength; i++)
         {
-            targetBubbleAttr.movedBubbleRow[i].GetComponent<Bubble>().bubblesInserted++;
+            //targetBubbleAttr.movedBubbleRow[i].GetComponent<Bubble>().bubblesInserted++;
             targetBubbleAttr.movedBubbleRow[i].GetComponent<Bubble>().interpolate = true;
+
+            if (this.insertAfter)
+            {
+                targetBubbleAttr.interpolate = true;
+            }
+            
             
         }
     }

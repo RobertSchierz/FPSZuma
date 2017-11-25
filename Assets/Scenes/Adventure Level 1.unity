@@ -1869,9 +1869,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 36401301}
   leveldifficult: 0
-  bubbleCountPerWave: 150
-  bubblespeed: 50.1
+  bubbleCountPerWave: 10
+  bubblespeed: 24.9
   actualBubblespeed: 0
+  rollInRow: 1
 --- !u!4 &1336642943
 Transform:
   m_ObjectHideFlags: 0
@@ -2075,7 +2076,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1543600793}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 0.1, y: 8.19, z: -0.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
