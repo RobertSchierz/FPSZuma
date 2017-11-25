@@ -207,7 +207,7 @@ public class ShootedBubble : MonoBehaviour
                 this.bubbleAttr.beforeBubble = targetBubbleAttr.beforeBubble;
                 this.bubbleAttr.afterBubble = this.targetBubble.transform;
                 targetBubbleAttr.beforeBubble = transform;
-                this.bubbleAttr.bubblesInserted = this.bubbleAttr.beforeBubble.GetComponent<Bubble>().bubblesInserted;
+                this.bubbleAttr.bubblesInserted = this.bubbleAttr.afterBubble.GetComponent<Bubble>().bubblesInserted + 1;
                 this.moveOnSplineAttr.distanceCalc = this.bubbleAttr.afterBubble.GetComponent<MoveOnSpline>().distanceCalc;
             }
 
@@ -230,7 +230,9 @@ public class ShootedBubble : MonoBehaviour
                 this.bubbleAttr.beforeBubble = targetBubble.transform;
                 this.bubbleAttr.afterBubble = targetBubbleAttr.afterBubble;
                 targetBubbleAttr.afterBubble = transform;
-                this.bubbleAttr.bubblesInserted = targetBubbleAttr.bubblesInserted;
+              
+                this.bubbleAttr.bubblesInserted = this.bubbleAttr.afterBubble.GetComponent<Bubble>().bubblesInserted + 1;
+                
                 this.moveOnSplineAttr.distanceCalc = this.bubbleAttr.afterBubble.GetComponent<MoveOnSpline>().distanceCalc;
             }
         }
