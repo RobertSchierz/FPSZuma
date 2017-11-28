@@ -9,12 +9,17 @@ public class ShootBubble : MonoBehaviour
     public GameObject camera;
     private Transform shootedBubble;
     public Transform[] bubblePrefabs = new Transform[4];
+    public Transform nextBubble;
+    public int nextBubbleIndex;
     private GameMaster gameMasterAttributes;
     private int prefabIndex;
 
     private GameObject level;
 
     public float bubbleforce = 200.0f;
+    private float timeBetweenShots = 0.5f;
+    private float timestamp;
+
 
 
     void Start()
@@ -22,32 +27,63 @@ public class ShootBubble : MonoBehaviour
         this.camera = gameObject;
         this.level = GameObject.FindGameObjectWithTag("Level");
         Leveltrigger.onOutoflevel += handleBubbleout;
+        this.nextBubble = randomizePrefabs();
+        Debug.Log(getBubbleColor(this.nextBubbleIndex));
+        
 
     }
+
+   
 
 
     void Update()
     {
-
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && Time.time >= timestamp)
         {
+        
             shootBubble();
+            this.nextBubble = randomizePrefabs();
+            this.timestamp = Time.time + this.timeBetweenShots;
+            Debug.Log(getBubbleColor(this.nextBubbleIndex));
+
+
+
         }
+    }
 
-
+    private  String getBubbleColor(int color)
+    {
+        string returnText = "Nächste Farbe: ";
+        switch (color)
+        {
+            case 0:
+                returnText += "Rot";
+                break;
+            case 1:
+                returnText += "Blau";
+                break;
+            case 2:
+                returnText += "Grün";
+                break;
+            case 3:
+                returnText += "Gelb";
+                break;
+            default:
+                returnText += "Fehler";
+                break;
+        }
+        return returnText;
     }
 
     void handleBubbleout()
     {
-
         //Debug.Log("Bubble hat Level verlassen");
-
     }
 
     private void shootBubble()
     {
         Vector3 shootPos = new Vector3(this.camera.transform.position.x, Waypoints.points[1].transform.position.y, this.camera.transform.position.z);
-        this.shootedBubble = Instantiate(randomizePrefabs(), shootPos, this.camera.transform.rotation);
+        this.shootedBubble = Instantiate(this.nextBubble, shootPos, this.camera.transform.rotation);
         this.shootedBubble.gameObject.GetComponent<Rigidbody>().AddForce(this.camera.transform.forward * bubbleforce);
         this.shootedBubble.GetComponent<Bubble>().isShooted = true;
         this.shootedBubble.GetComponent<Bubble>().bubbleColor = this.prefabIndex;
@@ -60,6 +96,7 @@ public class ShootBubble : MonoBehaviour
     {
         int randomPrefabIndex = UnityEngine.Random.Range(0, 4);
         this.prefabIndex = randomPrefabIndex;
+        this.nextBubbleIndex = randomPrefabIndex;
         return this.bubblePrefabs[randomPrefabIndex];
     }
 }

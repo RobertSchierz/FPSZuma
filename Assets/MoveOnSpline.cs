@@ -32,7 +32,6 @@ public class MoveOnSpline : MonoBehaviour
     private Wavespawner wavespawner;
 
     private Bubble bubbleAttributes;
-    private int bubblesInserted;
     private float animationEnd;
     public float animationStart = 0f;
 
@@ -77,7 +76,6 @@ public class MoveOnSpline : MonoBehaviour
     void Update()
     {
 
-        this.bubblesInserted = this.bubbleAttributes.bubblesInserted;
         this.seconds = this.gamemaster.GetComponent<Wavespawner>().actualBubblespeed; 
 
         if (this.distanceRatio <= this.max)
@@ -112,12 +110,12 @@ public class MoveOnSpline : MonoBehaviour
     {
         this.distanceCalc += (this.mathe.GetDistance() * Time.deltaTime) / this.seconds;
 
-        this.cursor.Distance = this.distanceCalc + (this.bubblesInserted * this.gameMasterAttributes.bubbleSizeAverage);
+        this.cursor.Distance = this.distanceCalc ;
         transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance);
 
         if (!this.bubbleAttributes.isFirstBubble && this.wavespawner.rollInRow)
         {
-            if ((this.bubbleAttributes.beforeBubble.GetComponent<MoveOnSpline>().distanceCalc) - (this.distanceCalc) > this.gameMasterAttributes.bubbleSizeAverage)
+            if ((this.bubbleAttributes.beforeBubble.GetComponent<MoveOnSpline>().distanceCalc) - (this.distanceCalc) != this.gameMasterAttributes.bubbleSizeAverage)
             {
                 this.distanceCalc = this.bubbleAttributes.beforeBubble.GetComponent<MoveOnSpline>().distanceCalc - (this.gameMasterAttributes.bubbleSizeAverage);
             }
@@ -130,8 +128,7 @@ public class MoveOnSpline : MonoBehaviour
         {
             this.animationStart += ((this.mathe.GetDistance() * Time.deltaTime) / this.seconds) * 3;
             this.distanceCalc += ((this.mathe.GetDistance() * Time.deltaTime) / this.seconds) * 4;
-
-            this.cursor.Distance = this.distanceCalc + (this.bubblesInserted * this.gameMasterAttributes.bubbleSizeAverage);
+            this.cursor.Distance = this.distanceCalc;
             transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance);
         }
         else
@@ -143,13 +140,18 @@ public class MoveOnSpline : MonoBehaviour
 
     private void setAnimationValuesBack()
     {
-        for (int i = 0; i < this.bubbles.childCount; i++)
+        /*for (int i = 0; i < this.bubbles.childCount; i++)
         {
             this.bubbles.GetChild(i).GetComponent<MoveOnSpline>().animationStart = 0.0f;
             this.bubbles.GetChild(i).GetComponent<Bubble>().interpolate = false;
             this.gameMasterAttributes.stopAll = false;
-        }
-
+        }*/
+        this.bubbleAttributes.interpolate = false;
+        this.animationStart = 0.0f;
+        
     }
+
+
+   
 
 }

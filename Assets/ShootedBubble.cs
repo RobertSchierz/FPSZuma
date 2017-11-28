@@ -71,7 +71,13 @@ public class ShootedBubble : MonoBehaviour
         }
 
         insertedBubbleHandler(targetbubbleattr, targetMoveOnSplineAttr);
-        handleExplosion();
+        //handleExplosion();
+
+        
+        
+        
+        
+        
 
 
     }
@@ -104,10 +110,12 @@ public class ShootedBubble : MonoBehaviour
 
     private void explodeBubbles(int leftColorBorderIndex, int rightColorBorderIndex)
     {
+        //Debug.Break();
         for (int i = rightColorBorderIndex; i <= leftColorBorderIndex; i++)
         {
-           // Destroy(this.bubbles.GetChild(i).gameObject);
+            Destroy(this.bubbles.GetChild(i).gameObject);
         }
+        Destroy(gameObject);
     }
 
     private bool checkIfExplode(int leftColorBorderIndex, int rightColorBorderIndex)
@@ -203,7 +211,6 @@ public class ShootedBubble : MonoBehaviour
                 this.bubbleAttr.isFirstBubble = true;
                 targetBubbleAttr.beforeBubble = transform;
                 this.bubbleAttr.afterBubble = targetBubbleAttr.transform;
-                //this.bubbleAttr.bubblesInserted = targetBubbleAttr.bubblesInserted + 1;
                 this.moveOnSplineAttr.distanceCalc = targetMoveOnSplineAttr.distanceCalc + this.gameMaster.bubbleSizeAverage;
             }
             else
@@ -212,7 +219,6 @@ public class ShootedBubble : MonoBehaviour
                 this.bubbleAttr.beforeBubble = targetBubbleAttr.beforeBubble;
                 this.bubbleAttr.afterBubble = this.targetBubble.transform;
                 targetBubbleAttr.beforeBubble = transform;
-                //this.bubbleAttr.bubblesInserted = this.bubbleAttr.afterBubble.GetComponent<Bubble>().bubblesInserted + 1;
                 this.moveOnSplineAttr.distanceCalc = this.bubbleAttr.afterBubble.GetComponent<MoveOnSpline>().distanceCalc + this.gameMaster.bubbleSizeAverage;
             }
 
@@ -225,7 +231,6 @@ public class ShootedBubble : MonoBehaviour
                 this.bubbleAttr.isLastBubble = true;
                 targetBubbleAttr.afterBubble = transform;
                 this.bubbleAttr.beforeBubble = targetBubble.transform;
-                //this.bubbleAttr.bubblesInserted = targetBubbleAttr.bubblesInserted;
                 this.moveOnSplineAttr.distanceCalc = targetMoveOnSplineAttr.distanceCalc ;
                 
             }
@@ -235,7 +240,6 @@ public class ShootedBubble : MonoBehaviour
                 this.bubbleAttr.beforeBubble = targetBubble.transform;
                 this.bubbleAttr.afterBubble = targetBubbleAttr.afterBubble;
                 targetBubbleAttr.afterBubble = transform;
-               // this.bubbleAttr.bubblesInserted = this.bubbleAttr.afterBubble.GetComponent<Bubble>().bubblesInserted + 1;
                 this.moveOnSplineAttr.distanceCalc = this.bubbleAttr.afterBubble.GetComponent<MoveOnSpline>().distanceCalc + this.gameMaster.bubbleSizeAverage;
             }
         }

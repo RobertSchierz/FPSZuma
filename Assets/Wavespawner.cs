@@ -61,7 +61,7 @@ public class Wavespawner : MonoBehaviour
         MoveOnSpline.onLostGame += handleOnLostGame;
 
         this.introBubbleNumber = this.bubbleCountPerWave / 10;
-        this.introBubblespeed = this.bubblespeed / 5f;
+        this.introBubblespeed = this.bubblespeed / 2f;
         this.actualBubblespeed = introBubblespeed;
 
 
