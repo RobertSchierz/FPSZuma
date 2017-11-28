@@ -10,7 +10,8 @@ public class ShootedBubble : MonoBehaviour
     public GameObject targetBubble;
     public Transform bubbles;
     private Bubble bubbleAttr;
-    private GameMaster gameMaster;
+    private GameObject gameMaster;
+    private GameMaster gameMasterAttr;
     private MoveOnSpline moveOnSplineAttr;
     private Wavespawner waveSpawner;
 
@@ -22,8 +23,9 @@ public class ShootedBubble : MonoBehaviour
     void Start()
     {
         this.bubbleAttr = gameObject.GetComponent<Bubble>();
+        this.gameMaster = GameObject.FindGameObjectWithTag("GameController");
+        this.gameMasterAttr = this.gameMaster.GetComponent<GameMaster>();
         this.bubbles = this.bubbleAttr.bubbles;
-        this.gameMaster = this.bubbleAttr.gameMasterAttributes;
         this.waveSpawner = this.bubbleAttr.waveSpawner;
 
 
@@ -51,8 +53,8 @@ public class ShootedBubble : MonoBehaviour
 
     private void handleInsertBubble(Bubble targetbubbleattr, MoveOnSpline targetMoveOnSplineAttr)
     {
-        Vector3 bubblePosBefore = targetbubbleattr.mathe.CalcPositionByDistance(targetbubbleattr.cursor.Distance + this.gameMaster.bubbleSizeAverage);
-        Vector3 bubblePosAfter = targetbubbleattr.mathe.CalcPositionByDistance(targetbubbleattr.cursor.Distance - this.gameMaster.bubbleSizeAverage);
+        Vector3 bubblePosBefore = targetbubbleattr.mathe.CalcPositionByDistance(targetbubbleattr.cursor.Distance + this.gameMasterAttr.bubbleSizeAverage);
+        Vector3 bubblePosAfter = targetbubbleattr.mathe.CalcPositionByDistance(targetbubbleattr.cursor.Distance - this.gameMasterAttr.bubbleSizeAverage);
 
         float distanceBubblePosBefore = Vector3.Distance(bubblePosBefore, transform.position);
         float distanceBubblePosAfter = Vector3.Distance(bubblePosAfter, transform.position);
@@ -211,7 +213,7 @@ public class ShootedBubble : MonoBehaviour
                 this.bubbleAttr.isFirstBubble = true;
                 targetBubbleAttr.beforeBubble = transform;
                 this.bubbleAttr.afterBubble = targetBubbleAttr.transform;
-                this.moveOnSplineAttr.distanceCalc = targetMoveOnSplineAttr.distanceCalc + this.gameMaster.bubbleSizeAverage;
+                this.moveOnSplineAttr.distanceCalc = targetMoveOnSplineAttr.distanceCalc + this.gameMasterAttr.bubbleSizeAverage;
             }
             else
             {
@@ -219,7 +221,7 @@ public class ShootedBubble : MonoBehaviour
                 this.bubbleAttr.beforeBubble = targetBubbleAttr.beforeBubble;
                 this.bubbleAttr.afterBubble = this.targetBubble.transform;
                 targetBubbleAttr.beforeBubble = transform;
-                this.moveOnSplineAttr.distanceCalc = this.bubbleAttr.afterBubble.GetComponent<MoveOnSpline>().distanceCalc + this.gameMaster.bubbleSizeAverage;
+                this.moveOnSplineAttr.distanceCalc = this.bubbleAttr.afterBubble.GetComponent<MoveOnSpline>().distanceCalc + this.gameMasterAttr.bubbleSizeAverage;
             }
 
         }
@@ -240,7 +242,7 @@ public class ShootedBubble : MonoBehaviour
                 this.bubbleAttr.beforeBubble = targetBubble.transform;
                 this.bubbleAttr.afterBubble = targetBubbleAttr.afterBubble;
                 targetBubbleAttr.afterBubble = transform;
-                this.moveOnSplineAttr.distanceCalc = this.bubbleAttr.afterBubble.GetComponent<MoveOnSpline>().distanceCalc + this.gameMaster.bubbleSizeAverage;
+                this.moveOnSplineAttr.distanceCalc = this.bubbleAttr.afterBubble.GetComponent<MoveOnSpline>().distanceCalc + this.gameMasterAttr.bubbleSizeAverage;
             }
         }
     }
@@ -263,13 +265,13 @@ public class ShootedBubble : MonoBehaviour
             //targetBubbleAttr.movedBubbleRow[i].GetComponent<Bubble>().bubblesInserted++;
             targetBubbleAttr.movedBubbleRow[i].GetComponent<Bubble>().interpolate = true;
 
-            if (this.insertAfter)
-            {
-                targetBubbleAttr.interpolate = true;
-            }
-            
-            
         }
+
+        if (this.insertAfter)
+        {
+            targetBubbleAttr.interpolate = true;
+        }
+
     }
 
 

@@ -75,7 +75,6 @@ public class MoveOnSpline : MonoBehaviour
 
     void Update()
     {
-
         this.seconds = this.gamemaster.GetComponent<Wavespawner>().actualBubblespeed; 
 
         if (this.distanceRatio <= this.max)
@@ -148,7 +147,34 @@ public class MoveOnSpline : MonoBehaviour
         }*/
         this.bubbleAttributes.interpolate = false;
         this.animationStart = 0.0f;
+
+        int interpolationCounter = 0;
+        for (int i = 0; i < this.bubbles.childCount; i++)
+        {
+            if (this.bubbles.GetChild(i).GetComponent<Bubble>().interpolate)
+            {
+                interpolationCounter++;
+            }
+        }
+        if(interpolationCounter == 0)
+        {
+            sortBubbles();
+        }
+     
         
+    }
+
+    private void sortBubbles()
+    {
+        for (int i = 0; i < this.bubbles.childCount; i++)
+        {
+            Bubble childBubbleAttr = this.bubbles.GetChild(i).GetComponent<Bubble>();
+            MoveOnSpline childMoveOnSplineAttr = this.bubbles.GetChild(i).GetComponent<MoveOnSpline>();
+            if (!childBubbleAttr.isFirstBubble)
+            {
+                childMoveOnSplineAttr.distanceCalc = childBubbleAttr.beforeBubble.GetComponent<MoveOnSpline>().distanceCalc - this.gameMasterAttributes.bubbleSizeAverage;
+            }
+        }
     }
 
 
