@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ShootedBubble : MonoBehaviour
@@ -75,13 +77,11 @@ public class ShootedBubble : MonoBehaviour
 
         if (distanceBubblePosAfter > distanceBubblePosBefore)
         {
-            Debug.Log("before");
             this.insertBefore = true;
 
         }
         else if (distanceBubblePosAfter < distanceBubblePosBefore)
         {
-            Debug.Log("after");
             this.insertAfter = true;
 
         }
@@ -228,14 +228,16 @@ public class ShootedBubble : MonoBehaviour
       
     }
 
-    private void setMovedBubbleRow()
+    private void setMovedBubbleRow(int leftColorBorderIndex, int rightColorBorderIndex)
     {
-        for (int i = 0; i < this.bubbles.childCount; i++)
+        int bubblesExplodedCount = Math.Abs(leftColorBorderIndex - rightColorBorderIndex) + 1;
+        for (int i = leftColorBorderIndex; i < this.bubbles.childCount; i++)
         {
             Transform[] infrontRowOfBubble = this.bubbles.GetChild(i).GetComponent<Bubble>().movedBubbleRow;
-            List<Transform> tmpInfrontRowOfBubbleList = new List<Transform>(infrontRowOfBubble);
-            tmpInfrontRowOfBubbleList.RemoveAll(item => item == null);
-            this.bubbles.GetChild(i).GetComponent<Bubble>().movedBubbleRow = tmpInfrontRowOfBubbleList.ToArray();
+            List<Transform> tmpInfrontRowOfBubbleList = infrontRowOfBubble.ToList();
+            tmpInfrontRowOfBubbleList.RemoveRange(rightColorBorderIndex, bubblesExplodedCount);
+            this.bubbles.GetChild(i).GetComponent<Bubble>().movedBubbleRow = new Transform[tmpInfrontRowOfBubbleList.Count];
+            this.bubbles.GetChild(i).GetComponent<Bubble>().movedBubbleRow = tmpInfrontRowOfBubbleList.ToArray<Transform>();
         }
     }
 
@@ -252,7 +254,7 @@ public class ShootedBubble : MonoBehaviour
         {
             Destroy(this.bubbles.GetChild(i).gameObject);
         }
-        setMovedBubbleRow();
+        setMovedBubbleRow(leftColorBorderIndex, rightColorBorderIndex);
 
 
     }

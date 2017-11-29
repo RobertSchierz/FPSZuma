@@ -113,6 +113,11 @@ public class Bubble : MonoBehaviour
     void Update()
     {
         this.bubble.transform.rotation = Quaternion.identity;
+        /*if (this.bubbles.childCount != 0 && this.)
+        {
+            checkBubblerowInfront();
+        }*/
+        
     }
 
 }
