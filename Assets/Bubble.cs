@@ -85,7 +85,7 @@ public class Bubble : MonoBehaviour
         {
             this.isFirstBubble = true;
             this.movedBubbleRow[0] = transform;
-            //this.beforebubble = transform;
+            
         }
         else
         {
