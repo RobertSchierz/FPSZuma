@@ -36,7 +36,7 @@ public class Wavespawner : MonoBehaviour
     private int introBubbleNumber;
     private float introBubblespeed;
     public float actualBubblespeed;
-    public bool rollInRow = true;
+    //public bool rollInRow = true;
 
     private bool spawnque = false;
 
@@ -121,7 +121,7 @@ public class Wavespawner : MonoBehaviour
             if (this.bubbles.childCount == this.introBubbleNumber)
             {
                 this.actualBubblespeed = this.bubblespeed;
-                this.rollInRow = false;
+                //this.rollInRow = false;
             }
 
         }

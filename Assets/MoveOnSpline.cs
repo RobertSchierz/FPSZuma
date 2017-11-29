@@ -112,13 +112,13 @@ public class MoveOnSpline : MonoBehaviour
         this.cursor.Distance = this.distanceCalc ;
         transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance);
 
-        if (!this.bubbleAttributes.isFirstBubble && this.wavespawner.rollInRow)
+       /* if (!this.bubbleAttributes.isFirstBubble && this.wavespawner.rollInRow)
         {
             if ((this.bubbleAttributes.beforeBubble.GetComponent<MoveOnSpline>().distanceCalc) - (this.distanceCalc) != this.gameMasterAttributes.bubbleSizeAverage)
             {
                 this.distanceCalc = this.bubbleAttributes.beforeBubble.GetComponent<MoveOnSpline>().distanceCalc - (this.gameMasterAttributes.bubbleSizeAverage);
             }
-        }
+        }*/
     }
 
     public void insertAnimation()
@@ -132,6 +132,7 @@ public class MoveOnSpline : MonoBehaviour
         }
         else
         {
+            moveOnSpline();
             setAnimationValuesBack();
         }
   

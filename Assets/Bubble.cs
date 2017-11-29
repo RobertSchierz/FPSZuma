@@ -36,7 +36,6 @@ public class Bubble : MonoBehaviour
     public bool isFirstBubble = false;
     public bool isLastBubble = false;
     public Transform[] movedBubbleRow;
-    public int bubblesInserted;
     public bool interpolate = false;
 
     void Start()
@@ -51,13 +50,17 @@ public class Bubble : MonoBehaviour
         this.mathe = this.curve.GetComponent<BGCcMath>();
         this.cursor = this.mathe.gameObject.AddComponent<BGCcCursor>();
 
-        this.bubblesInserted = 0;
+
 
         this.movedBubbleRow = new Transform[this.bubbles.childCount];
 
         if (!this.isShooted)
         {
             this.checkBubbleState();
+            if (!this.isFirstBubble) {
+                this.bubble.GetComponent<MoveOnSpline>().distanceCalc = this.bubble.GetComponent<Bubble>().beforeBubble.GetComponent<MoveOnSpline>().distanceCalc - this.gameMasterAttributes.bubbleSizeAverage;
+            }
+
         }
 
     }

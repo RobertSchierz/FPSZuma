@@ -73,7 +73,7 @@ public class ShootedBubble : MonoBehaviour
         }
 
         insertedBubbleHandler(targetbubbleattr, targetMoveOnSplineAttr);
-        handleExplosion();
+        //handleExplosion();
 
         
         
