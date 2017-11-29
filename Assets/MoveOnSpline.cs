@@ -125,8 +125,8 @@ public class MoveOnSpline : MonoBehaviour
     {
         if(this.animationStart < this.animationEnd)
         {
-            this.animationStart += ((this.mathe.GetDistance() * Time.deltaTime) / this.seconds) * 3;
-            this.distanceCalc += ((this.mathe.GetDistance() * Time.deltaTime) / this.seconds) * 4;
+            this.animationStart += ((this.mathe.GetDistance() * Time.deltaTime) / this.seconds) * 2;
+            this.distanceCalc += ((this.mathe.GetDistance() * Time.deltaTime) / this.seconds) * 3;
             this.cursor.Distance = this.distanceCalc;
             transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance);
         }
@@ -148,6 +148,14 @@ public class MoveOnSpline : MonoBehaviour
         this.bubbleAttributes.interpolate = false;
         this.animationStart = 0.0f;
 
+        //sortBubbles();
+      
+     
+        
+    }
+
+    private void sortBubbles()
+    {
         int interpolationCounter = 0;
         for (int i = 0; i < this.bubbles.childCount; i++)
         {
@@ -156,23 +164,16 @@ public class MoveOnSpline : MonoBehaviour
                 interpolationCounter++;
             }
         }
-        if(interpolationCounter == 0)
+        if (interpolationCounter == 0)
         {
-            sortBubbles();
-        }
-     
-        
-    }
-
-    private void sortBubbles()
-    {
-        for (int i = 0; i < this.bubbles.childCount; i++)
-        {
-            Bubble childBubbleAttr = this.bubbles.GetChild(i).GetComponent<Bubble>();
-            MoveOnSpline childMoveOnSplineAttr = this.bubbles.GetChild(i).GetComponent<MoveOnSpline>();
-            if (!childBubbleAttr.isFirstBubble)
+            for (int i = 0; i < this.bubbles.childCount; i++)
             {
-                childMoveOnSplineAttr.distanceCalc = childBubbleAttr.beforeBubble.GetComponent<MoveOnSpline>().distanceCalc - this.gameMasterAttributes.bubbleSizeAverage;
+                Bubble childBubbleAttr = this.bubbles.GetChild(i).GetComponent<Bubble>();
+                MoveOnSpline childMoveOnSplineAttr = this.bubbles.GetChild(i).GetComponent<MoveOnSpline>();
+                if (!childBubbleAttr.isFirstBubble && childBubbleAttr.beforeBubble != null)
+                {
+                    childMoveOnSplineAttr.distanceCalc = childBubbleAttr.beforeBubble.GetComponent<MoveOnSpline>().distanceCalc - this.gameMasterAttributes.bubbleSizeAverage;
+                }
             }
         }
     }

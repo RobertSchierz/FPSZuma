@@ -73,7 +73,7 @@ public class ShootedBubble : MonoBehaviour
         }
 
         insertedBubbleHandler(targetbubbleattr, targetMoveOnSplineAttr);
-        //handleExplosion();
+        handleExplosion();
 
         
         
@@ -112,7 +112,7 @@ public class ShootedBubble : MonoBehaviour
 
     private void explodeBubbles(int leftColorBorderIndex, int rightColorBorderIndex)
     {
-        //Debug.Break();
+        Debug.Break();
         for (int i = rightColorBorderIndex; i <= leftColorBorderIndex; i++)
         {
             Destroy(this.bubbles.GetChild(i).gameObject);
