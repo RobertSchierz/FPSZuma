@@ -41,7 +41,7 @@ public class ShootedBubble : MonoBehaviour
 
         if (collision.contacts[0].otherCollider.gameObject.tag == "Bubble" && !this.hitted)
         {
-            MoveOnSpline.OnAnimationUpdate += checkAnimationUpdate;
+            MoveOnSpline.OnInsertAnimationUpdate += checkInsertionAnimationUpdate;
             this.hitted = true;
             //this.gameMaster.stopAll = true;
             //this.waveSpawner.rollInRow = true;
@@ -54,13 +54,13 @@ public class ShootedBubble : MonoBehaviour
 
     }
 
-    void checkAnimationUpdate()
+    void checkInsertionAnimationUpdate()
     {
         this.animateBubbleCount--;
         if (this.animateBubbleCount == 0)
         {
             handleExplosion();
-            MoveOnSpline.OnAnimationUpdate -= checkAnimationUpdate;
+            MoveOnSpline.OnInsertAnimationUpdate -= checkInsertionAnimationUpdate;
         }
     }
 
@@ -201,6 +201,9 @@ public class ShootedBubble : MonoBehaviour
             rightColorBorderIndex = checkNeighboursOfBubble("right");
         }
 
+        if (leftColorBorderIndex == -1) { leftColorBorderIndex = transform.GetSiblingIndex(); };
+        if (rightColorBorderIndex == -1) { rightColorBorderIndex = transform.GetSiblingIndex(); };
+
         if (checkIfExplode(leftColorBorderIndex, rightColorBorderIndex))
         {
             explodeBubbles(leftColorBorderIndex, rightColorBorderIndex);
@@ -243,8 +246,14 @@ public class ShootedBubble : MonoBehaviour
 
     private void setExplosionWait(Transform[] rowInfront)
     {
-
+        for (int i = 0; i < rowInfront.Length; i++)
+        {
+            rowInfront[i].GetComponent<MoveOnSpline>().waitAfterExplosion = true;
+        }
+        Debug.Break();
     }
+
+  
 
     private void explodeBubbles(int leftColorBorderIndex, int rightColorBorderIndex)
     {
@@ -255,14 +264,13 @@ public class ShootedBubble : MonoBehaviour
             Destroy(this.bubbles.GetChild(i).gameObject);
         }
         setMovedBubbleRow(leftColorBorderIndex, rightColorBorderIndex);
-
+        setExplosionWait(this.bubbles.GetChild(rightColorBorderIndex -1 ).GetComponent<Bubble>().movedBubbleRow);
 
     }
 
     private bool checkIfExplode(int leftColorBorderIndex, int rightColorBorderIndex)
     {
-        if (leftColorBorderIndex == -1) { leftColorBorderIndex = transform.GetSiblingIndex(); };
-        if (rightColorBorderIndex == -1) { rightColorBorderIndex = transform.GetSiblingIndex(); };
+        
 
         if (Mathf.Abs(leftColorBorderIndex - rightColorBorderIndex) >= 2)
         {
@@ -281,7 +289,7 @@ public class ShootedBubble : MonoBehaviour
 
         if (decision.Equals("left"))
         {
-            for (int i = transform.GetSiblingIndex() + 1; i < this.bubbles.childCount; i++)
+            for (int i = transform.GetSiblingIndex() + 1; i <= this.bubbles.childCount; i++)
             {
                 if (this.bubbles.GetChild(i).GetComponent<Bubble>().bubbleColor == this.bubbleAttr.bubbleColor)
                 {

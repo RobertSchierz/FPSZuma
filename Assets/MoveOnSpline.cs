@@ -35,8 +35,8 @@ public class MoveOnSpline : MonoBehaviour
 
     private float animationEnd;
     public float animationStart = 0f;
-    public delegate void animationUpdate();
-    public static event animationUpdate OnAnimationUpdate;
+    public delegate void insertAnimationUpdate();
+    public static event insertAnimationUpdate OnInsertAnimationUpdate;
 
     public bool waitAfterExplosion = false;
 
@@ -75,9 +75,6 @@ public class MoveOnSpline : MonoBehaviour
 
         this.animationEnd = this.gameMasterAttributes.bubbleSizeAverage;
 
-
-
-
     }
 
 
@@ -87,7 +84,7 @@ public class MoveOnSpline : MonoBehaviour
 
         if (this.distanceRatio <= this.max)
         {
-            if (!this.gameMasterAttributes.stopAll)
+            if (!this.waitAfterExplosion)
             {
                 if (this.bubbleAttributes.interpolate)
                 {
@@ -97,6 +94,10 @@ public class MoveOnSpline : MonoBehaviour
                 {
                     moveOnSpline();
                 }
+            }else
+            {
+                transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance);
+                handleExplosionWait();
             }  
         }
 
@@ -112,6 +113,20 @@ public class MoveOnSpline : MonoBehaviour
            */
 
         }
+
+    private void handleExplosionWait()
+    {
+        if (!this.bubbleAttributes.afterBubble.GetComponent<MoveOnSpline>().waitAfterExplosion)
+        {
+            if (this.bubbleAttributes.afterBubble.GetComponent<MoveOnSpline>().distanceCalc >= (this.distanceCalc - this.gameMasterAttributes.bubbleSizeAverage))
+            {
+                foreach (var bubble in this.bubbleAttributes.movedBubbleRow)
+                {
+                    bubble.GetComponent<MoveOnSpline>().waitAfterExplosion = false;
+                }
+            }
+        }
+    }
 
     private void moveOnSpline()
     {
@@ -145,7 +160,7 @@ public class MoveOnSpline : MonoBehaviour
       
         this.bubbleAttributes.interpolate = false;
         this.animationStart = 0.0f;
-        OnAnimationUpdate();
+        OnInsertAnimationUpdate();
 
 
     }

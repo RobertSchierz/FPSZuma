@@ -37,6 +37,7 @@ public class Bubble : MonoBehaviour
     public bool isLastBubble = false;
     public Transform[] movedBubbleRow;
     public bool interpolate = false;
+    
 
     void Start()
     {
@@ -112,12 +113,7 @@ public class Bubble : MonoBehaviour
 
     void Update()
     {
-        this.bubble.transform.rotation = Quaternion.identity;
-        /*if (this.bubbles.childCount != 0 && this.)
-        {
-            checkBubblerowInfront();
-        }*/
-        
+        this.bubble.transform.rotation = Quaternion.identity;      
     }
 
 }
