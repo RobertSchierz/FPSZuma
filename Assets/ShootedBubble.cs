@@ -78,11 +78,13 @@ public class ShootedBubble : MonoBehaviour
         if (distanceBubblePosAfter > distanceBubblePosBefore)
         {
             this.insertBefore = true;
+            Debug.Log("before");
 
         }
         else if (distanceBubblePosAfter < distanceBubblePosBefore)
         {
             this.insertAfter = true;
+            Debug.Log("after");
 
         }
 
@@ -134,6 +136,10 @@ public class ShootedBubble : MonoBehaviour
                 this.bubbleAttr.afterBubble = this.targetBubble.transform;
                 targetBubbleAttr.beforeBubble = transform;
                 this.moveOnSplineAttr.distanceCalc = this.bubbleAttr.afterBubble.GetComponent<MoveOnSpline>().distanceCalc + this.gameMasterAttr.bubbleSizeAverage;
+                if (targetBubble.GetComponent<MoveOnSpline>().waitAfterExplosion)
+                {
+                    this.moveOnSplineAttr.waitAfterExplosion = true;
+                }
             }
 
         }
@@ -154,10 +160,21 @@ public class ShootedBubble : MonoBehaviour
                 this.bubbleAttr.beforeBubble = targetBubble.transform;
                 this.bubbleAttr.afterBubble = targetBubbleAttr.afterBubble;
                 targetBubbleAttr.afterBubble = transform;
-                this.moveOnSplineAttr.distanceCalc = this.bubbleAttr.afterBubble.GetComponent<MoveOnSpline>().distanceCalc + this.gameMasterAttr.bubbleSizeAverage;
+
+                if (targetBubble.GetComponent<MoveOnSpline>().waitAfterExplosion)
+                {
+                    this.moveOnSplineAttr.distanceCalc = this.bubbleAttr.beforeBubble.GetComponent<MoveOnSpline>().distanceCalc;
+                    this.moveOnSplineAttr.waitAfterExplosion = true;
+                }else
+                {
+                    this.moveOnSplineAttr.distanceCalc = this.bubbleAttr.afterBubble.GetComponent<MoveOnSpline>().distanceCalc + this.gameMasterAttr.bubbleSizeAverage;
+                }
+                
             }
         }
     }
+
+ 
 
     private void setHirarchyIndex(Bubble targetBubbleAttr, int newHirarchyIndex)
     {
@@ -172,13 +189,14 @@ public class ShootedBubble : MonoBehaviour
 
     private void addInsertedBubbleAttrToRow(Bubble targetBubbleAttr, int rowinfrontlength)
     {
-        for (int i = 0; i < rowinfrontlength; i++)
-        {
-            //targetBubbleAttr.movedBubbleRow[i].GetComponent<Bubble>().bubblesInserted++;
-            targetBubbleAttr.movedBubbleRow[i].GetComponent<Bubble>().interpolate = true;
-            this.animateBubbleCount++;
+            for (int i = 0; i < rowinfrontlength; i++)
+            {
+                //targetBubbleAttr.movedBubbleRow[i].GetComponent<Bubble>().bubblesInserted++;
+                targetBubbleAttr.movedBubbleRow[i].GetComponent<Bubble>().interpolate = true;
+                this.animateBubbleCount++;
 
-        }
+            }
+      
     }
 
 //----------------------------------------Explosion---------------------------------//
@@ -238,7 +256,15 @@ public class ShootedBubble : MonoBehaviour
         {
             Transform[] infrontRowOfBubble = this.bubbles.GetChild(i).GetComponent<Bubble>().movedBubbleRow;
             List<Transform> tmpInfrontRowOfBubbleList = infrontRowOfBubble.ToList();
-            tmpInfrontRowOfBubbleList.RemoveRange(rightColorBorderIndex, bubblesExplodedCount);
+            try
+            {
+                tmpInfrontRowOfBubbleList.RemoveRange(rightColorBorderIndex, bubblesExplodedCount);
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e.ToString());
+            }
+            
             this.bubbles.GetChild(i).GetComponent<Bubble>().movedBubbleRow = new Transform[tmpInfrontRowOfBubbleList.Count];
             this.bubbles.GetChild(i).GetComponent<Bubble>().movedBubbleRow = tmpInfrontRowOfBubbleList.ToArray<Transform>();
         }
@@ -250,7 +276,8 @@ public class ShootedBubble : MonoBehaviour
         {
             rowInfront[i].GetComponent<MoveOnSpline>().waitAfterExplosion = true;
         }
-        Debug.Break();
+        //Debug.Break();
+
     }
 
   
@@ -265,6 +292,13 @@ public class ShootedBubble : MonoBehaviour
         }
         setMovedBubbleRow(leftColorBorderIndex, rightColorBorderIndex);
         setExplosionWait(this.bubbles.GetChild(rightColorBorderIndex -1 ).GetComponent<Bubble>().movedBubbleRow);
+
+
+        //Helper->
+        for (int i = leftColorBorderIndex+1; i < this.bubbles.childCount; i++)
+        {
+            this.bubbles.GetChild(i).GetComponent<MoveOnSpline>().helperWait = true;
+        }
 
     }
 

@@ -29,6 +29,7 @@ public class Cameralook : MonoBehaviour {
 
 	void Update () {
 
+
         rotAverageX = 0f;
 
         rotationX += Input.GetAxis("Mouse X") * sensitivity;

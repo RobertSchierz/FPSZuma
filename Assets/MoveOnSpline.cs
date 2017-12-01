@@ -39,6 +39,7 @@ public class MoveOnSpline : MonoBehaviour
     public static event insertAnimationUpdate OnInsertAnimationUpdate;
 
     public bool waitAfterExplosion = false;
+    public bool helperWait = false;
 
     public float distanceCalc;
 
@@ -82,7 +83,7 @@ public class MoveOnSpline : MonoBehaviour
     {
         this.seconds = this.gamemaster.GetComponent<Wavespawner>().actualBubblespeed; 
 
-        if (this.distanceRatio <= this.max)
+        if (this.distanceRatio <= this.max  && !this.helperWait)
         {
             if (!this.waitAfterExplosion)
             {
@@ -92,13 +93,28 @@ public class MoveOnSpline : MonoBehaviour
                 }
                 else
                 {
+
                     moveOnSpline();
+
                 }
             }else
             {
-                transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance);
-                handleExplosionWait();
-            }  
+                if (this.bubbleAttributes.interpolate)
+                {
+                    insertAnimation();
+                    handleExplosionWait();
+                }else
+                {
+                    this.cursor.Distance = this.distanceCalc;
+                    transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance);
+                    handleExplosionWait();
+                }
+               
+            }
+        }else
+        {
+            // Helper->
+            transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance);
         }
 
                /*
@@ -122,6 +138,7 @@ public class MoveOnSpline : MonoBehaviour
             {
                 foreach (var bubble in this.bubbleAttributes.movedBubbleRow)
                 {
+                    bubble.GetComponent<Bubble>().interpolate = false;
                     bubble.GetComponent<MoveOnSpline>().waitAfterExplosion = false;
                 }
             }
@@ -132,7 +149,7 @@ public class MoveOnSpline : MonoBehaviour
     {
         this.distanceCalc += (this.mathe.GetDistance() * Time.deltaTime) / this.seconds;
 
-        this.cursor.Distance = this.distanceCalc ;
+        this.cursor.Distance = this.distanceCalc;
         transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance);
 
     
@@ -142,8 +159,18 @@ public class MoveOnSpline : MonoBehaviour
     {
         if(this.animationStart < this.animationEnd)
         {
-            this.animationStart += ((this.mathe.GetDistance() * Time.deltaTime) / this.seconds) * 2;
-            this.distanceCalc += ((this.mathe.GetDistance() * Time.deltaTime) / this.seconds) * 3;
+
+            if (this.waitAfterExplosion)
+            {
+                this.animationStart += ((this.mathe.GetDistance() * Time.deltaTime) / this.seconds) * 2;
+                this.distanceCalc += ((this.mathe.GetDistance() * Time.deltaTime) / this.seconds) * 2;
+            }
+            else
+            {
+                this.animationStart += ((this.mathe.GetDistance() * Time.deltaTime) / this.seconds) * 2;
+                this.distanceCalc += ((this.mathe.GetDistance() * Time.deltaTime) / this.seconds) * 3;
+            }
+            
             this.cursor.Distance = this.distanceCalc;
             transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance);
         }
