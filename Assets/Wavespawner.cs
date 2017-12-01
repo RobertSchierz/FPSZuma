@@ -43,6 +43,8 @@ public class Wavespawner : MonoBehaviour
     private GameMaster gameMasterAttributes;
     private Transform bubble;
 
+    private int bubblesSpawned = 0;
+
 
 
 
@@ -63,6 +65,7 @@ public class Wavespawner : MonoBehaviour
         this.introBubbleNumber = this.bubbleCountPerWave / 10;
         this.introBubblespeed = this.bubblespeed / 2f;
         this.actualBubblespeed = introBubblespeed;
+
 
 
     }
@@ -95,7 +98,7 @@ public class Wavespawner : MonoBehaviour
 
 
 
-        if (this.spawnque && this.bubbles.childCount < this.bubbleCountPerWave && !this.lostgame)
+        if (this.spawnque && this.bubblesSpawned < this.bubbleCountPerWave && !this.lostgame)
         {
          
 
@@ -121,7 +124,6 @@ public class Wavespawner : MonoBehaviour
             if (this.bubbles.childCount == this.introBubbleNumber)
             {
                 this.actualBubblespeed = this.bubblespeed;
-                //this.rollInRow = false;
             }
 
         }
@@ -192,7 +194,7 @@ public class Wavespawner : MonoBehaviour
 
     void spawnBubble()
     {
-
+        this.bubblesSpawned++;
         this.bubble = Instantiate(this.randomizePrefabs(), spawnPoint.position, spawnPoint.rotation);
         this.bubble.transform.parent = this.bubbles.transform;
         this.bubble.GetComponent<Bubble>().bubbleColor = this.prefabIndex;
