@@ -83,7 +83,7 @@ public class MoveOnSpline : MonoBehaviour
     {
         this.seconds = this.gamemaster.GetComponent<Wavespawner>().actualBubblespeed; 
 
-        if (this.distanceRatio <= this.max /* && !this.helperWait*/)
+        if (this.distanceRatio <= this.max  && !this.helperWait)
         {
             if (!this.waitAfterExplosion)
             {
