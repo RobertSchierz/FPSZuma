@@ -129,9 +129,9 @@ public class ShootedBubble : MonoBehaviour
                 this.bubbleAttr.afterBubble = targetBubbleAttr.transform;
                 this.moveOnSplineAttr.distanceCalc = targetMoveOnSplineAttr.distanceCalc + this.gameMasterAttr.bubbleSizeAverage;
 
-                if (targetBubble.GetComponent<MoveOnSpline>().waitAfterExplosion)
+                if (targetBubble.GetComponent<MoveOnSpline>().explosionCounter != 0)
                 {
-                    this.moveOnSplineAttr.waitAfterExplosion = true;
+                    this.moveOnSplineAttr.explosionCounter = targetBubble.GetComponent<MoveOnSpline>().explosionCounter;
                 }
 
                 handleExplosion();
@@ -143,9 +143,9 @@ public class ShootedBubble : MonoBehaviour
                 this.bubbleAttr.afterBubble = this.targetBubble.transform;
                 targetBubbleAttr.beforeBubble = transform;
                 this.moveOnSplineAttr.distanceCalc = this.bubbleAttr.afterBubble.GetComponent<MoveOnSpline>().distanceCalc + this.gameMasterAttr.bubbleSizeAverage;
-                if (targetBubble.GetComponent<MoveOnSpline>().waitAfterExplosion)
+                if (targetBubble.GetComponent<MoveOnSpline>().explosionCounter != 0)
                 {
-                    this.moveOnSplineAttr.waitAfterExplosion = true;
+                    this.moveOnSplineAttr.explosionCounter = targetBubble.GetComponent<MoveOnSpline>().explosionCounter;
                 }
             }
 
@@ -168,10 +168,10 @@ public class ShootedBubble : MonoBehaviour
                 this.bubbleAttr.afterBubble = targetBubbleAttr.afterBubble;
                 targetBubbleAttr.afterBubble = transform;
 
-                if (targetBubble.GetComponent<MoveOnSpline>().waitAfterExplosion)
+                if (targetBubble.GetComponent<MoveOnSpline>().explosionCounter != 0)
                 {
                     this.moveOnSplineAttr.distanceCalc = this.bubbleAttr.beforeBubble.GetComponent<MoveOnSpline>().distanceCalc;
-                    this.moveOnSplineAttr.waitAfterExplosion = true;
+                    this.moveOnSplineAttr.explosionCounter = targetBubble.GetComponent<MoveOnSpline>().explosionCounter;
                 }
                 else
                 {
@@ -200,9 +200,9 @@ public class ShootedBubble : MonoBehaviour
         for (int i = 0; i < rowinfrontlength; i++)
         {
 
-            if (!this.targetBubble.GetComponent<MoveOnSpline>().waitAfterExplosion)
+            if (this.targetBubble.GetComponent<MoveOnSpline>().explosionCounter == 0)
             {
-                if (!targetBubbleAttr.movedBubbleRow[i].GetComponent<MoveOnSpline>().waitAfterExplosion)
+                if (targetBubbleAttr.movedBubbleRow[i].GetComponent<MoveOnSpline>().explosionCounter == 0)
                 {
                     targetBubbleAttr.movedBubbleRow[i].GetComponent<Bubble>().interpolate = true;
                     this.animateBubbleCount++;
@@ -211,41 +211,22 @@ public class ShootedBubble : MonoBehaviour
             }
             else
             {
-                
+                if (targetBubble.GetComponent<MoveOnSpline>().explosionCounter == targetBubbleAttr.movedBubbleRow[i].GetComponent<MoveOnSpline>().explosionCounter)
+                {
                     targetBubbleAttr.movedBubbleRow[i].GetComponent<Bubble>().interpolate = true;
                     this.animateBubbleCount++;
-                 
+                }
             }
-
-            //targetBubbleAttr.movedBubbleRow[i].GetComponent<Bubble>().bubblesInserted++;
-
-
         }
 
     }
 
-    /*private bool checkMultipleExplosion(int bubbleIndex, Bubble targetBubbleAttr)
-    {
-        if (targetBubbleAttr.movedBubbleRow[bubbleIndex].GetComponent<Bubble>().isFirstBubble)
-        {
-            return false;
-        }else
-        {
-            if (targetBubbleAttr.movedBubbleRow[bubbleIndex + 1].GetComponent<MoveOnSpline>().distanceCalc > targetBubbleAttr.movedBubbleRow[bubbleIndex].GetComponent<MoveOnSpline>().distanceCalc + this.gameMasterAttr.bubbleSizeAverage)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-    }*/
 
     //----------------------------------------Explosion---------------------------------//
 
     private void handleExplosion()
     {
+
         int leftColorBorderIndex = -1;
         int rightColorBorderIndex = -1;
 
@@ -272,6 +253,8 @@ public class ShootedBubble : MonoBehaviour
         }
 
     }
+
+
 
     private void setNewValuesForBubbleExplosion(int leftColorBorderIndex, int rightColorBorderIndex)
     {
@@ -315,13 +298,28 @@ public class ShootedBubble : MonoBehaviour
         }
     }
 
-    private void setExplosionWait(Transform[] rowInfront)
+    private void setExplosionWait(Transform[] rowInfront, int leftIndex, int rightIndex)
     {
-        for (int i = 0; i < rowInfront.Length; i++)
+ 
+        if ((this.bubbles.GetChild(leftIndex + 1).GetComponent<MoveOnSpline>().explosionCounter == this.bubbles.GetChild(leftIndex).GetComponent<MoveOnSpline>().explosionCounter)
+            &&
+            (this.bubbles.GetChild(rightIndex - 1).GetComponent<MoveOnSpline>().explosionCounter == this.bubbles.GetChild(rightIndex).GetComponent<MoveOnSpline>().explosionCounter))
         {
-            rowInfront[i].GetComponent<MoveOnSpline>().waitAfterExplosion = true;
+            for (int i = 0; i < rowInfront.Length; i++)
+            {
+                rowInfront[i].GetComponent<MoveOnSpline>().explosionCounter++;
+            }
         }
-        //Debug.Break();
+
+        if ((this.bubbles.GetChild(leftIndex + 1).GetComponent<MoveOnSpline>().explosionCounter != this.bubbles.GetChild(leftIndex).GetComponent<MoveOnSpline>().explosionCounter)
+          &&
+          (this.bubbles.GetChild(rightIndex - 1).GetComponent<MoveOnSpline>().explosionCounter != this.bubbles.GetChild(rightIndex).GetComponent<MoveOnSpline>().explosionCounter))
+        {
+            for (int i = 0; i < rowInfront.Length; i++)
+            {
+                rowInfront[i].GetComponent<MoveOnSpline>().explosionCounter--;
+            }
+        }
 
     }
 
@@ -339,7 +337,7 @@ public class ShootedBubble : MonoBehaviour
 
         if (!(rightColorBorderIndex == 0) && !(leftColorBorderIndex == this.bubbles.childCount - 1))
         {
-            setExplosionWait(this.bubbles.GetChild(rightColorBorderIndex - 1).GetComponent<Bubble>().movedBubbleRow);
+            setExplosionWait(this.bubbles.GetChild(rightColorBorderIndex - 1).GetComponent<Bubble>().movedBubbleRow, leftColorBorderIndex, rightColorBorderIndex);
         }
 
 
@@ -347,7 +345,11 @@ public class ShootedBubble : MonoBehaviour
         //Helper->
         for (int i = leftColorBorderIndex + 1; i < this.bubbles.childCount; i++)
         {
-            this.bubbles.GetChild(i).GetComponent<MoveOnSpline>().helperWait = true;
+            if (this.bubbles.GetChild(i).GetComponent<MoveOnSpline>().explosionCounter == 0)
+            {
+                this.bubbles.GetChild(i).GetComponent<MoveOnSpline>().helperWait = true;
+            }
+
         }
 
     }

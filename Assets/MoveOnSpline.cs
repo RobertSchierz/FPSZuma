@@ -38,7 +38,7 @@ public class MoveOnSpline : MonoBehaviour
     public delegate void insertAnimationUpdate();
     public static event insertAnimationUpdate OnInsertAnimationUpdate;
 
-    public bool waitAfterExplosion = false;
+    public int explosionCounter = 0;
     public bool helperWait = false;
 
     public float distanceCalc;
@@ -81,11 +81,24 @@ public class MoveOnSpline : MonoBehaviour
 
     void Update()
     {
+
+        //---> helper
+
+        if (Input.GetButtonDown("Fire2"))
+        {
+            this.helperWait = false;
+
+        }
+
+
         this.seconds = this.gamemaster.GetComponent<Wavespawner>().actualBubblespeed; 
 
-        if (this.distanceRatio <= this.max  && !this.helperWait)
+        if (this.distanceRatio <= this.max  && !this.helperWait )
         {
-            if (!this.waitAfterExplosion)
+
+            checkDistances();
+
+            if (this.explosionCounter == 0)
             {
                 if (this.bubbleAttributes.interpolate)
                 {
@@ -93,7 +106,6 @@ public class MoveOnSpline : MonoBehaviour
                 }
                 else
                 {
-
                     moveOnSpline();
 
                 }
@@ -102,16 +114,21 @@ public class MoveOnSpline : MonoBehaviour
                 if (this.bubbleAttributes.interpolate)
                 {
                     insertAnimation();
-                    handleExplosionWait();
+                    //handleExplosionWait();
                 }else
                 {
                     this.cursor.Distance = this.distanceCalc;
                     transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance);
-                    handleExplosionWait();
+                    //handleExplosionWait();
                 }
                
             }
-        }else
+
+            
+
+
+        }
+        else
         {
             // Helper->
             transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance);
@@ -130,19 +147,80 @@ public class MoveOnSpline : MonoBehaviour
 
         }
 
+    private void checkDistances() {
+
+        if (!this.bubbleAttributes.isFirstBubble)
+        {
+            if (this.explosionCounter != this.bubbleAttributes.beforeBubble.GetComponent<MoveOnSpline>().explosionCounter)
+            {
+               
+                float calculationValue = (this.bubbleAttributes.beforeBubble.GetComponent<MoveOnSpline>().distanceCalc - this.gameMasterAttributes.bubbleSizeAverage);
+                if (this.distanceCalc + Time.deltaTime >= calculationValue)
+                {
+                    correctOverlapOfBubbles(this.distanceCalc - calculationValue);
+                }
+            }
+
+        }
+
+    }
+
+    public void correctOverlapOfBubbles( float distanceCalcDifference)
+    {
+       // Debug.Break();
+        foreach (var infrontBubble in this.bubbleAttributes.beforeBubble.GetComponent<Bubble>().movedBubbleRow)
+        {
+            MoveOnSpline infrontBubbleMoveOnSpline = infrontBubble.GetComponent<MoveOnSpline>();
+            Bubble infrontBubbleBubbleAttr = infrontBubble.GetComponent<Bubble>();
+
+            if (infrontBubbleMoveOnSpline.explosionCounter == this.explosionCounter + 1)
+            {
+
+                if (!this.bubbleAttributes.interpolate)
+                {
+                    infrontBubbleMoveOnSpline.explosionCounter = this.explosionCounter;
+                }
+
+                infrontBubbleMoveOnSpline.distanceCalc += distanceCalcDifference;
+
+              
+            }else
+            {
+                if (infrontBubbleMoveOnSpline.explosionCounter != infrontBubbleBubbleAttr.afterBubble.GetComponent<MoveOnSpline>().explosionCounter && infrontBubbleBubbleAttr.afterBubble.GetComponent<MoveOnSpline>().explosionCounter == 0)
+                {
+                    infrontBubbleMoveOnSpline.explosionCounter = infrontBubbleBubbleAttr.afterBubble.GetComponent<MoveOnSpline>().explosionCounter;
+                    
+                }
+            }
+
+
+
+
+            
+                
+
+
+
+
+        }
+    }
+
     private void handleExplosionWait()
     {
-        if (!this.bubbleAttributes.afterBubble.GetComponent<MoveOnSpline>().waitAfterExplosion)
+        if (this.bubbleAttributes.afterBubble.GetComponent<MoveOnSpline>().explosionCounter == 0)
         {
             if (this.bubbleAttributes.afterBubble.GetComponent<MoveOnSpline>().distanceCalc >= (this.distanceCalc - this.gameMasterAttributes.bubbleSizeAverage))
             {
                 foreach (var bubble in this.bubbleAttributes.movedBubbleRow)
                 {
                     bubble.GetComponent<Bubble>().interpolate = false;
-                    bubble.GetComponent<MoveOnSpline>().waitAfterExplosion = false;
+                    bubble.GetComponent<MoveOnSpline>().explosionCounter = 0;
                 }
             }
         }
+
+ 
+
     }
 
     private void moveOnSpline()
@@ -155,12 +233,14 @@ public class MoveOnSpline : MonoBehaviour
     
     }
 
+
+
     public void insertAnimation()
     {
         if(this.animationStart < this.animationEnd)
         {
 
-            if (this.waitAfterExplosion)
+            if (this.explosionCounter != 0)
             {
                 this.animationStart += ((this.mathe.GetDistance() * Time.deltaTime) / this.seconds) * 2;
                 this.distanceCalc += ((this.mathe.GetDistance() * Time.deltaTime) / this.seconds) * 2;

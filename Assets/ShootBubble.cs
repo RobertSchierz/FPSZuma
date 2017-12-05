@@ -28,19 +28,45 @@ public class ShootBubble : MonoBehaviour
         this.level = GameObject.FindGameObjectWithTag("Level");
         Leveltrigger.onOutoflevel += handleBubbleout;
         this.nextBubble = randomizePrefabs();
-        Debug.Log(getBubbleColor(this.nextBubbleIndex));
-        
+        Debug.Log("<b>" + getBubbleColor(this.nextBubbleIndex) + "</b>");
+
 
     }
 
-   
+
 
 
     void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            this.nextBubbleIndex = 0;
+            this.prefabIndex = 0;
+            this.nextBubble = this.bubblePrefabs[0];
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            this.nextBubbleIndex = 1;
+            this.prefabIndex = 1;
+            this.nextBubble = this.bubblePrefabs[1];
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            this.nextBubbleIndex = 2;
+            this.prefabIndex = 2;
+            this.nextBubble = this.bubblePrefabs[2];
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            this.nextBubbleIndex = 3;
+            this.prefabIndex = 3;
+            this.nextBubble = this.bubblePrefabs[3];
+        }
+
         if (Input.GetButtonDown("Fire1") && Time.time >= timestamp)
         {
-        
+
             shootBubble();
             this.nextBubble = randomizePrefabs();
             this.timestamp = Time.time + this.timeBetweenShots;
@@ -51,7 +77,7 @@ public class ShootBubble : MonoBehaviour
         }
     }
 
-    private  String getBubbleColor(int color)
+    private String getBubbleColor(int color)
     {
         string returnText = "Nächste Farbe: ";
         switch (color)
