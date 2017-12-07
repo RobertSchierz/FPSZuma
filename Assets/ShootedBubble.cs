@@ -22,6 +22,7 @@ public class ShootedBubble : MonoBehaviour
 
     public int animateBubbleCount;
     private int explosionBubblesCount = 0;
+    //public HelperMethods helper;
 
 
 
@@ -32,6 +33,7 @@ public class ShootedBubble : MonoBehaviour
         this.gameMasterAttr = this.gameMaster.GetComponent<GameMaster>();
         this.bubbles = this.bubbleAttr.bubbles;
         this.waveSpawner = this.bubbleAttr.waveSpawner;
+        //this.helper = new HelperMethods(this.bubbleAttr);
 
     }
 
@@ -58,6 +60,7 @@ public class ShootedBubble : MonoBehaviour
         this.animateBubbleCount--;
         if (this.animateBubbleCount == 0)
         {
+            //this.helper.handleExplosion();
             handleExplosion();
             MoveOnSpline.OnInsertAnimationUpdate -= checkInsertionAnimationUpdate;
         }
@@ -134,6 +137,7 @@ public class ShootedBubble : MonoBehaviour
                 }
 
                 handleExplosion();
+                //this.helper.handleExplosion();
             }
             else
             {
@@ -150,6 +154,7 @@ public class ShootedBubble : MonoBehaviour
                 if (this.bubbleAttr.beforeBubble.GetComponent<MoveOnSpline>().explosionCounter != this.moveOnSplineAttr.explosionCounter)
                 {
                     handleExplosion();
+                    //this.helper.handleExplosion();
                 }
             }
 
@@ -227,6 +232,8 @@ public class ShootedBubble : MonoBehaviour
 
 
     //----------------------------------------Explosion---------------------------------//
+
+        
 
     private void handleExplosion()
     {
@@ -503,6 +510,6 @@ public class ShootedBubble : MonoBehaviour
         }
 
     }
-
+    
 
 }
