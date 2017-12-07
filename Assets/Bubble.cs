@@ -39,6 +39,7 @@ public class Bubble : MonoBehaviour
     public bool interpolate = false;
     public bool rollback = false;
     public Transform rollbackBorderBubble;
+
     
 
     void Start()

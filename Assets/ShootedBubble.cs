@@ -391,10 +391,10 @@ public class ShootedBubble : MonoBehaviour
                 //if (leftColorBubbleIndex == -1) { leftColorBubbleIndex = leftColorBorderIndex + 1; }
                 //if (rightColorBubbleIndex == -1) { rightColorBubbleIndex = rightColorBorderIndex - 1; }
 
-                Debug.Log(leftColorBubbleIndex);
-                Debug.Log(rightColorBubbleIndex);
-                Debug.Log(this.explosionBubblesCount);
-               // Debug.Break();
+                //Debug.Log(leftColorBubbleIndex);
+                //Debug.Log(rightColorBubbleIndex);
+                //Debug.Log(this.explosionBubblesCount);
+                //Debug.Break();
             }
 
         }
@@ -402,6 +402,7 @@ public class ShootedBubble : MonoBehaviour
 
     private void setRollbackAttribute(Bubble rollbackBubble)
     {
+
         foreach (var infrontBubble in rollbackBubble.movedBubbleRow)
         {
             if (infrontBubble.GetComponent<MoveOnSpline>().explosionCounter == rollbackBubble.gameObject.GetComponent<MoveOnSpline>().explosionCounter)

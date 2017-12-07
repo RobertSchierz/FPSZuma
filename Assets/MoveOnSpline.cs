@@ -82,6 +82,7 @@ public class MoveOnSpline : MonoBehaviour
     void Update()
     {
 
+
         //---> helper
 
         if (Input.GetButtonDown("Fire2"))
@@ -267,26 +268,42 @@ public class MoveOnSpline : MonoBehaviour
 
             case 2:
 
-                Bubble rollbackBorderBubbleAttr = this.bubbleAttributes.rollbackBorderBubble.GetComponent<Bubble>();
-                MoveOnSpline rollbackBorderMoveOnSplineAttr = this.bubbleAttributes.rollbackBorderBubble.GetComponent<MoveOnSpline>();
-
-                if ((rollbackBorderMoveOnSplineAttr.distanceCalc - (Time.deltaTime * 4 ) ) <= (rollbackBorderBubbleAttr.afterBubble.GetComponent<MoveOnSpline>().distanceCalc + this.gameMasterAttributes.bubbleSizeAverage ))
+                try
                 {
-                    this.bubbleAttributes.rollback = false;
-                    //this.bubbleAttributes.rollbackBorderBubble = null;
-                    
+                    Bubble rollbackBorderBubbleAttr = this.bubbleAttributes.rollbackBorderBubble.GetComponent<Bubble>();
+                    MoveOnSpline rollbackBorderMoveOnSplineAttr = this.bubbleAttributes.rollbackBorderBubble.GetComponent<MoveOnSpline>();
 
-                }else
-                {
-                    this.distanceCalc -= (Time.deltaTime * 4);
+
+                    if ((rollbackBorderMoveOnSplineAttr.distanceCalc - (Time.deltaTime)) <= (rollbackBorderBubbleAttr.afterBubble.GetComponent<MoveOnSpline>().distanceCalc + this.gameMasterAttributes.bubbleSizeAverage))
+                    {
+                        this.bubbleAttributes.rollback = false;
+                        //this.bubbleAttributes.rollbackBorderBubble = null;
+
+
+                    }
+                    else
+                    {
+                        this.distanceCalc -= (Time.deltaTime * 4);
+                    }
+
+
+
+                    break;
+               
+
                 }
-                
+                catch (System.Exception)
+                {
+                    
+                    throw;
+                }
 
-
-                break;
             default:
                 Debug.LogError("Fehler bei Animation");
                 break;
+
+
+
         }
 
 
