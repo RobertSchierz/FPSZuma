@@ -37,6 +37,8 @@ public class Bubble : MonoBehaviour
     public bool isLastBubble = false;
     public Transform[] movedBubbleRow;
     public bool interpolate = false;
+    public bool rollback = false;
+    public Transform rollbackBorderBubble;
     
 
     void Start()

@@ -33,7 +33,7 @@ public class MoveOnSpline : MonoBehaviour
 
     private Bubble bubbleAttributes;
 
-    private float animationEnd;
+    public float animationEnd;
     public float animationStart = 0f;
     public delegate void insertAnimationUpdate();
     public static event insertAnimationUpdate OnInsertAnimationUpdate;
@@ -91,9 +91,9 @@ public class MoveOnSpline : MonoBehaviour
         }
 
 
-        this.seconds = this.gamemaster.GetComponent<Wavespawner>().actualBubblespeed; 
+        this.seconds = this.gamemaster.GetComponent<Wavespawner>().actualBubblespeed;
 
-        if (this.distanceRatio <= this.max  && !this.helperWait )
+        if (this.distanceRatio <= this.max /*&& !this.helperWait*/)
         {
 
             checkDistances();
@@ -102,29 +102,37 @@ public class MoveOnSpline : MonoBehaviour
             {
                 if (this.bubbleAttributes.interpolate)
                 {
-                    insertAnimation();
+                    insertAnimation(1);
                 }
                 else
                 {
                     moveOnSpline();
-
                 }
-            }else
+            }
+            else
             {
                 if (this.bubbleAttributes.interpolate)
                 {
-                    insertAnimation();
-                    //handleExplosionWait();
-                }else
-                {
-                    this.cursor.Distance = this.distanceCalc;
-                    transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance);
+                    insertAnimation(1);
                     //handleExplosionWait();
                 }
-               
+                else
+                {
+                    if (this.bubbleAttributes.rollback)
+                    {
+                        insertAnimation(2);
+                    }
+                    else
+                    {
+                        this.cursor.Distance = this.distanceCalc;
+                        transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance);
+                        //handleExplosionWait();
+                    }
+                }
+
             }
 
-            
+
 
 
         }
@@ -134,26 +142,27 @@ public class MoveOnSpline : MonoBehaviour
             transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance);
         }
 
-               /*
-                   if (this.isFirstBubble)
-                   {
-                       transform.position = Waypoints.points[Waypoints.points.Length - 1].position;
-                       //Debug.Log("Verloren");
-                       onLostGame();
-                   }
-               }
-
-           */
-
+        /*
+            if (this.isFirstBubble)
+            {
+                transform.position = Waypoints.points[Waypoints.points.Length - 1].position;
+                //Debug.Log("Verloren");
+                onLostGame();
+            }
         }
 
-    private void checkDistances() {
+    */
+
+    }
+
+    private void checkDistances()
+    {
 
         if (!this.bubbleAttributes.isFirstBubble)
         {
             if (this.explosionCounter != this.bubbleAttributes.beforeBubble.GetComponent<MoveOnSpline>().explosionCounter)
             {
-               
+
                 float calculationValue = (this.bubbleAttributes.beforeBubble.GetComponent<MoveOnSpline>().distanceCalc - this.gameMasterAttributes.bubbleSizeAverage);
                 if (this.distanceCalc + Time.deltaTime >= calculationValue)
                 {
@@ -165,9 +174,9 @@ public class MoveOnSpline : MonoBehaviour
 
     }
 
-    public void correctOverlapOfBubbles( float distanceCalcDifference)
+    public void correctOverlapOfBubbles(float distanceCalcDifference)
     {
-       // Debug.Break();
+        // Debug.Break();
         foreach (var infrontBubble in this.bubbleAttributes.beforeBubble.GetComponent<Bubble>().movedBubbleRow)
         {
             MoveOnSpline infrontBubbleMoveOnSpline = infrontBubble.GetComponent<MoveOnSpline>();
@@ -183,25 +192,16 @@ public class MoveOnSpline : MonoBehaviour
 
                 infrontBubbleMoveOnSpline.distanceCalc += distanceCalcDifference;
 
-              
-            }else
+
+            }
+            else
             {
                 if (infrontBubbleMoveOnSpline.explosionCounter != infrontBubbleBubbleAttr.afterBubble.GetComponent<MoveOnSpline>().explosionCounter && infrontBubbleBubbleAttr.afterBubble.GetComponent<MoveOnSpline>().explosionCounter == 0)
                 {
                     infrontBubbleMoveOnSpline.explosionCounter = infrontBubbleBubbleAttr.afterBubble.GetComponent<MoveOnSpline>().explosionCounter;
-                    
+
                 }
             }
-
-
-
-
-            
-                
-
-
-
-
         }
     }
 
@@ -219,7 +219,7 @@ public class MoveOnSpline : MonoBehaviour
             }
         }
 
- 
+
 
     }
 
@@ -230,41 +230,76 @@ public class MoveOnSpline : MonoBehaviour
         this.cursor.Distance = this.distanceCalc;
         transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance);
 
-    
+
     }
 
 
 
-    public void insertAnimation()
+    public void insertAnimation(int decision)
     {
-        if(this.animationStart < this.animationEnd)
-        {
 
-            if (this.explosionCounter != 0)
-            {
-                this.animationStart += ((this.mathe.GetDistance() * Time.deltaTime) / this.seconds) * 2;
-                this.distanceCalc += ((this.mathe.GetDistance() * Time.deltaTime) / this.seconds) * 2;
-            }
-            else
-            {
-                this.animationStart += ((this.mathe.GetDistance() * Time.deltaTime) / this.seconds) * 2;
-                this.distanceCalc += ((this.mathe.GetDistance() * Time.deltaTime) / this.seconds) * 3;
-            }
-            
-            this.cursor.Distance = this.distanceCalc;
-            transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance);
-        }
-        else
+        switch (decision)
         {
-            moveOnSpline();
-            setAnimationValuesBack();
+            case 1:
+
+                if (this.animationStart < this.animationEnd)
+                {
+
+                    if (this.explosionCounter != 0)
+                    {
+                        this.animationStart += ((this.mathe.GetDistance() * Time.deltaTime) / this.seconds) * 2;
+                        this.distanceCalc += ((this.mathe.GetDistance() * Time.deltaTime) / this.seconds) * 2;
+                    }
+                    else
+                    {
+                        this.animationStart += ((this.mathe.GetDistance() * Time.deltaTime) / this.seconds) * 2;
+                        this.distanceCalc += ((this.mathe.GetDistance() * Time.deltaTime) / this.seconds) * 3;
+                    }
+
+                }
+                else
+                {
+                    moveOnSpline();
+                    setAnimationValuesBack();
+                }
+
+                break;
+
+            case 2:
+
+                Bubble rollbackBorderBubbleAttr = this.bubbleAttributes.rollbackBorderBubble.GetComponent<Bubble>();
+                MoveOnSpline rollbackBorderMoveOnSplineAttr = this.bubbleAttributes.rollbackBorderBubble.GetComponent<MoveOnSpline>();
+
+                if ((rollbackBorderMoveOnSplineAttr.distanceCalc - (Time.deltaTime * 4 ) ) <= (rollbackBorderBubbleAttr.afterBubble.GetComponent<MoveOnSpline>().distanceCalc + this.gameMasterAttributes.bubbleSizeAverage ))
+                {
+                    this.bubbleAttributes.rollback = false;
+                    //this.bubbleAttributes.rollbackBorderBubble = null;
+                    
+
+                }else
+                {
+                    this.distanceCalc -= (Time.deltaTime * 4);
+                }
+                
+
+
+                break;
+            default:
+                Debug.LogError("Fehler bei Animation");
+                break;
         }
-  
+
+
+
+        this.cursor.Distance = this.distanceCalc;
+        transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance);
+
+
     }
 
     private void setAnimationValuesBack()
     {
-      
+
         this.bubbleAttributes.interpolate = false;
         this.animationStart = 0.0f;
         OnInsertAnimationUpdate();
@@ -272,9 +307,9 @@ public class MoveOnSpline : MonoBehaviour
 
     }
 
-   
 
 
-   
+
+
 
 }
