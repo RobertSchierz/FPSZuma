@@ -277,7 +277,10 @@ public class MoveOnSpline : MonoBehaviour
                     if ((rollbackBorderMoveOnSplineAttr.distanceCalc - (Time.deltaTime)) <= (rollbackBorderBubbleAttr.afterBubble.GetComponent<MoveOnSpline>().distanceCalc + this.gameMasterAttributes.bubbleSizeAverage))
                     {
                         this.bubbleAttributes.rollback = false;
+
+                        // Help
                         //this.bubbleAttributes.rollbackBorderBubble = null;
+                        
 
 
                     }

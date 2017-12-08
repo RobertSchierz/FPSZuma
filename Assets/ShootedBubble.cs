@@ -39,7 +39,7 @@ public class ShootedBubble : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-
+        
         if (collision.contacts[0].otherCollider.gameObject.tag == "Bubble" && !this.hitted)
         {
             MoveOnSpline.OnInsertAnimationUpdate += checkInsertionAnimationUpdate;
@@ -50,8 +50,9 @@ public class ShootedBubble : MonoBehaviour
             Bubble targetBubbleAttr = targetBubble.GetComponent<Bubble>();
             MoveOnSpline targetMoveOnSplineAttr = targetBubble.GetComponent<MoveOnSpline>();
             handleInsertBubble(targetBubbleAttr, targetMoveOnSplineAttr);
-
         }
+
+       
 
     }
 
@@ -61,8 +62,9 @@ public class ShootedBubble : MonoBehaviour
         if (this.animateBubbleCount == 0)
         {
             //this.helper.handleExplosion();
-            handleExplosion();
             MoveOnSpline.OnInsertAnimationUpdate -= checkInsertionAnimationUpdate;
+            handleExplosion();
+            
         }
     }
 
@@ -203,7 +205,7 @@ public class ShootedBubble : MonoBehaviour
             this.bubbles.GetChild(i).GetComponent<Bubble>().checkBubblerowInfront();
         }
     }
-
+    
     private void addInsertedBubbleAttrToRow(Bubble targetBubbleAttr, int rowinfrontlength)
     {
         for (int i = 0; i < rowinfrontlength; i++)
@@ -412,6 +414,10 @@ public class ShootedBubble : MonoBehaviour
 
         foreach (var infrontBubble in rollbackBubble.movedBubbleRow)
         {
+            if (infrontBubble.GetComponent("ShootedBubble"))
+            {
+                infrontBubble.GetComponent<ShootedBubble>().enabled = false;
+            }
             if (infrontBubble.GetComponent<MoveOnSpline>().explosionCounter == rollbackBubble.gameObject.GetComponent<MoveOnSpline>().explosionCounter)
             {
                 infrontBubble.GetComponent<Bubble>().rollback = true;
