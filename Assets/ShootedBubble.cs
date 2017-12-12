@@ -54,6 +54,7 @@ public class ShootedBubble : MonoBehaviour
             Bubble targetBubbleAttr = targetBubble.GetComponent<Bubble>();
             MoveOnSpline targetMoveOnSplineAttr = targetBubble.GetComponent<MoveOnSpline>();
             handleInsertBubble(targetBubbleAttr, targetMoveOnSplineAttr);
+
         }
 
     }
