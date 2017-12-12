@@ -22,6 +22,8 @@ public class ShootedBubble : MonoBehaviour
 
     public int animateBubbleCount;
     private int explosionBubblesCount = 0;
+    public bool isInRow = false;
+    public float distanceToInsertionspoint = 0f;
     //public HelperMethods helper;
 
 
@@ -35,6 +37,7 @@ public class ShootedBubble : MonoBehaviour
         this.waveSpawner = this.bubbleAttr.waveSpawner;
         //this.helper = new HelperMethods(this.bubbleAttr);
 
+
     }
 
     void OnCollisionEnter(Collision collision)
@@ -42,6 +45,7 @@ public class ShootedBubble : MonoBehaviour
         
         if (collision.contacts[0].otherCollider.gameObject.tag == "Bubble" && !this.hitted)
         {
+            transform.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
             MoveOnSpline.OnInsertAnimationUpdate += checkInsertionAnimationUpdate;
             this.hitted = true;
             //this.gameMaster.stopAll = true;
@@ -51,8 +55,6 @@ public class ShootedBubble : MonoBehaviour
             MoveOnSpline targetMoveOnSplineAttr = targetBubble.GetComponent<MoveOnSpline>();
             handleInsertBubble(targetBubbleAttr, targetMoveOnSplineAttr);
         }
-
-       
 
     }
 
@@ -107,6 +109,8 @@ public class ShootedBubble : MonoBehaviour
             addInsertedBubbleAttrToRow(targetbubbleattr, targetbubbleattr.movedBubbleRow.Length - 1);
             setHirarchyIndex(targetbubbleattr, this.targetBubble.transform.GetSiblingIndex());
             this.moveOnSplineAttr = gameObject.GetComponent<MoveOnSpline>();
+
+
             setNewValuesForBubbles(targetbubbleattr, targetMoveOnSplineAttr);
         }
         else if (this.insertAfter)
@@ -115,6 +119,10 @@ public class ShootedBubble : MonoBehaviour
             addInsertedBubbleAttrToRow(targetbubbleattr, targetbubbleattr.movedBubbleRow.Length);
             setHirarchyIndex(targetbubbleattr, this.targetBubble.transform.GetSiblingIndex() + 1);
             this.moveOnSplineAttr = gameObject.GetComponent<MoveOnSpline>();
+
+      
+         
+
             setNewValuesForBubbles(targetbubbleattr, targetMoveOnSplineAttr);
 
         }

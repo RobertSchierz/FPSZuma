@@ -93,9 +93,9 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -117,6 +117,7 @@ MonoBehaviour:
   speciality: 0
   isShooted: 0
   bubbleColor: 0
+  rigidBodyAttr: {fileID: 0}
   curve: {fileID: 0}
   mathe: {fileID: 0}
   cursor: {fileID: 0}
@@ -126,8 +127,9 @@ MonoBehaviour:
   isFirstBubble: 0
   isLastBubble: 0
   movedBubbleRow: []
-  bubblesInserted: 0
   interpolate: 0
+  rollback: 0
+  rollbackBorderBubble: {fileID: 0}
 --- !u!114 &114981338345439848
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -139,6 +141,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b43df41bd5e793d44b9b7d170d107720, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationEnd: 0
+  animationStart: 0
+  explosionCounter: 0
+  helperWait: 0
   distanceCalc: 0
 --- !u!135 &135433082130495662
 SphereCollider:
@@ -146,7 +152,7 @@ SphereCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1865892272348604}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: ff5a64dca743fde44ad86401893c8721, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2

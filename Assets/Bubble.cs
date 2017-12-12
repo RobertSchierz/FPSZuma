@@ -19,6 +19,7 @@ public class Bubble : MonoBehaviour
     public int speciality;
     public bool isShooted = false;
     public int bubbleColor;
+    public Rigidbody rigidBodyAttr;
 
     [Space]
     [Header("Math Attributes")]
@@ -53,6 +54,7 @@ public class Bubble : MonoBehaviour
         this.curve = this.gameMasterAttributes.curve;
         this.mathe = this.curve.GetComponent<BGCcMath>();
         this.cursor = this.mathe.gameObject.AddComponent<BGCcCursor>();
+        this.rigidBodyAttr = transform.GetComponent<Rigidbody>();
 
 
 

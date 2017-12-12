@@ -16,9 +16,10 @@ public class ShootBubble : MonoBehaviour
 
     private GameObject level;
 
-    public float bubbleforce = 200.0f;
+    public float bubbleforce = 200f;
     private float timeBetweenShots = 0.5f;
     private float timestamp;
+    
 
 
 

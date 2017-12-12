@@ -1872,7 +1872,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 36401301}
   leveldifficult: 0
   bubbleCountPerWave: 100
-  bubblespeed: 71.3
+  bubblespeed: 64.9
   actualBubblespeed: 0
 --- !u!4 &1336642943
 Transform:
