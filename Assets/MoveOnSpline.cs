@@ -96,7 +96,7 @@ public class MoveOnSpline : MonoBehaviour
 
         this.seconds = this.gamemaster.GetComponent<Wavespawner>().actualBubblespeed;
 
-        if (this.distanceRatio <= this.max /* && !this.helperWait*/)
+        if (this.distanceRatio <= this.max  && !this.helperWait)
         {
 
             checkDistances();
@@ -192,8 +192,8 @@ public class MoveOnSpline : MonoBehaviour
                         this.distanceCalc += ((this.mathe.GetDistance() * Time.deltaTime) / this.seconds) * 3;
                     }
 
-                    this.rigidBodyAttr.AddForceAtPosition(-((this.bubbleAttributes.afterBubble.position - transform.position)), transform.position);
-                    Debug.DrawRay(transform.position, (this.bubbleAttributes.afterBubble.position - transform.position), Color.green, 1f);
+                    //this.rigidBodyAttr.AddForceAtPosition(-((this.bubbleAttributes.afterBubble.position - transform.position)), transform.position);
+                    //Debug.DrawRay(transform.position, (this.bubbleAttributes.afterBubble.position - transform.position), Color.green, 1f);
 
                 }
                 else
@@ -250,8 +250,6 @@ public class MoveOnSpline : MonoBehaviour
                 if (this.cursor.Distance != 0.0f)
                 {
 
-
-
                     if (Vector3.Distance(transform.position, this.mathe.CalcPositionByDistance(this.cursor.Distance)) > 0.03f)
                     {
                         Vector3 direction = (this.mathe.CalcPositionByDistance(this.cursor.Distance) - transform.position);
@@ -269,7 +267,7 @@ public class MoveOnSpline : MonoBehaviour
                             this.rigidBodyAttr.MovePosition(transform.position + direction * (Time.deltaTime * 10));
                         }
 
-                       // Debug.DrawRay(transform.position, direction, Color.red, Mathf.Infinity);
+                        Debug.DrawRay(transform.position, direction, Color.red, Mathf.Infinity);
                         shootedBubbleAttr.distanceToInsertionspoint = Vector3.Distance(transform.position, this.mathe.CalcPositionByDistance(this.cursor.Distance));
 
                     }
@@ -282,8 +280,13 @@ public class MoveOnSpline : MonoBehaviour
                     }
 
                 }
-                this.distanceCalc += (this.mathe.GetDistance() * Time.deltaTime) / this.seconds;
+
+                if (transform.GetComponent<MoveOnSpline>().explosionCounter == 0 || this.cursor.Distance == 0.0f)
+                {
+                    this.distanceCalc += (this.mathe.GetDistance() * Time.deltaTime) / this.seconds;
                     this.cursor.Distance = this.distanceCalc;
+                }
+                
                
 
                 break;
@@ -397,7 +400,6 @@ public class MoveOnSpline : MonoBehaviour
         this.bubbleAttributes.interpolate = false;
         this.animationStart = 0.0f;
         OnInsertAnimationUpdate();
-
 
     }
 
