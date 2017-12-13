@@ -45,7 +45,7 @@ public class ShootedBubble : MonoBehaviour
         
         if (collision.contacts[0].otherCollider.gameObject.tag == "Bubble" && !this.hitted)
         {
-            transform.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+            transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
             MoveOnSpline.OnInsertAnimationUpdate += checkInsertionAnimationUpdate;
             this.hitted = true;
             //this.gameMaster.stopAll = true;

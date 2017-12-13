@@ -96,11 +96,11 @@ public class MoveOnSpline : MonoBehaviour
 
         this.seconds = this.gamemaster.GetComponent<Wavespawner>().actualBubblespeed;
 
-        if (this.distanceRatio <= this.max  && !this.helperWait)
+        if (this.distanceRatio <= this.max /* && !this.helperWait*/)
         {
-
+           
             checkDistances();
-
+            
             if (this.bubbleAttributes.isShooted && !transform.GetComponent<ShootedBubble>().isInRow)
             {
                 
@@ -148,7 +148,7 @@ public class MoveOnSpline : MonoBehaviour
 
             }
 
-
+            
 
 
         }
@@ -214,20 +214,17 @@ public class MoveOnSpline : MonoBehaviour
                     MoveOnSpline rollbackBorderMoveOnSplineAttr = this.bubbleAttributes.rollbackBorderBubble.GetComponent<MoveOnSpline>();
 
 
-                    if ((rollbackBorderMoveOnSplineAttr.distanceCalc - (Time.deltaTime)) <= (rollbackBorderBubbleAttr.afterBubble.GetComponent<MoveOnSpline>().distanceCalc + this.gameMasterAttributes.bubbleSizeAverage))
+                    /*if ((rollbackBorderMoveOnSplineAttr.distanceCalc - (Time.deltaTime)) <= (rollbackBorderBubbleAttr.afterBubble.GetComponent<MoveOnSpline>().distanceCalc + this.gameMasterAttributes.bubbleSizeAverage))
                     {
                         this.bubbleAttributes.rollback = false;
+                    }*/
 
-                        // Help
-                        //this.bubbleAttributes.rollbackBorderBubble = null;
-
-
-
-                    }
-                    else
-                    {
+                  
                         this.distanceCalc -= (Time.deltaTime * 4);
-                    }
+                 
+                    
+                   
+             
 
 
                     moveToCalcDistance();
@@ -273,10 +270,13 @@ public class MoveOnSpline : MonoBehaviour
                     }
                     else
                     {
+                       
                         shootedBubbleAttr.isInRow = true;
                         this.rigidBodyAttr.drag = 0;
                         this.rigidBodyAttr.angularDrag = 0;
                         this.rigidBodyAttr.isKinematic = true;
+                        this.bubbleAttributes.isShooted = false;
+                   
                     }
 
                 }
@@ -322,7 +322,7 @@ public class MoveOnSpline : MonoBehaviour
             {
 
                 float calculationValue = (this.bubbleAttributes.beforeBubble.GetComponent<MoveOnSpline>().distanceCalc - this.gameMasterAttributes.bubbleSizeAverage);
-                if (this.distanceCalc + Time.deltaTime >= calculationValue)
+                if (this.distanceCalc + Time.deltaTime * 4 >= calculationValue)
                 {
                     correctOverlapOfBubbles(this.distanceCalc - calculationValue);
                 }
@@ -334,7 +334,7 @@ public class MoveOnSpline : MonoBehaviour
 
     public void correctOverlapOfBubbles(float distanceCalcDifference)
     {
-        // Debug.Break();
+ 
         foreach (var infrontBubble in this.bubbleAttributes.beforeBubble.GetComponent<Bubble>().movedBubbleRow)
         {
             MoveOnSpline infrontBubbleMoveOnSpline = infrontBubble.GetComponent<MoveOnSpline>();
@@ -343,13 +343,17 @@ public class MoveOnSpline : MonoBehaviour
             if (infrontBubbleMoveOnSpline.explosionCounter == this.explosionCounter + 1)
             {
 
-                if (!this.bubbleAttributes.interpolate)
+                infrontBubbleMoveOnSpline.distanceCalc += distanceCalcDifference;
+                moveToCalcDistance();
+
+                if (!infrontBubbleBubbleAttr.interpolate)
                 {
                     infrontBubbleMoveOnSpline.explosionCounter = this.explosionCounter;
+                    infrontBubbleBubbleAttr.rollback = false;
+                   
                 }
 
-                infrontBubbleMoveOnSpline.distanceCalc += distanceCalcDifference;
-
+                
 
             }
             else
@@ -360,6 +364,12 @@ public class MoveOnSpline : MonoBehaviour
 
                 }
             }
+
+            /*if (infrontBubbleBubbleAttr.rollback)
+            {
+                this.distanceCalc = this.bubbleAttributes.afterBubble.GetComponent<MoveOnSpline>().distanceCalc + this.gameMasterAttributes.bubbleSizeAverage;
+            }*/
+
         }
     }
 
@@ -385,7 +395,7 @@ public class MoveOnSpline : MonoBehaviour
     {
         this.distanceCalc += (this.mathe.GetDistance() * Time.deltaTime) / this.seconds;
         this.cursor.Distance = this.distanceCalc;
-        this.rigidBodyAttr.position = this.mathe.CalcPositionByDistance(this.cursor.Distance);
+        transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance);
 
 
     }
