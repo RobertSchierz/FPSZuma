@@ -276,6 +276,10 @@ public class MoveOnSpline : MonoBehaviour
                         this.rigidBodyAttr.angularDrag = 0;
                         this.rigidBodyAttr.isKinematic = true;
                         this.bubbleAttributes.isShooted = false;
+                        if (shootedBubbleAttr.explode)
+                        {
+                            shootedBubbleAttr.handleExplosion();
+                        }
 
                     }
 
@@ -309,7 +313,6 @@ public class MoveOnSpline : MonoBehaviour
     private void moveToCalcDistance()
     {
         this.cursor.Distance = this.distanceCalc;
-        //this.rigidBodyAttr.MovePosition(this.mathe.CalcPositionByDistance(this.cursor.Distance));
         transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance);
     }
 

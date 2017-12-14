@@ -25,6 +25,7 @@ public class ShootedBubble : MonoBehaviour
     public bool isInRow = false;
     public float distanceToInsertionspoint = 0f;
     //public HelperMethods helper;
+    public bool explode = false;
 
 
 
@@ -66,7 +67,8 @@ public class ShootedBubble : MonoBehaviour
         {
             //this.helper.handleExplosion();
             MoveOnSpline.OnInsertAnimationUpdate -= checkInsertionAnimationUpdate;
-            handleExplosion();
+            this.explode = true;
+            //handleExplosion();
             
         }
     }
@@ -246,7 +248,7 @@ public class ShootedBubble : MonoBehaviour
 
         
 
-    private void handleExplosion()
+    public void handleExplosion()
     {
 
         int leftColorBorderIndex = -1;
