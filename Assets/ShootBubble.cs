@@ -25,6 +25,7 @@ public class ShootBubble : MonoBehaviour
 
     void Start()
     {
+        this.gameMasterAttributes = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameMaster>();
         this.camera = gameObject;
         this.level = GameObject.FindGameObjectWithTag("Level");
         Leveltrigger.onOutoflevel += handleBubbleout;
@@ -67,7 +68,7 @@ public class ShootBubble : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1") && Time.time >= timestamp)
         {
-
+            
             shootBubble();
             this.nextBubble = randomizePrefabs();
             this.timestamp = Time.time + this.timeBetweenShots;
@@ -109,6 +110,7 @@ public class ShootBubble : MonoBehaviour
 
     private void shootBubble()
     {
+        this.gameMasterAttributes.audioManager.handleSound("ShootBubble", 1);
         Vector3 shootPos = new Vector3(this.camera.transform.position.x, Waypoints.points[1].transform.position.y, this.camera.transform.position.z);
         this.shootedBubble = Instantiate(this.nextBubble, shootPos, this.camera.transform.rotation);
         this.shootedBubble.gameObject.GetComponent<Rigidbody>().AddForce(this.camera.transform.forward * bubbleforce);

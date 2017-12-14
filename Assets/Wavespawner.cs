@@ -59,14 +59,12 @@ public class Wavespawner : MonoBehaviour
 
         this.bubbles = this.gameMasterAttributes.bubbles;
 
-        
+
         MoveOnSpline.onLostGame += handleOnLostGame;
 
         this.introBubbleNumber = this.bubbleCountPerWave / 10;
         this.introBubblespeed = this.bubblespeed / 2f;
         this.actualBubblespeed = introBubblespeed;
-
-
 
     }
 
@@ -77,7 +75,6 @@ public class Wavespawner : MonoBehaviour
     }
 
 
-  
 
     void Update()
     {
@@ -89,6 +86,7 @@ public class Wavespawner : MonoBehaviour
             spawnBubble();
             this.wavespaned = true;
             this.spawnque = true;
+            this.gameMasterAttributes.audioManager.handleSound("Wavespawn", 1);
             return;
         }
         else if (!this.wavespaned)
@@ -100,40 +98,21 @@ public class Wavespawner : MonoBehaviour
 
         if (this.spawnque && this.bubblesSpawned < this.bubbleCountPerWave && !this.lostgame)
         {
-         
+            
 
-            if (this.bubbles.GetChild(this.bubbles.childCount -1).GetComponent<Bubble>().cursor.Distance >= this.gameMasterAttributes.bubbleSizeAverage && !this.gameMasterAttributes.stopAll)
+            if (this.bubbles.GetChild(this.bubbles.childCount - 1).GetComponent<Bubble>().cursor.Distance >= this.gameMasterAttributes.bubbleSizeAverage && !this.gameMasterAttributes.stopAll)
             {
-                
+
                 spawnBubble();
-
-
-                /* Debug.Log("eigener: " +  this.bubble.GetComponent<MoveOnSpline>().distanceCalc);
-
-                 this.bubble.GetComponent<MoveOnSpline>().distanceCalc = this.bubbles.GetChild(this.bubbles.childCount - 2).GetComponent<MoveOnSpline>().distanceCalc - this.gameMasterAttributes.bubbleSizeAverage;
-                 Debug.Log("neuer: " + this.bubble.GetComponent<MoveOnSpline>().distanceCalc);
-
-                 Debug.Log(this.bubbles.GetChild(this.bubbles.childCount - 2).GetComponent<MoveOnSpline>().distanceCalc - this.gameMasterAttributes.bubbleSizeAverage);
-
-                 Debug.Break();
-                 */
-
-
 
             }
             if (this.bubbles.childCount == this.introBubbleNumber)
             {
                 this.actualBubblespeed = this.bubblespeed;
+                this.gameMasterAttributes.audioManager.handleSound("Wavespawn", 2);
             }
 
         }
-
-
-
-
-
-
-
     }
 
     public Transform randomizePrefabs()
@@ -198,10 +177,6 @@ public class Wavespawner : MonoBehaviour
         this.bubble = Instantiate(this.randomizePrefabs(), spawnPoint.position, spawnPoint.rotation);
         this.bubble.transform.parent = this.bubbles.transform;
         this.bubble.GetComponent<Bubble>().bubbleColor = this.prefabIndex;
-        
-
-
-
 
     }
 

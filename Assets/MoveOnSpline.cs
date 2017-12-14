@@ -43,6 +43,7 @@ public class MoveOnSpline : MonoBehaviour
     public bool helperWait = false;
 
     public float distanceCalc;
+    private ExplosionProvider explosionProvider;
 
 
 
@@ -77,6 +78,8 @@ public class MoveOnSpline : MonoBehaviour
         this.isLastBubble = bubbleAttributes.isLastBubble;
 
         this.animationEnd = this.gameMasterAttributes.bubbleSizeAverage;
+
+        this.explosionProvider = new ExplosionProvider(this.bubbleAttributes);
 
     }
 
@@ -278,7 +281,7 @@ public class MoveOnSpline : MonoBehaviour
                         this.bubbleAttributes.isShooted = false;
                         if (shootedBubbleAttr.explode)
                         {
-                            shootedBubbleAttr.handleExplosion();
+                            shootedBubbleAttr.helper.handleExplosion(1);
                         }
 
                     }
@@ -330,6 +333,7 @@ public class MoveOnSpline : MonoBehaviour
                 this.distanceCalc = this.bubbleAttributes.afterBubble.GetComponent<MoveOnSpline>().distanceCalc + this.gameMasterAttributes.bubbleSizeAverage;
                 moveToCalcDistance();
                 this.bubbleAttributes.rollback = false;
+                this.explosionProvider.handleExplosion(2);
             }
         }
         else
@@ -357,7 +361,7 @@ public class MoveOnSpline : MonoBehaviour
 
     public void correctOverlapOfBubbles(float distanceCalcDifference)
     {
-
+        this.gameMasterAttributes.audioManager.handleSound("BubblesTouch", 1);
         foreach (var infrontBubble in this.bubbleAttributes.beforeBubble.GetComponent<Bubble>().movedBubbleRow)
         {
             MoveOnSpline infrontBubbleMoveOnSpline = infrontBubble.GetComponent<MoveOnSpline>();
@@ -419,7 +423,6 @@ public class MoveOnSpline : MonoBehaviour
 
     private void setAnimationValuesBack()
     {
-
         this.bubbleAttributes.interpolate = false;
         this.animationStart = 0.0f;
         OnInsertAnimationUpdate();
