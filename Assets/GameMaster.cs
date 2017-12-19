@@ -24,7 +24,7 @@ public class GameMaster : MonoBehaviour {
     void Awake() {
         this.curve = FindObjectOfType<BGCurve>();
         this.bubbleSizeAverage = this.bubbleprefabs[0].transform.localScale.x;
-        this.audioManager = FindObjectOfType<AudioManager>();
+        this.audioManager = AudioManager.instance;
     }
 	
 

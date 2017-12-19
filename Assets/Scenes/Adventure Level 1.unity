@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_Sun: {fileID: 1543600794}
   m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
@@ -1465,6 +1465,7 @@ GameObject:
   - component: {fileID: 1082484188}
   - component: {fileID: 1082484193}
   - component: {fileID: 1082484194}
+  - component: {fileID: 1082484195}
   m_Layer: 0
   m_Name: Firstperson
   m_TagString: MainCamera
@@ -1518,7 +1519,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: -1
+  m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -1577,6 +1578,18 @@ MonoBehaviour:
   nextBubble: {fileID: 0}
   nextBubbleIndex: 0
   bubbleforce: 200
+--- !u!114 &1082484195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1082484187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 3ae488354ce8db04284a44639fb965be, type: 2}
 --- !u!1 &1156239530
 GameObject:
   m_ObjectHideFlags: 0
