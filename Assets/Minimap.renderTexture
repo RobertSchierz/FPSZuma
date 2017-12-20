@@ -11,12 +11,12 @@ RenderTexture:
     Hash: 00000000000000000000000000000000
   m_Width: 170
   m_Height: 170
-  m_AntiAliasing: 1
-  m_DepthFormat: 0
+  m_AntiAliasing: 8
+  m_DepthFormat: 2
   m_ColorFormat: 0
   m_MipMap: 0
   m_GenerateMips: 1
-  m_SRGB: 0
+  m_SRGB: 1
   m_TextureSettings:
     serializedVersion: 2
     m_FilterMode: 1
