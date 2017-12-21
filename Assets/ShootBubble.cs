@@ -9,10 +9,10 @@ public class ShootBubble : MonoBehaviour
     public GameObject camera;
     private Transform shootedBubble;
     public Transform[] bubblePrefabs = new Transform[4];
-    public Transform nextBubble;
-    public int nextBubbleIndex;
+    public Transform[] nextBubble = new Transform[2];
+    public int[] nextBubbleIndex = new int[2];
     private GameMaster gameMasterAttributes;
-    private int prefabIndex;
+ 
 
     private GameObject level;
 
@@ -29,8 +29,10 @@ public class ShootBubble : MonoBehaviour
         this.camera = gameObject;
         this.level = GameObject.FindGameObjectWithTag("Level");
         Leveltrigger.onOutoflevel += handleBubbleout;
-        this.nextBubble = randomizePrefabs();
-        Debug.Log("<b>" + getBubbleColor(this.nextBubbleIndex) + "</b>");
+        this.nextBubble[0] = randomizePrefabs(0);
+        this.nextBubble[1] = randomizePrefabs(1);
+        Debug.Log("<b>" + getBubbleColor(this.nextBubbleIndex[0]) + "</b>");
+        
 
 
     }
@@ -43,36 +45,36 @@ public class ShootBubble : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            this.nextBubbleIndex = 0;
-            this.prefabIndex = 0;
-            this.nextBubble = this.bubblePrefabs[0];
+            this.nextBubbleIndex[0] = 0;
+
+            this.nextBubble[0] = this.bubblePrefabs[0];
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            this.nextBubbleIndex = 1;
-            this.prefabIndex = 1;
-            this.nextBubble = this.bubblePrefabs[1];
+            this.nextBubbleIndex[0] = 1;
+
+            this.nextBubble[0] = this.bubblePrefabs[1];
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            this.nextBubbleIndex = 2;
-            this.prefabIndex = 2;
-            this.nextBubble = this.bubblePrefabs[2];
+            this.nextBubbleIndex[0] = 2;
+
+            this.nextBubble[0] = this.bubblePrefabs[2];
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            this.nextBubbleIndex = 3;
-            this.prefabIndex = 3;
-            this.nextBubble = this.bubblePrefabs[3];
+            this.nextBubbleIndex[0] = 3;
+   
+            this.nextBubble[0] = this.bubblePrefabs[3];
         }
 
         if (Input.GetButtonDown("Fire1") && Time.time >= timestamp)
         {
             
             shootBubble();
-            this.nextBubble = randomizePrefabs();
+            //this.nextBubble = randomizePrefabs();
             this.timestamp = Time.time + this.timeBetweenShots;
-            Debug.Log(getBubbleColor(this.nextBubbleIndex));
+            Debug.Log(getBubbleColor(this.nextBubbleIndex[0]));
 
 
 
@@ -112,20 +114,29 @@ public class ShootBubble : MonoBehaviour
     {
         this.gameMasterAttributes.audioManager.handleSound("ShootBubble", 1);
         Vector3 shootPos = new Vector3(this.camera.transform.position.x, Waypoints.points[1].transform.position.y, this.camera.transform.position.z);
-        this.shootedBubble = Instantiate(this.nextBubble, shootPos, this.camera.transform.rotation);
+        this.shootedBubble = Instantiate(this.nextBubble[0], shootPos, this.camera.transform.rotation);
         this.shootedBubble.gameObject.GetComponent<Rigidbody>().AddForce(this.camera.transform.forward * bubbleforce);
         this.shootedBubble.GetComponent<Bubble>().isShooted = true;
-        this.shootedBubble.GetComponent<Bubble>().bubbleColor = this.prefabIndex;
+        this.shootedBubble.GetComponent<Bubble>().bubbleColor = this.nextBubbleIndex[0];
+        generateNewBubbles();
+
+    }
+
+    private void generateNewBubbles()
+    {
+        this.nextBubble[0] = this.nextBubble[1];
+        this.nextBubbleIndex[0] = this.nextBubbleIndex[1];
+        this.nextBubble[1] = randomizePrefabs(1);
+        
 
     }
 
 
 
-    public Transform randomizePrefabs()
+    public Transform randomizePrefabs(int position)
     {
         int randomPrefabIndex = UnityEngine.Random.Range(0, 4);
-        this.prefabIndex = randomPrefabIndex;
-        this.nextBubbleIndex = randomPrefabIndex;
+        this.nextBubbleIndex[position] = randomPrefabIndex;
         return this.bubblePrefabs[randomPrefabIndex];
     }
 }
