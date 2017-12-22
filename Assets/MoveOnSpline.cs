@@ -43,7 +43,7 @@ public class MoveOnSpline : MonoBehaviour
     public bool helperWait = false;
 
     public float distanceCalc;
-    private ExplosionProvider explosionProvider;
+    public ExplosionProvider explosionProvider;
 
 
 
@@ -281,7 +281,7 @@ public class MoveOnSpline : MonoBehaviour
                         this.bubbleAttributes.isShooted = false;
                         if (shootedBubbleAttr.explode)
                         {
-                            shootedBubbleAttr.helper.handleExplosion(1);
+                            shootedBubbleAttr.explosionProvider.handleExplosion(1);
                         }
 
                     }

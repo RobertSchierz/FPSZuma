@@ -24,7 +24,7 @@ public class ShootedBubble : MonoBehaviour
     private int explosionBubblesCount = 0;
     public bool isInRow = false;
     public float distanceToInsertionspoint = 0f;
-    public ExplosionProvider helper;
+    public ExplosionProvider explosionProvider;
     public bool explode = false;
 
 
@@ -36,7 +36,7 @@ public class ShootedBubble : MonoBehaviour
         this.gameMasterAttr = this.gameMaster.GetComponent<GameMaster>();
         this.bubbles = this.bubbleAttr.bubbles;
         this.waveSpawner = this.bubbleAttr.waveSpawner;
-        this.helper = new ExplosionProvider(this.bubbleAttr);
+        this.explosionProvider = new ExplosionProvider(this.bubbleAttr);
 
 
     }
@@ -148,7 +148,7 @@ public class ShootedBubble : MonoBehaviour
                     this.moveOnSplineAttr.explosionCounter = targetBubble.GetComponent<MoveOnSpline>().explosionCounter;
                 }
 
-                this.helper.handleExplosion(1);
+                this.explosionProvider.handleExplosion(1);
             }
             else
             {
@@ -164,7 +164,7 @@ public class ShootedBubble : MonoBehaviour
 
                 if (this.bubbleAttr.beforeBubble.GetComponent<MoveOnSpline>().explosionCounter != this.moveOnSplineAttr.explosionCounter)
                 {
-                    this.helper.handleExplosion(1);
+                    this.explosionProvider.handleExplosion(1);
                 }
             }
 

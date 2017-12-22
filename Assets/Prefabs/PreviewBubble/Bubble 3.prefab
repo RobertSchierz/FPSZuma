@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 135517641951946340}
   - component: {fileID: 23291287721906438}
   - component: {fileID: 54248016614788568}
+  - component: {fileID: 114223790126276318}
   m_Layer: 0
   m_Name: Bubble 3
   m_TagString: Bubble
@@ -97,6 +98,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &114223790126276318
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1808081277325002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 430f6cb6057850846b9cb2419fc358dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &135517641951946340
 SphereCollider:
   m_ObjectHideFlags: 1
