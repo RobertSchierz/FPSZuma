@@ -139,8 +139,11 @@ public class ShootBubble : MonoBehaviour
     private void switchBubbles()
     {
         Transform temp = this.nextBubble[0];
+        int tempint = this.nextBubbleIndex[0];
         this.nextBubble[0] = this.nextBubble[1];
         this.nextBubble[1] = temp;
+        this.nextBubbleIndex[0] = this.nextBubbleIndex[1];
+        this.nextBubbleIndex[1] = tempint;
 
         StartCoroutine(MoveOverSeconds(this.previewBubbles.transform.GetChild(0).gameObject, this.previewBubbles2.transform.position, 0.2f, 2));
         StartCoroutine(MoveOverSeconds(this.previewBubbles2.transform.GetChild(0).gameObject, this.previewBubbles.transform.position, 0.2f, 3));

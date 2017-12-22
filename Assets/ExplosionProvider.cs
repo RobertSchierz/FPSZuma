@@ -37,7 +37,7 @@ public class ExplosionProvider : MonoBehaviour {
 
     public void handleExplosion(int soundDecision)
     {
-
+        
         int leftColorBorderIndex = -1;
         int rightColorBorderIndex = -1;
 
