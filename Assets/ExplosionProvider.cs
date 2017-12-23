@@ -63,10 +63,12 @@ public class ExplosionProvider : MonoBehaviour {
             case 1:
 
                 if(soundDecision == 1){
+                    this.gameMasterAttr.score.updateScore(10);
                     this.gameMasterAttr.audioManager.handleSound("ExplodeBubble", 1);
                     this.gameMasterAttr.audioManager.handleSound("BubblesDestroyed", 1);
                 }else if (soundDecision == 2)
                 {
+                    this.gameMasterAttr.score.updateScore(20);
                     this.gameMasterAttr.audioManager.handleSound("ExplodeBubble", 3);
                     this.gameMasterAttr.audioManager.handleSound("BubblesDestroyed2", 1);
                 }

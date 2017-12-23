@@ -19,12 +19,15 @@ public class GameMaster : MonoBehaviour {
 
     public AudioManager audioManager;
 
+    public Score score;
+
 
 
     void Awake() {
         this.curve = FindObjectOfType<BGCurve>();
         this.bubbleSizeAverage = this.bubbleprefabs[0].transform.localScale.x;
         this.audioManager = AudioManager.instance;
+        this.score = Score.instance;
     }
 	
 

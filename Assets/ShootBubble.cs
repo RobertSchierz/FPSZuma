@@ -125,6 +125,7 @@ public class ShootBubble : MonoBehaviour
 
     private void shootBubble()
     {
+
         this.gameMasterAttributes.audioManager.handleSound("ShootBubble", 1);
         Vector3 shootPos = new Vector3(this.camera.transform.position.x, Waypoints.points[1].transform.position.y, this.camera.transform.position.z);
         this.shootedBubble = Instantiate(this.nextBubble[0], shootPos, this.camera.transform.rotation);
