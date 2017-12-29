@@ -10,7 +10,7 @@ public class Leveltrigger : MonoBehaviour {
     void OnTriggerExit(Collider col)
     {
         //Debug.Break();
-        //Destroy(col.gameObject);
+        Destroy(col.gameObject);
         onOutoflevel();
     }
 }

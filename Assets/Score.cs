@@ -28,7 +28,7 @@ public class Score : MonoBehaviour {
 
     void Start()
     {
-        this.scoreText = GameObject.FindGameObjectWithTag("Highscore").GetComponent<TextMeshProUGUI>();
+        this.scoreText = GameObject.FindGameObjectWithTag("Scoretext").GetComponent<TextMeshProUGUI>();
     }
 
      public void updateScore(int addedScore)

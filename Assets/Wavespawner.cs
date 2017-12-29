@@ -71,7 +71,9 @@ public class Wavespawner : MonoBehaviour
 
     void handleOnLostGame()
     {
+        
         this.lostgame = true;
+        this.gameMasterAttributes.audioManager.handleSound("End", 1);
     }
 
 

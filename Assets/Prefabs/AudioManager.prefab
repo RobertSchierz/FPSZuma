@@ -102,7 +102,13 @@ MonoBehaviour:
     loop: 1
   - name: Bubbleswitch
     clip: {fileID: 8300000, guid: 60e22493137584249a85e9bc28db4890, type: 3}
-    volume: 0.15
+    volume: 0.2
+    source: {fileID: 0}
+    pitch: 1
+    loop: 0
+  - name: End
+    clip: {fileID: 8300000, guid: a64a7acbe4bf8474dbe614d4cfcc8835, type: 3}
+    volume: 0.2
     source: {fileID: 0}
     pitch: 1
     loop: 0

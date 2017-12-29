@@ -99,8 +99,14 @@ public class MoveOnSpline : MonoBehaviour
 
         this.seconds = this.gamemaster.GetComponent<Wavespawner>().actualBubblespeed;
 
-        if (this.distanceRatio <= this.max /* && !this.helperWait*/)
+        if (this.cursor.DistanceRatio <= this.max /* && !this.helperWait*/)
         {
+            if (this.isFirstBubble && transform.position == Waypoints.points[Waypoints.points.Length - 1].position)
+            {
+                
+                Debug.Log("Verloren");
+                onLostGame();
+            }
 
             checkDistances();
 
@@ -157,20 +163,17 @@ public class MoveOnSpline : MonoBehaviour
         }
         else
         {
+            
+          
             // Helper->
             transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance);
         }
 
-        /*
-            if (this.isFirstBubble)
-            {
-                transform.position = Waypoints.points[Waypoints.points.Length - 1].position;
-                //Debug.Log("Verloren");
-                onLostGame();
-            }
-        }
+        
+          
+        
 
-    */
+    
 
     }
 
@@ -257,12 +260,12 @@ public class MoveOnSpline : MonoBehaviour
                             this.rigidBodyAttr.drag = 1000;
                             this.rigidBodyAttr.angularDrag = 1000;
                             this.rigidBodyAttr.velocity = Vector3.zero;
-                            this.rigidBodyAttr.MovePosition(transform.position + direction * (Time.deltaTime * 2));
+                            this.rigidBodyAttr.MovePosition(transform.position + direction * (Time.deltaTime * 10));
                         }
                         else
                         {
                             this.rigidBodyAttr.velocity = Vector3.zero;
-                            this.rigidBodyAttr.MovePosition(transform.position + direction * (Time.deltaTime * 10));
+                            this.rigidBodyAttr.MovePosition(transform.position + direction * (Time.deltaTime * 20));
 
 
                         }
