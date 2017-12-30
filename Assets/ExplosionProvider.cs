@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ExplosionProvider : MonoBehaviour {
+[Serializable]
+public class ExplosionProvider {
 
-    public GameObject targetBubble;
+    //public GameObject targetBubble;
     public Transform bubbles;
     private Bubble bubbleAttr;
     private GameObject gameMaster;
@@ -19,8 +20,7 @@ public class ExplosionProvider : MonoBehaviour {
     private Transform bubbleTransform;
 
 
-    
-    
+
 
     public ExplosionProvider(Bubble bubble)
     {
@@ -31,13 +31,16 @@ public class ExplosionProvider : MonoBehaviour {
         this.waveSpawner = this.bubbleAttr.waveSpawner;
         this.bubbleTransform = this.bubbleAttr.transform;
         
+
     }
 
 
 
     public void handleExplosion(int soundDecision)
     {
-        
+
+
+
         int leftColorBorderIndex = -1;
         int rightColorBorderIndex = -1;
 
@@ -167,7 +170,7 @@ public class ExplosionProvider : MonoBehaviour {
         setNewValuesForBubbleExplosion(leftColorBorderIndex, rightColorBorderIndex);
         for (int i = rightColorBorderIndex; i <= leftColorBorderIndex; i++)
         {
-            Destroy(this.bubbles.GetChild(i).gameObject);
+            GameObject.Destroy(this.bubbles.GetChild(i).gameObject);
             this.explosionBubblesCount++;
         }
         setMovedBubbleRow(leftColorBorderIndex, rightColorBorderIndex);

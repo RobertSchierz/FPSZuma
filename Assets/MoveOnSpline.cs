@@ -119,6 +119,13 @@ public class MoveOnSpline : MonoBehaviour
             else
             {
 
+
+                if (this.bubbleAttributes.isShooted && transform.GetComponent<ShootedBubble>().isInRow && transform.GetComponent<ShootedBubble>().explode)
+                {
+                    this.bubbleAttributes.isShooted = false;
+                    this.explosionProvider.handleExplosion(1);
+                }
+
                 if (this.explosionCounter == 0)
                 {
                     if (this.bubbleAttributes.interpolate)
@@ -281,11 +288,11 @@ public class MoveOnSpline : MonoBehaviour
                         this.rigidBodyAttr.drag = 0;
                         this.rigidBodyAttr.angularDrag = 0;
                         this.rigidBodyAttr.isKinematic = true;
-                        this.bubbleAttributes.isShooted = false;
-                        if (shootedBubbleAttr.explode)
+                        //this.bubbleAttributes.isShooted = false;
+                        /*if (shootedBubbleAttr.explode)
                         {
                             shootedBubbleAttr.explosionProvider.handleExplosion(1);
-                        }
+                        }*/
 
                     }
 

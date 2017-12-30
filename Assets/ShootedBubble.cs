@@ -43,7 +43,8 @@ public class ShootedBubble : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        
+       
+
         if (collision.contacts[0].otherCollider.gameObject.tag == "Bubble" && !this.hitted)
         {
             transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -68,7 +69,6 @@ public class ShootedBubble : MonoBehaviour
             MoveOnSpline.OnInsertAnimationUpdate -= checkInsertionAnimationUpdate;
             this.explode = true;
 
-            
         }
     }
 

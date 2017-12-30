@@ -21,7 +21,7 @@ public class ShootBubble : MonoBehaviour
 
     private GameObject level;
 
-    public float bubbleforce = 200f;
+    public float bubbleforce = 50f;
     private float timeBetweenShots = 0.5f;
     private float timestamp;
 
@@ -37,7 +37,7 @@ public class ShootBubble : MonoBehaviour
         this.previewBubbles2 = GameObject.Find("PreviewBubbles2");
         this.nextBubble[0] = randomizePrefabs(0);
         this.nextBubble[1] = randomizePrefabs(1);
-        Debug.Log("<b>" + getBubbleColor(this.nextBubbleIndex[0]) + "</b>");
+       // Debug.Log("<b>" + getBubbleColor(this.nextBubbleIndex[0]) + "</b>");
 
 
 
