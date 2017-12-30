@@ -24,6 +24,9 @@ public class ShootBubble : MonoBehaviour
     public float bubbleforce = 50f;
     private float timeBetweenShots = 0.5f;
     private float timestamp;
+    private bool isSwitching = false;
+
+  
 
 
 
@@ -74,7 +77,7 @@ public class ShootBubble : MonoBehaviour
             this.nextBubble[0] = this.bubblePrefabs[3];
         }
 
-        if (Input.GetButtonDown("Fire1") && Time.time >= timestamp)
+        if (Input.GetButtonDown("Fire1") && Time.time >= timestamp && !this.isSwitching)
         {
 
             shootBubble();
@@ -83,7 +86,7 @@ public class ShootBubble : MonoBehaviour
             Debug.Log(getBubbleColor(this.nextBubbleIndex[0]));
         }
 
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire2") && !this.isSwitching)
         {
             this.gameMasterAttributes.audioManager.handleSound("Bubbleswitch", 1);
             switchBubbles();
@@ -156,9 +159,10 @@ public class ShootBubble : MonoBehaviour
     {
         this.nextBubble[0] = this.nextBubble[1];
         this.nextBubbleIndex[0] = this.nextBubbleIndex[1];
-
+        //this.previewBubbles.transform.GetChild(0).gameObject.SetActive(false);
         Destroy(this.previewBubbles.transform.GetChild(0).gameObject);
-        //this.previewBubbles2.transform.GetChild(0).position = this.previewBubbles.transform.position;
+
+
 
         StartCoroutine(MoveOverSeconds(this.previewBubbles2.transform.GetChild(0).gameObject, this.previewBubbles.transform.position, 0.2f, 1));
 
@@ -172,16 +176,19 @@ public class ShootBubble : MonoBehaviour
         Vector3 startingPos = objectToMove.transform.position;
         while (elapsedTime < seconds)
         {
+            this.isSwitching = true;
             objectToMove.transform.position = Vector3.Lerp(startingPos, end, (elapsedTime / seconds));
             elapsedTime += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
+        this.isSwitching = false;
         objectToMove.transform.position = end;
 
 
         switch (option)
         {
             case 1:
+                
                 this.nextBubble[1] = randomizePrefabs(1);
                 this.previewBubbles2.transform.GetChild(0).parent = this.previewBubbles.transform;
                 break;
