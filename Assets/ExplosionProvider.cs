@@ -162,6 +162,7 @@ public class ExplosionProvider {
 
     }
 
+   
 
 
     private void explodeBubbles(int leftColorBorderIndex, int rightColorBorderIndex)
@@ -170,6 +171,7 @@ public class ExplosionProvider {
         setNewValuesForBubbleExplosion(leftColorBorderIndex, rightColorBorderIndex);
         for (int i = rightColorBorderIndex; i <= leftColorBorderIndex; i++)
         {
+            this.gameMasterAttr.startExplosionCoroutine(this.bubbles.GetChild(i).position);
             GameObject.Destroy(this.bubbles.GetChild(i).gameObject);
             this.explosionBubblesCount++;
         }
@@ -197,6 +199,8 @@ public class ExplosionProvider {
         }
 
     }
+
+  
 
     private void checkExplosionSlide(int leftColorBorderIndex, int rightColorBorderIndex)
     {

@@ -258,7 +258,7 @@ public class MoveOnSpline : MonoBehaviour
                 if (this.cursor.Distance != 0.0f)
                 {
 
-                    if (Vector3.Distance(transform.position, this.mathe.CalcPositionByDistance(this.cursor.Distance)) > 0.03f)
+                    if (Vector3.Distance(transform.position, this.mathe.CalcPositionByDistance(this.cursor.Distance)) > 0.003f)
                     {
                         Vector3 direction = (this.mathe.CalcPositionByDistance(this.cursor.Distance) - transform.position);
 

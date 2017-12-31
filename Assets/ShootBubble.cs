@@ -165,7 +165,7 @@ public class ShootBubble : MonoBehaviour
 
 
         StartCoroutine(MoveOverSeconds(this.previewBubbles2.transform.GetChild(0).gameObject, this.previewBubbles.transform.position, 0.2f, 1));
-
+       
     }
 
 
