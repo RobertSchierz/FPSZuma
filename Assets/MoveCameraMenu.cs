@@ -41,7 +41,7 @@ public class MoveCameraMenu : MonoBehaviour {
         
         if (this.cameraDolly.m_PathPosition < this.cameraDolly.m_Path.MaxPos - 1)
         {
-            Debug.Log(this.cameraDolly.m_Path.MaxPos);
+
             this.cameraDolly.m_PathPosition += Time.deltaTime;
         }
          
