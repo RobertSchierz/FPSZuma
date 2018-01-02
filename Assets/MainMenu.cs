@@ -5,9 +5,22 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
 
+    public GameObject mainmenuCamera;
+    public bool cameraEndPosition = false;
+
+    void Update()
+    {
+        if (this.cameraEndPosition == true)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            this.cameraEndPosition = false;
+        }
+    }
+
 	public void PlayGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        this.mainmenuCamera.GetComponent<MoveCameraMenu>().startGame();
+        
     }
 
     public void QuitGame()

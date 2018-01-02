@@ -1090,7 +1090,7 @@ GameObject:
   - component: {fileID: 642916005}
   m_Layer: 0
   m_Name: CM vcam1
-  m_TagString: Untagged
+  m_TagString: MainMenuCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1162,6 +1162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68e22aa9e40afe64ea869486e5058bbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainmenuCanvas: {fileID: 1788638992}
 --- !u!1 &737074764
 GameObject:
   m_ObjectHideFlags: 0
@@ -2053,6 +2054,8 @@ MonoBehaviour:
     roll: 0
   - position: {x: -0.8983861, y: 3.2310808, z: -0.011731327}
     roll: 0
+  - position: {x: -1.7841291, y: 1.180032, z: -0.016403949}
+    roll: 0
 --- !u!4 &1228635611
 Transform:
   m_ObjectHideFlags: 0
@@ -2870,7 +2873,7 @@ GameObject:
   - component: {fileID: 1788638994}
   m_Layer: 5
   m_Name: MainMenu
-  m_TagString: Untagged
+  m_TagString: MainMenuCanvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2908,6 +2911,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6e7b1d1a2d8e7439475f1a05ce3aa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainmenuCamera: {fileID: 642916001}
+  cameraEndPosition: 0
 --- !u!1 &1925963058
 GameObject:
   m_ObjectHideFlags: 0

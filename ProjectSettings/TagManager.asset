@@ -8,6 +8,8 @@ TagManager:
   - Startpoint
   - Level
   - Scoretext
+  - MainMenuCanvas
+  - MainMenuCamera
   layers:
   - Default
   - TransparentFX
