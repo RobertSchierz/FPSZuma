@@ -29,27 +29,32 @@ public class Cameralook : MonoBehaviour {
 
 	void Update () {
 
-
-        rotAverageX = 0f;
-
-        rotationX += Input.GetAxis("Mouse X") * sensitivity;
-
-        rotArrayX.Add(rotationX);
-
-        if (rotArrayX.Count >= frameCounter)
+        if (!PauseMenu.gameIsPaused)
         {
-            rotArrayX.RemoveAt(0);
-        }
-        for (int i = 0; i < rotArrayX.Count; i++)
-        {
-            rotAverageX += rotArrayX[i];
-        }
-        rotAverageX /= rotArrayX.Count;
 
-        rotAverageX = ClampAngle(rotAverageX, minimumX, maximumX);
 
-        Quaternion xQuaternion = Quaternion.AngleAxis(rotAverageX, Vector3.up);
-        transform.localRotation = originalRotation * xQuaternion;
+            rotAverageX = 0f;
+
+            rotationX += Input.GetAxis("Mouse X") * sensitivity;
+
+            rotArrayX.Add(rotationX);
+
+            if (rotArrayX.Count >= frameCounter)
+            {
+                rotArrayX.RemoveAt(0);
+            }
+            for (int i = 0; i < rotArrayX.Count; i++)
+            {
+                rotAverageX += rotArrayX[i];
+            }
+            rotAverageX /= rotArrayX.Count;
+
+            rotAverageX = ClampAngle(rotAverageX, minimumX, maximumX);
+
+            Quaternion xQuaternion = Quaternion.AngleAxis(rotAverageX, Vector3.up);
+            transform.localRotation = originalRotation * xQuaternion;
+
+        }
     }
 
     public static float ClampAngle(float angle, float min, float max)
