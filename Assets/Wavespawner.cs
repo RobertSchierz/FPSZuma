@@ -14,7 +14,7 @@ public class Wavespawner : MonoBehaviour
     [Range(0, 10)]
     public int leveldifficult = 0;
 
-    private bool lostgame = false;
+    public static bool lostgame = false;
 
 
     private BGCurve curve;
@@ -45,7 +45,7 @@ public class Wavespawner : MonoBehaviour
 
     private int bubblesSpawned = 0;
 
-
+    public GameObject gameoverCanvas;
 
 
     void Start()
@@ -71,9 +71,10 @@ public class Wavespawner : MonoBehaviour
 
     void handleOnLostGame()
     {
-        
-        this.lostgame = true;
+        Debug.Log("Verloren");
+        lostgame = true;
         this.gameMasterAttributes.audioManager.handleSound("End", 1);
+        this.gameoverCanvas.SetActive(true);
     }
 
 
@@ -98,7 +99,7 @@ public class Wavespawner : MonoBehaviour
 
 
 
-        if (this.spawnque && this.bubblesSpawned < this.bubbleCountPerWave && !this.lostgame)
+        if (this.spawnque && this.bubblesSpawned < this.bubbleCountPerWave && !lostgame)
         {
             
 

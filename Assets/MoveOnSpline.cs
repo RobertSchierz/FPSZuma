@@ -40,7 +40,7 @@ public class MoveOnSpline : MonoBehaviour
     public static event insertAnimationUpdate OnInsertAnimationUpdate;
 
     public int explosionCounter = 0;
-    public bool helperWait = false;
+ 
 
     public float distanceCalc;
     public ExplosionProvider explosionProvider;
@@ -88,23 +88,17 @@ public class MoveOnSpline : MonoBehaviour
     {
 
 
-        //---> helper
-
-        if (Input.GetButtonDown("Fire2"))
-        {
-            this.helperWait = false;
-
-        }
+    
 
 
         this.seconds = this.gamemaster.GetComponent<Wavespawner>().actualBubblespeed;
 
-        if (this.cursor.DistanceRatio <= this.max /* && !this.helperWait*/)
+        if (this.cursor.DistanceRatio <= this.max && !Wavespawner.lostgame )
         {
             if (this.isFirstBubble && transform.position == Waypoints.points[Waypoints.points.Length - 1].position)
             {
                 
-                Debug.Log("Verloren");
+                
                 onLostGame();
             }
 

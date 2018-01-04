@@ -52,48 +52,54 @@ public class ShootBubble : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (!Wavespawner.lostgame)
         {
-            this.nextBubbleIndex[0] = 0;
 
-            this.nextBubble[0] = this.bubblePrefabs[0];
+
+
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                this.nextBubbleIndex[0] = 0;
+
+                this.nextBubble[0] = this.bubblePrefabs[0];
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                this.nextBubbleIndex[0] = 1;
+
+                this.nextBubble[0] = this.bubblePrefabs[1];
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                this.nextBubbleIndex[0] = 2;
+
+                this.nextBubble[0] = this.bubblePrefabs[2];
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                this.nextBubbleIndex[0] = 3;
+
+                this.nextBubble[0] = this.bubblePrefabs[3];
+            }
+
+            if (Input.GetButtonDown("Fire1") && Time.time >= timestamp && !this.isSwitching && !PauseMenu.gameIsPaused)
+            {
+
+
+                shootBubble();
+                //this.nextBubble = randomizePrefabs();
+                this.timestamp = Time.time + this.timeBetweenShots;
+                Debug.Log(getBubbleColor(this.nextBubbleIndex[0]));
+            }
+
+            if (Input.GetButtonDown("Fire2") && !this.isSwitching)
+            {
+                this.gameMasterAttributes.audioManager.handleSound("Bubbleswitch", 1);
+                switchBubbles();
+
+            }
+
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            this.nextBubbleIndex[0] = 1;
-
-            this.nextBubble[0] = this.bubblePrefabs[1];
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            this.nextBubbleIndex[0] = 2;
-
-            this.nextBubble[0] = this.bubblePrefabs[2];
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            this.nextBubbleIndex[0] = 3;
-
-            this.nextBubble[0] = this.bubblePrefabs[3];
-        }
-
-        if (Input.GetButtonDown("Fire1") && Time.time >= timestamp && !this.isSwitching && !PauseMenu.gameIsPaused)
-        {
-         
-            
-            shootBubble();
-            //this.nextBubble = randomizePrefabs();
-            this.timestamp = Time.time + this.timeBetweenShots;
-            Debug.Log(getBubbleColor(this.nextBubbleIndex[0]));
-        }
-
-        if (Input.GetButtonDown("Fire2") && !this.isSwitching)
-        {
-            this.gameMasterAttributes.audioManager.handleSound("Bubbleswitch", 1);
-            switchBubbles();
-
-        }
-
     }
 
 

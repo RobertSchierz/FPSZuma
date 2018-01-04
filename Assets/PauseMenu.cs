@@ -12,7 +12,14 @@ public class PauseMenu : MonoBehaviour {
 
 
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.Escape))
+
+        if (Wavespawner.lostgame)
+        {
+            this.pauseMenuUI.SetActive(false);
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape) && !Wavespawner.lostgame)
         {
             if (gameIsPaused)
             {

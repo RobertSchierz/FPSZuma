@@ -5,6 +5,7 @@ using UnityEngine;
 public class Cameralook : MonoBehaviour {
 
 
+
     [Range(0.0f, 2.0f)]
     public float sensitivity = 1.0f;
     public float minimumX = -360F;
@@ -22,6 +23,9 @@ public class Cameralook : MonoBehaviour {
 
  
     void Start () {
+
+ 
+
         originalRotation = transform.localRotation;
 
     }
@@ -29,7 +33,7 @@ public class Cameralook : MonoBehaviour {
 
 	void Update () {
 
-        if (!PauseMenu.gameIsPaused)
+        if (!PauseMenu.gameIsPaused && !Wavespawner.lostgame)
         {
 
 
