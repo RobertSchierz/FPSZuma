@@ -77,9 +77,10 @@ public class ShootBubble : MonoBehaviour
             this.nextBubble[0] = this.bubblePrefabs[3];
         }
 
-        if (Input.GetButtonDown("Fire1") && Time.time >= timestamp && !this.isSwitching)
+        if (Input.GetButtonDown("Fire1") && Time.time >= timestamp && !this.isSwitching && !PauseMenu.gameIsPaused)
         {
-
+         
+            
             shootBubble();
             //this.nextBubble = randomizePrefabs();
             this.timestamp = Time.time + this.timeBetweenShots;

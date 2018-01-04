@@ -258,7 +258,7 @@ public class MoveOnSpline : MonoBehaviour
                 if (this.cursor.Distance != 0.0f)
                 {
 
-                    if (Vector3.Distance(transform.position, this.mathe.CalcPositionByDistance(this.cursor.Distance)) > 0.003f)
+                    if (Vector3.Distance(transform.position, this.mathe.CalcPositionByDistance(this.cursor.Distance)) > 0.0001f)
                     {
                         Vector3 direction = (this.mathe.CalcPositionByDistance(this.cursor.Distance) - transform.position);
 
@@ -267,7 +267,7 @@ public class MoveOnSpline : MonoBehaviour
                             this.rigidBodyAttr.drag = 1000;
                             this.rigidBodyAttr.angularDrag = 1000;
                             this.rigidBodyAttr.velocity = Vector3.zero;
-                            this.rigidBodyAttr.MovePosition(transform.position + direction * (Time.deltaTime * 10));
+                            this.rigidBodyAttr.MovePosition(transform.position + direction * (Time.deltaTime * 15));
                         }
                         else
                         {
