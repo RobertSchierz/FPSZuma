@@ -258,8 +258,14 @@ public class MoveOnSpline : MonoBehaviour
                 if (this.cursor.Distance != 0.0f)
                 {
 
-                    if (Vector3.Distance(transform.position, this.mathe.CalcPositionByDistance(this.cursor.Distance)) > 0.0001f)
+                    if (Vector3.Distance(transform.position, this.mathe.CalcPositionByDistance(this.cursor.Distance)) > 0.01f)
                     {
+                        if (this.bubbleAttributes.interpolate)
+                        {
+                            this.distanceCalc += this.gameMasterAttributes.bubbleSizeAverage;
+                            this.bubbleAttributes.interpolate = false;
+                        }
+
                         Vector3 direction = (this.mathe.CalcPositionByDistance(this.cursor.Distance) - transform.position);
 
                         if (Vector3.Distance(transform.position, this.mathe.CalcPositionByDistance(this.cursor.Distance)) > shootedBubbleAttr.distanceToInsertionspoint || shootedBubbleAttr.distanceToInsertionspoint == 0f)
@@ -276,6 +282,8 @@ public class MoveOnSpline : MonoBehaviour
 
 
                         }
+
+                       
 
                         Debug.DrawRay(transform.position, direction, Color.red, Mathf.Infinity);
                         shootedBubbleAttr.distanceToInsertionspoint = Vector3.Distance(transform.position, this.mathe.CalcPositionByDistance(this.cursor.Distance));
