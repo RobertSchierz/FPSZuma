@@ -1,4 +1,5 @@
 ﻿using BansheeGz.BGSpline.Curve;
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,8 +49,30 @@ public class Wavespawner : MonoBehaviour
     public GameObject gameoverCanvas;
 
 
+    public GameObject minimapCanvas;
+    public GameObject virtualcam1;
+    public GameObject virtualcam2;
+
+    private CinemachineVirtualCamera cvirtualcamera1;
+    private CinemachineTrackedDolly ccameraDolly1;
+
+    private CinemachineVirtualCamera cvirtualcamera2;
+    private CinemachineTrackedDolly ccameraDolly2;
+
+    private bool startCamera = false;
+    private bool startCamera2 = false;
+
+    public Transform chest;
+    private bool chestAnimationPlayed = false;
+
+
     void Start()
     {
+
+        this.cvirtualcamera1 = this.virtualcam1.GetComponent<CinemachineVirtualCamera>();
+        this.cvirtualcamera2 = this.virtualcam2.GetComponent<CinemachineVirtualCamera>();
+
+
         this.gameMasterAttributes = transform.gameObject.GetComponent<GameMaster>();
 
         this.bubblePrefabs = this.gameMasterAttributes.bubbleprefabs;
@@ -73,14 +96,65 @@ public class Wavespawner : MonoBehaviour
     {
         Debug.Log("Verloren");
         lostgame = true;
-        this.gameMasterAttributes.audioManager.handleSound("End", 1);
-        this.gameoverCanvas.SetActive(true);
+        StartCoroutine(lostGameHandler());
+        
     }
 
+    IEnumerator lostGameHandler()
+    {
+        this.gameMasterAttributes.audioManager.handleSound("End", 1);
+        this.gameoverCanvas.SetActive(true);
+        this.minimapCanvas.SetActive(false);
+        yield return new WaitForSeconds(3);
+        this.gameoverCanvas.SetActive(false);
+        startCameraToHighscore();
+    }
 
+    private void startCameraToHighscore()
+    {
+        this.cvirtualcamera1.enabled = true;
+        this.ccameraDolly1 = this.cvirtualcamera1.GetCinemachineComponent<CinemachineTrackedDolly>();
+        this.ccameraDolly1.m_PathPosition = 0;
+        this.startCamera = true;
+    }
 
     void Update()
     {
+
+
+        if (this.startCamera)
+        {
+            if (this.ccameraDolly1.m_PathPosition < this.ccameraDolly1.m_Path.MaxPos)
+            {
+                this.ccameraDolly1.m_PathPosition += (Time.deltaTime);
+            }else
+            {
+                this.cvirtualcamera1.enabled = false;
+                this.cvirtualcamera2.enabled = true;
+                this.ccameraDolly2 = this.cvirtualcamera2.GetCinemachineComponent<CinemachineTrackedDolly>();
+                this.ccameraDolly2.m_PathPosition = 0;
+                this.startCamera = false;
+                this.startCamera2 = true;
+
+            }
+
+        }
+
+        if (this.startCamera2)
+        {
+            if (this.ccameraDolly2.m_PathPosition < this.ccameraDolly2.m_Path.MaxPos)
+            {
+                this.ccameraDolly2.m_PathPosition += (Time.deltaTime);
+            }else
+            {
+                if (!this.chestAnimationPlayed)
+                {
+                    this.chest.GetComponent<Animation>().Play();
+                    this.chestAnimationPlayed = true;
+                }
+                
+            }
+        }
 
 
         if (countdown <= 0f && !this.wavespaned)
