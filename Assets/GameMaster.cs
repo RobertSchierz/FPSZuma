@@ -15,6 +15,7 @@ public class GameMaster : MonoBehaviour {
     public Transform[] bubbleprefabs = new Transform[4];
 
     public Transform explosionPrefab;
+    public Transform fireExplosionPrefab;
 
     public float bubbleSizeAverage;
 
@@ -33,11 +34,20 @@ public class GameMaster : MonoBehaviour {
         this.score = Score.instance;
     }
 
-    public IEnumerator explosionEffectHandler(Vector3 position, float seconds)
+    public IEnumerator explosionEffectHandler(Vector3 position, float seconds, int option)
     {
         float elapsedTime = 0;
+        Transform explosionEffect;
+        if (option == 1)
+        {
+            explosionEffect = GameObject.Instantiate(this.explosionPrefab, position, Quaternion.identity);
+        }else
+        {
+            explosionEffect = GameObject.Instantiate(this.fireExplosionPrefab, position, Quaternion.identity);
 
-        Transform explosionEffect = GameObject.Instantiate(this.explosionPrefab, position, Quaternion.identity);
+        }
+
+
 
         while (elapsedTime < seconds)
         {
@@ -49,8 +59,16 @@ public class GameMaster : MonoBehaviour {
        
     }
 
-    public void startExplosionCoroutine(Vector3 position)
+    public void startExplosionCoroutine(Vector3 position, int option)
     {
-        StartCoroutine(explosionEffectHandler(position, 2));
+        if (option == 1)
+        {
+            StartCoroutine(explosionEffectHandler(position, 2, 1));
+        }
+        else
+        {
+            StartCoroutine(explosionEffectHandler(position, 0.5f, 2));
+        }
+        
     }
 }

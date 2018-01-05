@@ -65,6 +65,9 @@ public class Wavespawner : MonoBehaviour
     public Transform chest;
     private bool chestAnimationPlayed = false;
 
+    public GameObject highscoreCanvas;
+    private bool destroyAllBubbles = false;
+
 
     void Start()
     {
@@ -118,6 +121,26 @@ public class Wavespawner : MonoBehaviour
         this.startCamera = true;
     }
 
+    IEnumerator highscoreCanvashandler()
+    {
+        yield return new WaitForSeconds(3);
+        this.highscoreCanvas.SetActive(true);
+    }
+
+    IEnumerator waitForDestroy()
+    {
+
+        for (int i = 0; i < this.bubbles.childCount; i++)
+        {
+            Debug.Log(this.bubbles.childCount);
+            transform.GetComponent<GameMaster>().startExplosionCoroutine(this.bubbles.GetChild(0).position, 2);
+            Destroy(this.bubbles.GetChild(0).gameObject);
+            yield return new WaitForSeconds(0.1f);
+            
+        }
+        
+    }
+
     void Update()
     {
 
@@ -127,6 +150,18 @@ public class Wavespawner : MonoBehaviour
             if (this.ccameraDolly1.m_PathPosition < this.ccameraDolly1.m_Path.MaxPos)
             {
                 this.ccameraDolly1.m_PathPosition += (Time.deltaTime);
+
+                if (this.ccameraDolly1.m_PathPosition > 2.0f)
+                {
+                    if (!this.destroyAllBubbles)
+                    {
+                        this.destroyAllBubbles = true;
+                        StartCoroutine(waitForDestroy());
+                     
+                    }
+                   
+                }
+
             }else
             {
                 this.cvirtualcamera1.enabled = false;
@@ -144,16 +179,28 @@ public class Wavespawner : MonoBehaviour
         {
             if (this.ccameraDolly2.m_PathPosition < this.ccameraDolly2.m_Path.MaxPos)
             {
-                this.ccameraDolly2.m_PathPosition += (Time.deltaTime);
-            }else
-            {
-                if (!this.chestAnimationPlayed)
-                {
-                    this.chest.GetComponent<Animation>().Play();
-                    this.chestAnimationPlayed = true;
-                }
                 
+
+                if (this.ccameraDolly2.m_PathPosition > this.ccameraDolly2.m_Path.MaxPos -1)
+                {
+                    this.ccameraDolly2.m_PathPosition += (Time.deltaTime / 2);
+                    if (!this.chestAnimationPlayed)
+                    {
+                        this.chest.GetComponent<Animation>().Play();
+                        this.chestAnimationPlayed = true;
+                        StartCoroutine(highscoreCanvashandler());
+                    }
+                }
+                else
+                {
+                    this.ccameraDolly2.m_PathPosition += (Time.deltaTime);
+                }
+
             }
+            
+                
+                
+            
         }
 
 
