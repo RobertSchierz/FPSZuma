@@ -135,7 +135,8 @@ public class Wavespawner : MonoBehaviour
             Debug.Log(this.bubbles.childCount);
             transform.GetComponent<GameMaster>().startExplosionCoroutine(this.bubbles.GetChild(0).position, 2);
             Destroy(this.bubbles.GetChild(0).gameObject);
-            yield return new WaitForSeconds(0.1f);
+            this.gameMasterAttributes.audioManager.handleSound("FinalBallExplosion", 1);
+            yield return new WaitForSeconds(0.2f);
             
         }
         

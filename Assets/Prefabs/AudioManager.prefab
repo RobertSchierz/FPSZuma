@@ -112,3 +112,9 @@ MonoBehaviour:
     source: {fileID: 0}
     pitch: 1
     loop: 0
+  - name: FinalBallExplosion
+    clip: {fileID: 8300000, guid: 0f1f0c1a5bd9069479d1a0b17d0c3656, type: 3}
+    volume: 0.04
+    source: {fileID: 0}
+    pitch: 1
+    loop: 0
