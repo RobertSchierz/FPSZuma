@@ -75,12 +75,11 @@ public class AudioManager : MonoBehaviour
 
     IEnumerator WaitAndDecreaseVolume(Sound playableSound)
     {
-
+        
         while (playableSound.source.volume > 0)
         {
             yield return null;
             playableSound.source.volume -= 0.0001f;
-
         }
         playableSound.source.Stop();
         yield break;
