@@ -16,6 +16,7 @@ public class Wavespawner : MonoBehaviour
     public int leveldifficult = 0;
 
     public static bool lostgame = false;
+    
 
 
     private BGCurve curve;
@@ -31,6 +32,7 @@ public class Wavespawner : MonoBehaviour
     public int bubbleCountPerWave = 10;
     [Range(15, 100)]
     public float bubblespeed = 15.0f;
+
 
 
     // First Start - Intro

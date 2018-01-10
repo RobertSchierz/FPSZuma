@@ -9,11 +9,11 @@ public class Waypoints : MonoBehaviour {
 
     void Awake()
     {
-        points = new Transform[transform.childCount];
+        points = new Transform[transform.childCount-1];
 
-        for (int i = 0; i < points.Length; i++)
+        for (int i = 1; i < transform.childCount; i++)
         {
-            points[i] = transform.GetChild(i);
+            points[i-1] = transform.GetChild(i);
         }
     }
 }
