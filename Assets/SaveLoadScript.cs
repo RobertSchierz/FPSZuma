@@ -42,6 +42,11 @@ public class SaveLoadScript : MonoBehaviour {
     {
         return this.savedHighscores;
     }
+
+    public void setHighscoreToNull()
+    {
+        this.savedHighscores = null;
+    }
 	
     private void loadHighscores()
     {

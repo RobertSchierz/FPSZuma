@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class HighscoreCanvasScript : MonoBehaviour {
 
@@ -22,7 +23,9 @@ public class HighscoreCanvasScript : MonoBehaviour {
         if (SaveLoadScript.instance.saveHighscore(name.text, Score.instance.score, date))
         {
             Debug.Log("Score gespeichert!");
-        }else
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        }
+        else
         {
             Debug.Log("Score nicht gespeichert");
         }

@@ -1,6 +1,8 @@
 ﻿using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using TMPro;
 using UnityEngine;
 
 public class HighscoreAnzeige : MonoBehaviour {
@@ -24,6 +26,8 @@ public class HighscoreAnzeige : MonoBehaviour {
     private CinemachineTrackedDolly dolly2;
     private CinemachineTrackedDolly dolly3;
 
+    public Transform entryPrefab;
+    public Transform grid;
 
 
     public bool startCamToHighscore = false;
@@ -79,6 +83,26 @@ public class HighscoreAnzeige : MonoBehaviour {
 
 	}
 
+    public void resetAll()
+    {
+        try
+        {
+            for (int i = 0; i < this.grid.childCount; i++)
+            {
+                Destroy(this.grid.GetChild(i).gameObject);
+            }
+
+            File.Create(Application.persistentDataPath + "/savedHighscores.dat");
+            SaveLoadScript.instance.setHighscoreToNull();
+        }
+        catch (System.Exception)
+        {
+
+            Debug.Log("Datei ist nicht vorhanden");
+        }
+      
+    }
+
 
     public void handleCam()
     {
@@ -89,10 +113,26 @@ public class HighscoreAnzeige : MonoBehaviour {
         Hashtable highscores;
         highscores = SaveLoadScript.instance.getHighscores();
 
-        foreach (DictionaryEntry entry in highscores)
+        
+
+        if (highscores != null)
         {
-            Debug.Log(entry.Key +  " - " + entry.Value);
+            for (int i = 0; i < this.grid.childCount; i++)
+            {
+                Destroy(this.grid.GetChild(i).gameObject);
+            }
+
+            foreach (DictionaryEntry entry in highscores)
+            {
+                Debug.Log(entry.Key + " - " + entry.Value);
+                Transform holder = Instantiate(this.entryPrefab, this.grid);
+                holder.GetChild(0).GetComponent<TextMeshProUGUI>().text = entry.Key.ToString();
+                holder.GetChild(1).GetComponent<TextMeshProUGUI>().text = entry.Value.ToString();
+
+
+            }
         }
+   
     }
 
     public void backToMainMenu()

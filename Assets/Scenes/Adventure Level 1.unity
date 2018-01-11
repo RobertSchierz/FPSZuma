@@ -20105,7 +20105,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 36401301}
   leveldifficult: 0
   bubbleCountPerWave: 100
-  bubblespeed: 69.4
+  bubblespeed: 15
   actualBubblespeed: 0
   gameoverCanvas: {fileID: 1623913000}
   minimapCanvas: {fileID: 122401916}
