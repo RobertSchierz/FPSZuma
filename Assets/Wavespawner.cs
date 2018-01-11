@@ -127,6 +127,8 @@ public class Wavespawner : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         this.highscoreCanvas.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     IEnumerator waitForDestroy()

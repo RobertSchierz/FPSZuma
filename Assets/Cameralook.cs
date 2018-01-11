@@ -24,8 +24,9 @@ public class Cameralook : MonoBehaviour {
  
     void Start () {
 
- 
 
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         originalRotation = transform.localRotation;
 
     }
