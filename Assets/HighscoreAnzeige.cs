@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -122,9 +123,19 @@ public class HighscoreAnzeige : MonoBehaviour {
                 Destroy(this.grid.GetChild(i).gameObject);
             }
 
+            Hashtable sortedHighscore = new Hashtable();
+
+            
+
             foreach (DictionaryEntry entry in highscores)
             {
-                Debug.Log(entry.Key + " - " + entry.Value);
+                sortedHighscore.Add(entry.Key.ToString(), int.Parse(entry.Value.ToString()));
+            }
+
+
+            foreach (DictionaryEntry entry in sortedHighscore.Cast<DictionaryEntry>().OrderByDescending(entry => entry.Value))
+            {
+                Debug.Log(entry.Value);
                 Transform holder = Instantiate(this.entryPrefab, this.grid);
                 holder.GetChild(0).GetComponent<TextMeshProUGUI>().text = entry.Key.ToString();
                 holder.GetChild(1).GetComponent<TextMeshProUGUI>().text = entry.Value.ToString();
