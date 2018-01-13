@@ -148,7 +148,7 @@ public class ShootedBubble : MonoBehaviour
                     this.moveOnSplineAttr.explosionCounter = targetBubble.GetComponent<MoveOnSpline>().explosionCounter;
                 }
 
-                this.explosionProvider.handleExplosion(1);
+                this.explosionProvider.handleExplosion(transform, 1);
             }
             else
             {
@@ -164,7 +164,7 @@ public class ShootedBubble : MonoBehaviour
 
                 if (this.bubbleAttr.beforeBubble.GetComponent<MoveOnSpline>().explosionCounter != this.moveOnSplineAttr.explosionCounter)
                 {
-                    this.explosionProvider.handleExplosion(1);
+                    this.explosionProvider.handleExplosion(transform, 1);
                 }
             }
 

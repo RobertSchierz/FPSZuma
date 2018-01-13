@@ -19,6 +19,7 @@ public class MainMenu : MonoBehaviour {
 
 	public void PlayGame()
     {
+        Wavespawner.lostgame = false;
         this.mainmenuCamera.GetComponent<MoveCameraMenu>().startGame();
         
     }

@@ -19,6 +19,7 @@ public class MoveCameraMenu : MonoBehaviour {
 
     public void startGame()
     {
+        
         this.camera.m_LookAt = null;
         StartCoroutine(MoveCameraToEnd());
     }

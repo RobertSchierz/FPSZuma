@@ -23,6 +23,7 @@ public class HighscoreCanvasScript : MonoBehaviour {
         if (SaveLoadScript.instance.saveHighscore(name.text, Score.instance.score, date))
         {
             Debug.Log("Score gespeichert!");
+     
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
         }
         else

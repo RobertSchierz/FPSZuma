@@ -15,7 +15,6 @@ public class SaveLoadScript : MonoBehaviour {
 
 	void Awake () {
 
-        DontDestroyOnLoad(transform.gameObject);
 
         if (instance == null)
         {
@@ -45,6 +44,7 @@ public class SaveLoadScript : MonoBehaviour {
 
     public void setHighscoreToNull()
     {
+        loadHighscores();
         this.savedHighscores = null;
     }
 	

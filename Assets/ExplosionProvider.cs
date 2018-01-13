@@ -36,30 +36,30 @@ public class ExplosionProvider {
 
 
 
-    public void handleExplosion(int soundDecision)
+    public void handleExplosion(Transform bubble,  int soundDecision)
     {
 
-
+        Bubble explosionTargetBubbleAttr = bubble.GetComponent<Bubble>();
 
         int leftColorBorderIndex = -1;
         int rightColorBorderIndex = -1;
 
-        if (!this.bubbleAttr.isFirstBubble && !this.bubbleAttr.isLastBubble)
+        if (!explosionTargetBubbleAttr.isFirstBubble && !explosionTargetBubbleAttr.isLastBubble)
         {
-            leftColorBorderIndex =  checkNeighboursOfBubble("left", this.bubbleAttr.bubbleColor, this.bubbleTransform.GetSiblingIndex());
-            rightColorBorderIndex = checkNeighboursOfBubble("right", this.bubbleAttr.bubbleColor, this.bubbleTransform.GetSiblingIndex());
+            leftColorBorderIndex =  checkNeighboursOfBubble("left", explosionTargetBubbleAttr.bubbleColor, bubble.GetSiblingIndex());
+            rightColorBorderIndex = checkNeighboursOfBubble("right", explosionTargetBubbleAttr.bubbleColor, bubble.GetSiblingIndex());
         }
-        else if (this.bubbleAttr.isFirstBubble)
+        else if (explosionTargetBubbleAttr.isFirstBubble)
         {
-            leftColorBorderIndex = checkNeighboursOfBubble("left", this.bubbleAttr.bubbleColor, this.bubbleTransform.GetSiblingIndex());
+            leftColorBorderIndex = checkNeighboursOfBubble("left", explosionTargetBubbleAttr.bubbleColor, bubble.GetSiblingIndex());
         }
-        else if (this.bubbleAttr.isLastBubble)
+        else if (explosionTargetBubbleAttr.isLastBubble)
         {
-            rightColorBorderIndex = checkNeighboursOfBubble("right", this.bubbleAttr.bubbleColor, this.bubbleTransform.GetSiblingIndex());
+            rightColorBorderIndex = checkNeighboursOfBubble("right", explosionTargetBubbleAttr.bubbleColor, bubble.GetSiblingIndex());
         }
 
-        if (leftColorBorderIndex == -1) { leftColorBorderIndex = this.bubbleTransform.GetSiblingIndex(); };
-        if (rightColorBorderIndex == -1) { rightColorBorderIndex = this.bubbleTransform.GetSiblingIndex(); };
+        if (leftColorBorderIndex == -1) { leftColorBorderIndex = bubble.GetSiblingIndex(); };
+        if (rightColorBorderIndex == -1) { rightColorBorderIndex = bubble.GetSiblingIndex(); };
 
         switch (checkIfExplode(leftColorBorderIndex, rightColorBorderIndex))
         {
@@ -81,9 +81,11 @@ public class ExplosionProvider {
                 break;
             case 2:
                 Debug.Log("rutsch");
+               // Debug.Break();
                 break;
             case 3:
                 Debug.Log("Rutsch and explode");
+                //Debug.Break();
                 break;
             default:
                 break;

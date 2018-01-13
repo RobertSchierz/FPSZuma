@@ -115,7 +115,7 @@ public class MoveOnSpline : MonoBehaviour
                 if (this.bubbleAttributes.isShooted && transform.GetComponent<ShootedBubble>().isInRow && transform.GetComponent<ShootedBubble>().explode)
                 {
                     this.bubbleAttributes.isShooted = false;
-                    this.explosionProvider.handleExplosion(1);
+                    this.explosionProvider.handleExplosion(transform, 1);
                 }
 
                 if (this.explosionCounter == 0)
@@ -343,7 +343,7 @@ public class MoveOnSpline : MonoBehaviour
                 this.distanceCalc = this.bubbleAttributes.afterBubble.GetComponent<MoveOnSpline>().distanceCalc + this.gameMasterAttributes.bubbleSizeAverage;
                 moveToCalcDistance();
                 this.bubbleAttributes.rollback = false;
-                this.explosionProvider.handleExplosion(2);
+                this.explosionProvider.handleExplosion(this.bubbleAttributes.rollbackBorderBubble.transform, 2);
             }
         }
         else

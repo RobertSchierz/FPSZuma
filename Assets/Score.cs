@@ -23,7 +23,7 @@ public class Score : MonoBehaviour {
             return;
         }
 
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     void Start()

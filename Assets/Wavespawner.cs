@@ -193,6 +193,7 @@ public class Wavespawner : MonoBehaviour
                     {
                         this.chest.GetComponent<Animation>().Play();
                         this.chestAnimationPlayed = true;
+                        
                         StartCoroutine(highscoreCanvashandler());
                     }
                 }
