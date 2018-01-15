@@ -42,8 +42,9 @@ public class Bubble : MonoBehaviour
     public Transform[] movedBubbleRow;
     public bool interpolate = false;
     public bool rollback = false;
-    public Transform rollbackBorderBubble;
+    //public Transform rollbackBorderBubble;
     public float rotationSpeed;
+    public bool isRollbackBorderBubble = false;
 
 
 

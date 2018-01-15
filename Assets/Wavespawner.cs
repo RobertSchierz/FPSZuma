@@ -15,6 +15,7 @@ public class Wavespawner : MonoBehaviour
     [Range(0, 10)]
     public int leveldifficult = 0;
 
+ 
     public static bool lostgame = false;
     
 

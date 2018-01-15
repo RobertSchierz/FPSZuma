@@ -89,7 +89,7 @@ public class ShootBubble : MonoBehaviour
                 shootBubble();
                 //this.nextBubble = randomizePrefabs();
                 this.timestamp = Time.time + this.timeBetweenShots;
-                Debug.Log(getBubbleColor(this.nextBubbleIndex[0]));
+               // Debug.Log(getBubbleColor(this.nextBubbleIndex[0]));
             }
 
             if (Input.GetButtonDown("Fire2") && !this.isSwitching)

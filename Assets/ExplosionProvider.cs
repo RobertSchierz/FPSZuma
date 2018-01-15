@@ -81,7 +81,7 @@ public class ExplosionProvider {
                 break;
             case 2:
                 Debug.Log("rutsch");
-               // Debug.Break();
+                //Debug.Break();
                 break;
             case 3:
                 Debug.Log("Rutsch and explode");
@@ -173,6 +173,12 @@ public class ExplosionProvider {
         setNewValuesForBubbleExplosion(leftColorBorderIndex, rightColorBorderIndex);
         for (int i = rightColorBorderIndex; i <= leftColorBorderIndex; i++)
         {
+            if (this.bubbles.GetChild(i).GetComponent<Bubble>().isRollbackBorderBubble)
+            {
+                this.bubbles.GetChild(rightColorBorderIndex - 1).GetComponent<Bubble>().isRollbackBorderBubble = true;
+                this.bubbles.GetChild(i).GetComponent<Bubble>().isRollbackBorderBubble = false;    
+            }
+
             this.gameMasterAttr.startExplosionCoroutine(this.bubbles.GetChild(i).position, 1);
             GameObject.Destroy(this.bubbles.GetChild(i).gameObject);
             this.explosionBubblesCount++;
@@ -191,7 +197,7 @@ public class ExplosionProvider {
 
 
         //Helper->
-       /* for (int i = leftColorBorderIndex + 1; i < this.bubbles.childCount; i++)
+      /*  for (int i = leftColorBorderIndex + 1; i < this.bubbles.childCount; i++)
         {
             if (this.bubbles.GetChild(i).GetComponent<MoveOnSpline>().explosionCounter == 0)
             {
@@ -225,7 +231,7 @@ public class ExplosionProvider {
 
     private void setRollbackAttribute(Bubble rollbackBubble)
     {
-
+        rollbackBubble.GetComponent<Bubble>().isRollbackBorderBubble = true;
         foreach (var infrontBubble in rollbackBubble.movedBubbleRow)
         {
             if (infrontBubble.GetComponent("ShootedBubble"))
@@ -235,7 +241,8 @@ public class ExplosionProvider {
             if (infrontBubble.GetComponent<MoveOnSpline>().explosionCounter == rollbackBubble.gameObject.GetComponent<MoveOnSpline>().explosionCounter)
             {
                 infrontBubble.GetComponent<Bubble>().rollback = true;
-                infrontBubble.GetComponent<Bubble>().rollbackBorderBubble = rollbackBubble.transform;
+                //infrontBubble.GetComponent<Bubble>().rollbackBorderBubble = rollbackBubble.transform;
+                
             }
         }
     }
