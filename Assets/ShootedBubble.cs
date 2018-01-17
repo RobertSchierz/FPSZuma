@@ -9,7 +9,13 @@ public class ShootedBubble : MonoBehaviour
 
 
     public bool hitted = false;
+
+
     public GameObject targetBubble;
+    public Bubble targetBubbleattr;
+    public MoveOnSpline targetMoveonspline;
+
+
     public Transform bubbles;
     private Bubble bubbleAttr;
     private GameObject gameMaster;
@@ -47,17 +53,30 @@ public class ShootedBubble : MonoBehaviour
 
         if (collision.contacts[0].otherCollider.gameObject.tag == "Bubble" && !this.hitted)
         {
-            transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            MoveOnSpline.OnInsertAnimationUpdate += checkInsertionAnimationUpdate;
-            this.hitted = true;
-            targetBubble = collision.contacts[0].otherCollider.gameObject;
-            Bubble targetBubbleAttr = targetBubble.GetComponent<Bubble>();
-            MoveOnSpline targetMoveOnSplineAttr = targetBubble.GetComponent<MoveOnSpline>();
-            handleInsertBubble(targetBubbleAttr, targetMoveOnSplineAttr);
-            this.gameMasterAttr.audioManager.handleSound("CollideBubble1",1);
 
+            this.targetBubble = collision.contacts[0].otherCollider.gameObject;
+            this.targetBubbleattr = this.targetBubble.GetComponent<Bubble>();
+            this.targetMoveonspline = this.targetBubble.GetComponent<MoveOnSpline>();
+
+
+            if (!this.targetBubbleattr.rollback)
+            {
+                targetBubblehandler();
+            }
         }
 
+    }
+
+    private void targetBubblehandler()
+    {
+        transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        MoveOnSpline.OnInsertAnimationUpdate += checkInsertionAnimationUpdate;
+        this.hitted = true;
+
+        Bubble targetBubbleAttr = targetBubble.GetComponent<Bubble>();
+        MoveOnSpline targetMoveOnSplineAttr = targetBubble.GetComponent<MoveOnSpline>();
+        handleInsertBubble(targetBubbleAttr, targetMoveOnSplineAttr);
+        this.gameMasterAttr.audioManager.handleSound("CollideBubble1", 1);
     }
 
     void checkInsertionAnimationUpdate()

@@ -197,7 +197,7 @@ public class ExplosionProvider {
 
 
         //Helper->
-      /*  for (int i = leftColorBorderIndex + 1; i < this.bubbles.childCount; i++)
+       /* for (int i = leftColorBorderIndex + 1; i < this.bubbles.childCount; i++)
         {
             if (this.bubbles.GetChild(i).GetComponent<MoveOnSpline>().explosionCounter == 0)
             {
