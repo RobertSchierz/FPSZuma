@@ -71,6 +71,22 @@ public class ExplosionProvider {
                     this.gameMasterAttr.audioManager.handleSound("BubblesDestroyed", 1);
                 }else if (soundDecision == 2)
                 {
+                    for (int i = 0; i < this.bubbles.childCount; i++)
+                    {
+                        MoveOnSpline tempMoveonSplineAttr = this.bubbles.GetChild(i).GetComponent<MoveOnSpline>();
+                        Bubble tempBubbleAttr = this.bubbles.GetChild(i).GetComponent<Bubble>();
+
+                        if (tempMoveonSplineAttr.explosionCounter == this.bubbles.GetChild(leftColorBorderIndex +1).GetComponent<MoveOnSpline>().explosionCounter)
+                        {
+                            tempMoveonSplineAttr.slowAfterRollback = false;
+                        }
+
+                        if (tempMoveonSplineAttr.explosionCounter == this.bubbles.GetChild(rightColorBorderIndex - 1).GetComponent<MoveOnSpline>().explosionCounter)
+                        {
+                            tempMoveonSplineAttr.slowAfterRollback = false;
+                        }
+                    }
+
                     this.gameMasterAttr.score.updateScore(20);
                     this.gameMasterAttr.audioManager.handleSound("ExplodeBubble", 3);
                     this.gameMasterAttr.audioManager.handleSound("BubblesDestroyed2", 1);
@@ -241,9 +257,23 @@ public class ExplosionProvider {
             if (infrontBubble.GetComponent<MoveOnSpline>().explosionCounter == rollbackBubble.gameObject.GetComponent<MoveOnSpline>().explosionCounter)
             {
                 infrontBubble.GetComponent<Bubble>().rollback = true;
+            
+                /*
+                for (int i = 0; i < this.bubbles.childCount; i++)
+                {
+                    MoveOnSpline tempMoveOnSpline = this.bubbles.GetChild(i).GetComponent<MoveOnSpline>();
+                    if (tempMoveOnSpline.explosionCounter == rollbackBubble.gameObject.GetComponent<MoveOnSpline>().explosionCounter -1)
+                    {
+                        tempMoveOnSpline.slowAfterRollback = false;
+                    }
+                }*/
                 //infrontBubble.GetComponent<Bubble>().rollbackBorderBubble = rollbackBubble.transform;
-                
+
             }
+
+
+        
+
         }
     }
 
