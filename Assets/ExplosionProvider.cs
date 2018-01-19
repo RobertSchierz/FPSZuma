@@ -36,8 +36,10 @@ public class ExplosionProvider {
 
 
 
-    public void handleExplosion(Transform bubble,  int soundDecision)
+    public bool handleExplosion(Transform bubble,  int soundDecision)
     {
+
+        bool explodes = false;
 
         Bubble explosionTargetBubbleAttr = bubble.GetComponent<Bubble>();
 
@@ -64,14 +66,15 @@ public class ExplosionProvider {
         switch (checkIfExplode(leftColorBorderIndex, rightColorBorderIndex))
         {
             case 1:
+                explodes = true;
 
-                if(soundDecision == 1){
+                if (soundDecision == 1){
                     this.gameMasterAttr.score.updateScore(10);
                     this.gameMasterAttr.audioManager.handleSound("ExplodeBubble", 1);
                     this.gameMasterAttr.audioManager.handleSound("BubblesDestroyed", 1);
                 }else if (soundDecision == 2)
                 {
-                    for (int i = 0; i < this.bubbles.childCount; i++)
+                    /*for (int i = 0; i < this.bubbles.childCount; i++)
                     {
                         MoveOnSpline tempMoveonSplineAttr = this.bubbles.GetChild(i).GetComponent<MoveOnSpline>();
                         Bubble tempBubbleAttr = this.bubbles.GetChild(i).GetComponent<Bubble>();
@@ -86,7 +89,7 @@ public class ExplosionProvider {
                             tempMoveonSplineAttr.slowAfterRollback = false;
                         }
                     }
-
+                    */
                     this.gameMasterAttr.score.updateScore(20);
                     this.gameMasterAttr.audioManager.handleSound("ExplodeBubble", 3);
                     this.gameMasterAttr.audioManager.handleSound("BubblesDestroyed2", 1);
@@ -107,7 +110,8 @@ public class ExplosionProvider {
                 break;
         }
 
-
+   
+        return explodes;
 
     }
 
@@ -189,12 +193,12 @@ public class ExplosionProvider {
         setNewValuesForBubbleExplosion(leftColorBorderIndex, rightColorBorderIndex);
         for (int i = rightColorBorderIndex; i <= leftColorBorderIndex; i++)
         {
-            if (this.bubbles.GetChild(i).GetComponent<Bubble>().isRollbackBorderBubble)
+           /* if (this.bubbles.GetChild(i).GetComponent<Bubble>().isRollbackBorderBubble)
             {
                 this.bubbles.GetChild(rightColorBorderIndex - 1).GetComponent<Bubble>().isRollbackBorderBubble = true;
                 this.bubbles.GetChild(i).GetComponent<Bubble>().isRollbackBorderBubble = false;    
             }
-
+*/
             this.gameMasterAttr.startExplosionCoroutine(this.bubbles.GetChild(i).position, 1);
             GameObject.Destroy(this.bubbles.GetChild(i).gameObject);
             this.explosionBubblesCount++;
@@ -207,10 +211,6 @@ public class ExplosionProvider {
         }
 
         checkExplosionSlide(leftColorBorderIndex, rightColorBorderIndex);
-
-        
-        
-
 
         //Helper->
        /* for (int i = leftColorBorderIndex + 1; i < this.bubbles.childCount; i++)

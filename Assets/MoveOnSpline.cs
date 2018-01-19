@@ -357,6 +357,7 @@ public class MoveOnSpline : MonoBehaviour
         {
             MoveOnSpline rollBackMoveOnSpline = null;
             Bubble rollBackBubbleBubbleAttr = null;
+           
 
 
             for (int i = 0; i < this.bubbles.childCount; i++)
@@ -385,15 +386,15 @@ public class MoveOnSpline : MonoBehaviour
                     moveToCalcDistance();
                     this.bubbleAttributes.rollback = false;
                     this.bubbleAttributes.isRollbackBorderBubble = false;
-                    this.explosionProvider.handleExplosion(rollBackBubbleBubbleAttr.transform, 2);
-                    handleslowRollback();
+                    
+                    handleslowRollback(this.explosionProvider.handleExplosion(rollBackBubbleBubbleAttr.transform, 2), rollBackMoveOnSpline, rollBackBubbleBubbleAttr);
 
                 }
             }
             else
             {
                 this.bubbleAttributes.rollback = false;
-                handleslowRollback();
+               // handleslowRollback();
             }
         }
         else
@@ -415,33 +416,64 @@ public class MoveOnSpline : MonoBehaviour
         }
     }
 
-    private void handleslowRollback()
+    private void handleslowRollback(bool explode, MoveOnSpline rollbackMoveonSpline, Bubble rollbackBubble)
     {
-        for (int i = 0; i < this.bubbles.childCount; i++)
+        Debug.Log(explode);
+        if (explode == false && rollbackMoveonSpline.transform == transform)
         {
-            MoveOnSpline moveonsplineAttr = this.bubbles.GetChild(i).GetComponent<MoveOnSpline>();
-            Bubble bubbleeAttr = this.bubbles.GetChild(i).GetComponent<Bubble>();
+            
+           // Debug.Break();
 
-            if (moveonsplineAttr.explosionCounter == this.explosionCounter)
+            for (int i = 0; i < this.bubbles.childCount; i++)
             {
-                if (!this.bubbleAttributes.isLastBubble)
+                MoveOnSpline tempMoveonSpline = this.bubbles.GetChild(i).GetComponent<MoveOnSpline>();
+                if (tempMoveonSpline.explosionCounter == rollbackMoveonSpline.explosionCounter || tempMoveonSpline.explosionCounter == rollbackMoveonSpline.explosionCounter -1)
                 {
-                    moveonsplineAttr.slowAfterRollback = true;
-                    moveonsplineAttr.slowBackAnimationStart = this.bubbles.GetChild(i+1).GetComponent<MoveOnSpline>().slowBackAnimationStart;
-                    moveonsplineAttr.slowdownFactor = this.bubbles.GetChild(i + 1).GetComponent<MoveOnSpline>().slowdownFactor;
-                }else
-                {
-                    moveonsplineAttr.slowAfterRollback = true;
-                    moveonsplineAttr.slowBackAnimationStart = this.bubbles.GetChild(i - 1).GetComponent<MoveOnSpline>().slowBackAnimationStart;
-                    moveonsplineAttr.slowdownFactor = this.bubbles.GetChild(i - 1).GetComponent<MoveOnSpline>().slowdownFactor;
+                    tempMoveonSpline.slowAfterRollback = true;
                 }
-                    
-                
-
             }
-        }
+            
+
+                /*
+                for (int i = 0; i < this.bubbles.childCount; i++)
+                {
+                    MoveOnSpline moveonsplineAttr = this.bubbles.GetChild(i).GetComponent<MoveOnSpline>();
+                    Bubble bubbleeAttr = this.bubbles.GetChild(i).GetComponent<Bubble>();
+
+                    if (moveonsplineAttr.explosionCounter == this.explosionCounter)
+                    {
+                        if (!this.bubbleAttributes.isLastBubble)
+                        {
+                            moveonsplineAttr.slowAfterRollback = true;
+                            moveonsplineAttr.slowBackAnimationStart = this.bubbles.GetChild(i+1).GetComponent<MoveOnSpline>().slowBackAnimationStart;
+                            moveonsplineAttr.slowdownFactor = this.bubbles.GetChild(i + 1).GetComponent<MoveOnSpline>().slowdownFactor;
+                        }else
+                        {
+                            moveonsplineAttr.slowAfterRollback = true;
+                            moveonsplineAttr.slowBackAnimationStart = this.bubbles.GetChild(i - 1).GetComponent<MoveOnSpline>().slowBackAnimationStart;
+                            moveonsplineAttr.slowdownFactor = this.bubbles.GetChild(i - 1).GetComponent<MoveOnSpline>().slowdownFactor;
+                        }
+
+                        // moveonsplineAttr.slowAfterRollback = true;
+
+                    }
+                    else if (moveonsplineAttr.explosionCounter == this.explosionCounter + 1)
+                    {
+                        Debug.Log(explode);
+                        if (!explode)
+                        {
+                            // moveonsplineAttr.slowAfterRollback = true;
+                        }
+                        else
+                        {
+                            // moveonsplineAttr.slowAfterRollback = false;
+                        }
+                    }
+                }*/
+            }
+
    
-        Debug.Break();
+   
     }
 
     public void correctOverlapOfBubbles(float distanceCalcDifference)
