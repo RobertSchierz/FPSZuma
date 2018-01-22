@@ -23,8 +23,8 @@ public class ShootedBubble : MonoBehaviour
     private MoveOnSpline moveOnSplineAttr;
     private Wavespawner waveSpawner;
 
-    private bool insertBefore = false;
-    private bool insertAfter = false;
+    public bool insertBefore = false;
+    public bool insertAfter = false;
 
     public int animateBubbleCount;
     private int explosionBubblesCount = 0;
@@ -58,8 +58,22 @@ public class ShootedBubble : MonoBehaviour
             this.targetBubbleattr = this.targetBubble.GetComponent<Bubble>();
             this.targetMoveonspline = this.targetBubble.GetComponent<MoveOnSpline>();
 
+            bool targetAfterbubblesRollback = false;
 
-            if (!this.targetBubbleattr.rollback)
+            for (int i = 0; i < this.bubbles.childCount; i++)
+            {
+                if (this.bubbles.GetChild(i).GetComponent<MoveOnSpline>().explosionCounter == targetMoveonspline.explosionCounter + 1)
+                {
+                    if (this.bubbles.GetChild(i).GetComponent<Bubble>().rollback)
+                    {
+                        targetAfterbubblesRollback = true;
+                    }
+                }
+            }
+
+            handleInsertBubble(this.targetBubbleattr, this.targetMoveonspline, false);
+
+            if (!this.targetBubbleattr.rollback && targetAfterbubblesRollback == false  /*&& targetMoveonspline.slowAfterRollback == false*/)
             {
                 targetBubblehandler();
             }
@@ -73,9 +87,8 @@ public class ShootedBubble : MonoBehaviour
         MoveOnSpline.OnInsertAnimationUpdate += checkInsertionAnimationUpdate;
         this.hitted = true;
 
-        Bubble targetBubbleAttr = targetBubble.GetComponent<Bubble>();
-        MoveOnSpline targetMoveOnSplineAttr = targetBubble.GetComponent<MoveOnSpline>();
-        handleInsertBubble(targetBubbleAttr, targetMoveOnSplineAttr);
+
+        handleInsertBubble(this.targetBubbleattr, this.targetMoveonspline, true);
         this.gameMasterAttr.audioManager.handleSound("CollideBubble1", 1);
     }
 
@@ -94,7 +107,7 @@ public class ShootedBubble : MonoBehaviour
 
 
 
-    private void handleInsertBubble(Bubble targetbubbleattr, MoveOnSpline targetMoveOnSplineAttr)
+    private void handleInsertBubble(Bubble targetbubbleattr, MoveOnSpline targetMoveOnSplineAttr, bool goAhead)
     {
         Vector3 bubblePosBefore = targetbubbleattr.mathe.CalcPositionByDistance(targetbubbleattr.cursor.Distance + this.gameMasterAttr.bubbleSizeAverage);
         Vector3 bubblePosAfter = targetbubbleattr.mathe.CalcPositionByDistance(targetbubbleattr.cursor.Distance - this.gameMasterAttr.bubbleSizeAverage);
@@ -105,17 +118,21 @@ public class ShootedBubble : MonoBehaviour
         if (distanceBubblePosAfter > distanceBubblePosBefore)
         {
             this.insertBefore = true;
-            //Debug.Log("before");
+            Debug.Log("before");
 
         }
         else if (distanceBubblePosAfter < distanceBubblePosBefore)
         {
             this.insertAfter = true;
-            //Debug.Log("after");
+            Debug.Log("after");
 
         }
 
-        insertedBubbleHandler(targetbubbleattr, targetMoveOnSplineAttr);
+        if (goAhead)
+        {
+            insertedBubbleHandler(targetbubbleattr, targetMoveOnSplineAttr);
+        }
+        
 
 
 

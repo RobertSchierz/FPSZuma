@@ -3,6 +3,7 @@ using BansheeGz.BGSpline.Curve;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class MoveOnSpline : MonoBehaviour
 {
@@ -95,8 +96,14 @@ public class MoveOnSpline : MonoBehaviour
     void Update()
     {
 
+        calcTheCase();
+
         this.seconds = this.gamemaster.GetComponent<Wavespawner>().actualBubblespeed;
 
+    }
+
+    private void calcTheCase()
+    {
         if (this.cursor.DistanceRatio <= this.max && !Wavespawner.lostgame)
         {
             if (transform.position == Waypoints.points[Waypoints.points.Length - 1].position)
@@ -125,14 +132,14 @@ public class MoveOnSpline : MonoBehaviour
 
                 if (this.slowAfterRollback)
                 {
-                  /*  if (this.bubbleAttributes.interpolate)
+                    if (this.bubbleAttributes.interpolate)
                     {
                         insertAnimation(1);
-                    }*/
-                    
-                        insertAnimation(4);
-                    
-                    
+                    }
+
+                    insertAnimation(4);
+
+
 
                 }
                 else
@@ -182,13 +189,6 @@ public class MoveOnSpline : MonoBehaviour
             // Helper->
             transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance);
         }
-
-
-
-
-
-
-
     }
 
     public void insertAnimation(int decision)
@@ -247,20 +247,35 @@ public class MoveOnSpline : MonoBehaviour
 
                 ShootedBubble shootedBubbleAttr = transform.GetComponent<ShootedBubble>();
 
+                float bubbleBeforeAfterCalcValue = 0.0f;
+
+                if (shootedBubbleAttr.insertAfter)
+                {
+                    bubbleBeforeAfterCalcValue = (-this.gameMasterAttributes.bubbleSizeAverage);
+                } else if (shootedBubbleAttr.insertBefore)
+                {
+                    bubbleBeforeAfterCalcValue = (+this.gameMasterAttributes.bubbleSizeAverage);
+                } else if (shootedBubbleAttr.insertAfter == false && shootedBubbleAttr.insertBefore == false)
+                {
+                    bubbleBeforeAfterCalcValue = (+this.gameMasterAttributes.bubbleSizeAverage);
+                }
+
+
+                
+
+
                 if (this.cursor.Distance != 0.0f)
                 {
 
-                    if (Vector3.Distance(transform.position, this.mathe.CalcPositionByDistance(this.cursor.Distance)) > 0.01f)
+
+
+                    if (Vector3.Distance(transform.position, this.mathe.CalcPositionByDistance(shootedBubbleAttr.targetMoveonspline.cursor.Distance + bubbleBeforeAfterCalcValue)) > 0.01f)
                     {
-                        if (this.bubbleAttributes.interpolate)
-                        {
-                            this.distanceCalc += this.gameMasterAttributes.bubbleSizeAverage;
-                            this.bubbleAttributes.interpolate = false;
-                        }
 
-                        Vector3 direction = (this.mathe.CalcPositionByDistance(this.cursor.Distance) - transform.position);
 
-                        if (Vector3.Distance(transform.position, this.mathe.CalcPositionByDistance(this.cursor.Distance)) > shootedBubbleAttr.distanceToInsertionspoint || shootedBubbleAttr.distanceToInsertionspoint == 0f)
+                        Vector3 direction = (this.mathe.CalcPositionByDistance(shootedBubbleAttr.targetMoveonspline.cursor.Distance + bubbleBeforeAfterCalcValue) - transform.position);
+
+                        if (Vector3.Distance(transform.position, this.mathe.CalcPositionByDistance(shootedBubbleAttr.targetMoveonspline.cursor.Distance + bubbleBeforeAfterCalcValue)) > shootedBubbleAttr.distanceToInsertionspoint || shootedBubbleAttr.distanceToInsertionspoint == 0f)
                         {
                             this.rigidBodyAttr.drag = 1000;
                             this.rigidBodyAttr.angularDrag = 1000;
@@ -274,12 +289,19 @@ public class MoveOnSpline : MonoBehaviour
                         }
 
                         Debug.DrawRay(transform.position, direction, Color.red, Mathf.Infinity);
-                        shootedBubbleAttr.distanceToInsertionspoint = Vector3.Distance(transform.position, this.mathe.CalcPositionByDistance(this.cursor.Distance));
+                        shootedBubbleAttr.distanceToInsertionspoint = Vector3.Distance(transform.position, this.mathe.CalcPositionByDistance(shootedBubbleAttr.targetMoveonspline.cursor.Distance + bubbleBeforeAfterCalcValue));
 
                     }
+
                     else
                     {
-
+                        this.distanceCalc = shootedBubbleAttr.targetMoveonspline.distanceCalc + bubbleBeforeAfterCalcValue;
+                        if (shootedBubbleAttr.targetMoveonspline.slowAfterRollback)
+                        {
+                            this.slowAfterRollback = true;
+                            this.slowdownFactor = shootedBubbleAttr.targetMoveonspline.slowdownFactor;
+                            this.slowBackAnimationStart = shootedBubbleAttr.targetMoveonspline.slowdownFactor;
+                        }
                         shootedBubbleAttr.isInRow = true;
                         this.rigidBodyAttr.drag = 0;
                         this.rigidBodyAttr.angularDrag = 0;
