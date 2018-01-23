@@ -73,7 +73,7 @@ public class ShootedBubble : MonoBehaviour
 
             handleInsertBubble(this.targetBubbleattr, this.targetMoveonspline, false);
 
-            if (!this.targetBubbleattr.rollback && targetAfterbubblesRollback == false  /*&& targetMoveonspline.slowAfterRollback == false*/)
+            if (!this.targetBubbleattr.rollback && targetAfterbubblesRollback == false)
             {
                 targetBubblehandler();
             }

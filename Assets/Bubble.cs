@@ -137,12 +137,27 @@ public class Bubble : MonoBehaviour
 
             if (this.bubble.GetComponent<MoveOnSpline>().explosionCounter == 0)
             {
-                
-                transform.Rotate(distanceToCam * (Time.deltaTime) * this.rotationSpeed, Space.World);
+                if (this.rollback || this.bubble.GetComponent<MoveOnSpline>().slowAfterRollback)
+                {
+                    if (this.bubble.GetComponent<MoveOnSpline>().slowdownFactor > 1)
+                    {
+                        transform.Rotate(-distanceToCam * (Time.deltaTime) * this.rotationSpeed, Space.World);
+                    }else
+                    {
+                        transform.Rotate(distanceToCam * (Time.deltaTime) * this.rotationSpeed, Space.World);
+                    }
+                    
+                }else
+                {
+                    transform.Rotate(distanceToCam * (Time.deltaTime) * this.rotationSpeed, Space.World);
+                }
+
+               
             }else
             {
-                if (this.rollback)
+                if (this.rollback || this.bubble.GetComponent<MoveOnSpline>().slowAfterRollback)
                 {
+                    
                     transform.Rotate(-distanceToCam * (Time.deltaTime) * this.rotationSpeed, Space.World);
                 }
             }

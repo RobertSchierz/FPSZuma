@@ -3,7 +3,6 @@ using BansheeGz.BGSpline.Curve;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class MoveOnSpline : MonoBehaviour
 {
@@ -38,7 +37,7 @@ public class MoveOnSpline : MonoBehaviour
     public float animationEnd;
     public float animationStart = 0f;
 
-    public float slowBackSeconds = 2.0f;
+    public float slowBackSeconds;
     public float slowBackAnimationStart;
 
     public delegate void insertAnimationUpdate();
@@ -51,7 +50,7 @@ public class MoveOnSpline : MonoBehaviour
     public ExplosionProvider explosionProvider;
 
     public bool slowAfterRollback = false;
-    public float slowdownFactor = 2.0f;
+    public float slowdownFactor;
 
     //public bool helperWait = false;
 
@@ -60,7 +59,8 @@ public class MoveOnSpline : MonoBehaviour
 
     void Start()
     {
-
+        this.slowdownFactor = 2.0f;
+        this.slowBackSeconds = this.slowdownFactor;
         this.gamemaster = GameObject.FindGameObjectWithTag("GameController");
         this.gameMasterAttributes = this.gamemaster.GetComponent<GameMaster>();
         this.wavespawner = this.gamemaster.GetComponent<Wavespawner>();
@@ -96,14 +96,8 @@ public class MoveOnSpline : MonoBehaviour
     void Update()
     {
 
-        calcTheCase();
-
         this.seconds = this.gamemaster.GetComponent<Wavespawner>().actualBubblespeed;
 
-    }
-
-    private void calcTheCase()
-    {
         if (this.cursor.DistanceRatio <= this.max && !Wavespawner.lostgame)
         {
             if (transform.position == Waypoints.points[Waypoints.points.Length - 1].position)
@@ -189,6 +183,13 @@ public class MoveOnSpline : MonoBehaviour
             // Helper->
             transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance);
         }
+
+
+
+
+
+
+
     }
 
     public void insertAnimation(int decision)
@@ -252,16 +253,18 @@ public class MoveOnSpline : MonoBehaviour
                 if (shootedBubbleAttr.insertAfter)
                 {
                     bubbleBeforeAfterCalcValue = (-this.gameMasterAttributes.bubbleSizeAverage);
-                } else if (shootedBubbleAttr.insertBefore)
+                }
+                else if (shootedBubbleAttr.insertBefore)
                 {
                     bubbleBeforeAfterCalcValue = (+this.gameMasterAttributes.bubbleSizeAverage);
-                } else if (shootedBubbleAttr.insertAfter == false && shootedBubbleAttr.insertBefore == false)
+                }
+                else if (shootedBubbleAttr.insertAfter == false && shootedBubbleAttr.insertBefore == false)
                 {
                     bubbleBeforeAfterCalcValue = (+this.gameMasterAttributes.bubbleSizeAverage);
                 }
 
 
-                
+
 
 
                 if (this.cursor.Distance != 0.0f)
@@ -300,7 +303,8 @@ public class MoveOnSpline : MonoBehaviour
                         {
                             this.slowAfterRollback = true;
                             this.slowdownFactor = shootedBubbleAttr.targetMoveonspline.slowdownFactor;
-                            this.slowBackAnimationStart = shootedBubbleAttr.targetMoveonspline.slowdownFactor;
+                            this.slowBackAnimationStart = shootedBubbleAttr.targetMoveonspline.slowBackAnimationStart;
+
                         }
                         shootedBubbleAttr.isInRow = true;
                         this.rigidBodyAttr.drag = 0;
@@ -342,14 +346,17 @@ public class MoveOnSpline : MonoBehaviour
                         this.slowdownFactor = 0.0f;
                     }
 
+                    if (!this.bubbleAttributes.interpolate)
+                    {
+                        moveOnSpline();
+                    }
 
-                    moveOnSpline();
                 }
                 else
                 {
                     this.slowBackAnimationStart = 0.0f;
                     this.slowAfterRollback = false;
-                    this.slowdownFactor = 2.0f;
+                    this.slowdownFactor = this.slowBackSeconds;
                 }
 
                 break;
@@ -374,6 +381,24 @@ public class MoveOnSpline : MonoBehaviour
     {
         this.cursor.Distance = this.distanceCalc;
         transform.position = this.mathe.CalcPositionByDistance(this.cursor.Distance);
+    }
+
+    private void handleslowRollback(bool explode, MoveOnSpline rollbackMoveonSpline, Bubble rollbackBubble)
+    {
+        if (explode == false && rollbackMoveonSpline.transform == transform)
+        {
+
+
+            for (int i = 0; i < this.bubbles.childCount; i++)
+            {
+                MoveOnSpline tempMoveonSpline = this.bubbles.GetChild(i).GetComponent<MoveOnSpline>();
+                if (tempMoveonSpline.explosionCounter == rollbackMoveonSpline.explosionCounter || tempMoveonSpline.explosionCounter == rollbackMoveonSpline.explosionCounter - 1)
+                {
+                    tempMoveonSpline.slowAfterRollback = true;
+                }
+            }
+
+        }
     }
 
 
@@ -428,109 +453,81 @@ public class MoveOnSpline : MonoBehaviour
             if (!this.bubbleAttributes.isFirstBubble)
             {
 
+                float calculationValue = (this.bubbleAttributes.beforeBubble.GetComponent<MoveOnSpline>().distanceCalc - this.gameMasterAttributes.bubbleSizeAverage);
+
                 if (this.explosionCounter != this.bubbleAttributes.beforeBubble.GetComponent<MoveOnSpline>().explosionCounter)
                 {
-
-                    float calculationValue = (this.bubbleAttributes.beforeBubble.GetComponent<MoveOnSpline>().distanceCalc - this.gameMasterAttributes.bubbleSizeAverage);
+                   
 
                     if (this.distanceCalc + ((this.mathe.GetDistance() * Time.deltaTime) / this.seconds) >= calculationValue)
                     {
                         correctOverlapOfBubbles(this.distanceCalc - calculationValue);
                     }
+
+                }
+                else
+                {
+                    if ((this.distanceCalc + (this.gameMasterAttributes.bubbleSizeAverage / 2)) < calculationValue)
+                    {
+                       // correctNormalOverlap();
+                    }else if (calculationValue - this.distanceCalc < -(this.gameMasterAttributes.bubbleSizeAverage / 2))
+                    {
+                       // correctNormalOverlap();
+                    }
                 }
             }
         }
     }
 
-    private void handleslowRollback(bool explode, MoveOnSpline rollbackMoveonSpline, Bubble rollbackBubble)
+    public void correctNormalOverlap()
     {
-        Debug.Log(explode);
-        if (explode == false && rollbackMoveonSpline.transform == transform)
+       
+        if (!this.bubbleAttributes.interpolate && !this.bubbleAttributes.rollback)
         {
+            Debug.Break();
+            MoveOnSpline tempMoveonSpline = this.bubbleAttributes.beforeBubble.GetComponent<MoveOnSpline>();
 
-            // Debug.Break();
-
-            for (int i = 0; i < this.bubbles.childCount; i++)
-            {
-                MoveOnSpline tempMoveonSpline = this.bubbles.GetChild(i).GetComponent<MoveOnSpline>();
-                if (tempMoveonSpline.explosionCounter == rollbackMoveonSpline.explosionCounter || tempMoveonSpline.explosionCounter == rollbackMoveonSpline.explosionCounter - 1)
-                {
-                    tempMoveonSpline.slowAfterRollback = true;
-                }
-            }
-
-
-            /*
-            for (int i = 0; i < this.bubbles.childCount; i++)
-            {
-                MoveOnSpline moveonsplineAttr = this.bubbles.GetChild(i).GetComponent<MoveOnSpline>();
-                Bubble bubbleeAttr = this.bubbles.GetChild(i).GetComponent<Bubble>();
-
-                if (moveonsplineAttr.explosionCounter == this.explosionCounter)
-                {
-                    if (!this.bubbleAttributes.isLastBubble)
-                    {
-                        moveonsplineAttr.slowAfterRollback = true;
-                        moveonsplineAttr.slowBackAnimationStart = this.bubbles.GetChild(i+1).GetComponent<MoveOnSpline>().slowBackAnimationStart;
-                        moveonsplineAttr.slowdownFactor = this.bubbles.GetChild(i + 1).GetComponent<MoveOnSpline>().slowdownFactor;
-                    }else
-                    {
-                        moveonsplineAttr.slowAfterRollback = true;
-                        moveonsplineAttr.slowBackAnimationStart = this.bubbles.GetChild(i - 1).GetComponent<MoveOnSpline>().slowBackAnimationStart;
-                        moveonsplineAttr.slowdownFactor = this.bubbles.GetChild(i - 1).GetComponent<MoveOnSpline>().slowdownFactor;
-                    }
-
-                    // moveonsplineAttr.slowAfterRollback = true;
-
-                }
-                else if (moveonsplineAttr.explosionCounter == this.explosionCounter + 1)
-                {
-                    Debug.Log(explode);
-                    if (!explode)
-                    {
-                        // moveonsplineAttr.slowAfterRollback = true;
-                    }
-                    else
-                    {
-                        // moveonsplineAttr.slowAfterRollback = false;
-                    }
-                }
-            }*/
+            this.distanceCalc = tempMoveonSpline.distanceCalc - this.gameMasterAttributes.bubbleSizeAverage;
         }
-
-
-
     }
+
+
 
     public void correctOverlapOfBubbles(float distanceCalcDifference)
     {
-        this.gameMasterAttributes.audioManager.handleSound("BubblesTouch", 1);
-        foreach (var infrontBubble in this.bubbleAttributes.beforeBubble.GetComponent<Bubble>().movedBubbleRow)
-        {
-            MoveOnSpline infrontBubbleMoveOnSpline = infrontBubble.GetComponent<MoveOnSpline>();
-            Bubble infrontBubbleBubbleAttr = infrontBubble.GetComponent<Bubble>();
 
-            if (infrontBubbleMoveOnSpline.explosionCounter == this.explosionCounter + 1)
+       
+            this.gameMasterAttributes.audioManager.handleSound("BubblesTouch", 1);
+            foreach (var infrontBubble in this.bubbleAttributes.beforeBubble.GetComponent<Bubble>().movedBubbleRow)
             {
-                infrontBubbleMoveOnSpline.distanceCalc += distanceCalcDifference;
-                moveToCalcDistance();
+                MoveOnSpline infrontBubbleMoveOnSpline = infrontBubble.GetComponent<MoveOnSpline>();
+                Bubble infrontBubbleBubbleAttr = infrontBubble.GetComponent<Bubble>();
 
-                if (!this.bubbleAttributes.interpolate)
+                if (infrontBubbleMoveOnSpline.explosionCounter == this.explosionCounter + 1)
                 {
-                    infrontBubbleMoveOnSpline.explosionCounter = this.explosionCounter;
+                    infrontBubbleMoveOnSpline.distanceCalc += distanceCalcDifference;
+                    moveToCalcDistance();
+
+                    if (!this.bubbleAttributes.interpolate)
+                    {
+                        infrontBubbleMoveOnSpline.explosionCounter = this.explosionCounter;
+
+                    }
 
                 }
-
-            }
-            else
-            {
-                if (infrontBubbleMoveOnSpline.explosionCounter != infrontBubbleBubbleAttr.afterBubble.GetComponent<MoveOnSpline>().explosionCounter && infrontBubbleBubbleAttr.afterBubble.GetComponent<MoveOnSpline>().explosionCounter == 0)
+                else
                 {
-                    infrontBubbleMoveOnSpline.explosionCounter = infrontBubbleBubbleAttr.afterBubble.GetComponent<MoveOnSpline>().explosionCounter;
+                    if (infrontBubbleMoveOnSpline.explosionCounter != infrontBubbleBubbleAttr.afterBubble.GetComponent<MoveOnSpline>().explosionCounter && infrontBubbleBubbleAttr.afterBubble.GetComponent<MoveOnSpline>().explosionCounter == 0)
+                    {
+                        infrontBubbleMoveOnSpline.explosionCounter = infrontBubbleBubbleAttr.afterBubble.GetComponent<MoveOnSpline>().explosionCounter;
 
+                    }
                 }
             }
-        }
+        
+       
+
+
     }
 
     //Helper
