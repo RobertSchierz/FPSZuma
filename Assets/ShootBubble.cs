@@ -36,7 +36,6 @@ public class ShootBubble : MonoBehaviour
         this.gameMasterAttributes = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameMaster>();
         this.camera = gameObject;
         this.level = GameObject.FindGameObjectWithTag("Level");
-        Leveltrigger.onOutoflevel += handleBubbleout;
         this.previewBubbles = GameObject.Find("PreviewBubbles");
         this.previewBubbles2 = GameObject.Find("PreviewBubbles2");
         this.nextBubble[0] = randomizePrefabs(0);
@@ -129,10 +128,6 @@ public class ShootBubble : MonoBehaviour
         return returnText;
     }
 
-    void handleBubbleout()
-    {
-        //Debug.Log("Bubble hat Level verlassen");
-    }
 
     private void shootBubble()
     {

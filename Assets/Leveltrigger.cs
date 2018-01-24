@@ -4,13 +4,22 @@ using UnityEngine;
 
 public class Leveltrigger : MonoBehaviour {
 
-    public delegate void outOfLevel();
-    public static event outOfLevel onOutoflevel;
+    public GameObject Gamemaster;
+    public GameMaster gameMasterAttributes;
+
+
+
+    void Start()
+    {
+        this.Gamemaster = GameObject.FindGameObjectWithTag("GameController");
+        this.gameMasterAttributes = this.Gamemaster.GetComponent<GameMaster>();
+    }
 
     void OnTriggerExit(Collider col)
     {
-        //Debug.Break();
+        this.gameMasterAttributes.startExplosionCoroutine(col.transform.position, 2);
+        this.gameMasterAttributes.audioManager.handleSound("FinalBallExplosion", 1);
         Destroy(col.gameObject);
-        onOutoflevel();
+   
     }
 }
