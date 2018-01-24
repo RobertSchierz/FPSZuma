@@ -22,7 +22,7 @@ public class ShootBubble : MonoBehaviour
     private GameObject level;
 
     public float bubbleforce = 50f;
-    private float timeBetweenShots = 0.5f;
+    private float timeBetweenShots = 1.0f;
     private float timestamp;
     private bool isSwitching = false;
 
@@ -32,6 +32,7 @@ public class ShootBubble : MonoBehaviour
 
     void Start()
     {
+        this.timeBetweenShots = 0.7f;
         this.gameMasterAttributes = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameMaster>();
         this.camera = gameObject;
         this.level = GameObject.FindGameObjectWithTag("Level");

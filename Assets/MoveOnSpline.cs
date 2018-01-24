@@ -467,12 +467,9 @@ public class MoveOnSpline : MonoBehaviour
                 }
                 else
                 {
-                    if ((this.distanceCalc + (this.gameMasterAttributes.bubbleSizeAverage / 2)) < calculationValue)
+                    if (this.distanceCalc < (calculationValue - (this.gameMasterAttributes.bubbleSizeAverage / 2)) || this.distanceCalc >(calculationValue + (this.gameMasterAttributes.bubbleSizeAverage / 2)) )
                     {
-                       // correctNormalOverlap();
-                    }else if (calculationValue - this.distanceCalc < -(this.gameMasterAttributes.bubbleSizeAverage / 2))
-                    {
-                       // correctNormalOverlap();
+                        correctNormalOverlap();
                     }
                 }
             }
@@ -482,7 +479,7 @@ public class MoveOnSpline : MonoBehaviour
     public void correctNormalOverlap()
     {
        
-        if (!this.bubbleAttributes.interpolate && !this.bubbleAttributes.rollback)
+        if (!this.bubbleAttributes.interpolate && !this.bubbleAttributes.rollback && !this.bubbleAttributes.isShooted)
         {
             Debug.Break();
             MoveOnSpline tempMoveonSpline = this.bubbleAttributes.beforeBubble.GetComponent<MoveOnSpline>();

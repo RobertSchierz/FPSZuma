@@ -17,7 +17,6 @@ public class Bubble : MonoBehaviour
     [Space]
     [Header("Own Attributes")]
     public GameObject bubble;
-    public int speciality;
     public bool isShooted = false;
     public int bubbleColor;
     public Rigidbody rigidBodyAttr;
