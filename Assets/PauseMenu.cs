@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PauseMenu : MonoBehaviour {
 
 
     public static bool gameIsPaused = false;
     public GameObject pauseMenuUI;
+    public TextMeshProUGUI steuerungText;
 
 
 	void Update () {
@@ -36,6 +38,7 @@ public class PauseMenu : MonoBehaviour {
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         gameIsPaused = true;
+       
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
@@ -45,7 +48,7 @@ public class PauseMenu : MonoBehaviour {
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         gameIsPaused = false;
-
+        this.steuerungText.enabled = false;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
