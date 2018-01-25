@@ -19,13 +19,18 @@ public class HighscoreAnzeige : MonoBehaviour {
     public GameObject virtualcam3;
     private CinemachineVirtualCamera cvirtualcamera3;
 
+    public GameObject virtualcam4;
+    private CinemachineVirtualCamera cvirtualcamera4;
+
     public GameObject track1;
     public GameObject track2;
+    public GameObject track3;
 
 
     private CinemachineTrackedDolly dolly;
     private CinemachineTrackedDolly dolly2;
     private CinemachineTrackedDolly dolly3;
+    private CinemachineTrackedDolly dolly4;
 
     public Transform entryPrefab;
     public Transform grid;
@@ -33,24 +38,27 @@ public class HighscoreAnzeige : MonoBehaviour {
 
     public bool startCamToHighscore = false;
     public bool startCamToMainmenu = false;
+    public bool startCamZoom = false;
+    public bool startCamZoomOut = false;
 
 
 
 
-    // Use this for initialization
     void Start () {
         this.cvirtualcamera = this.virtualcam.GetComponent<CinemachineVirtualCamera>();
         this.cvirtualcamera2 = this.virtualcam2.GetComponent<CinemachineVirtualCamera>();
         this.cvirtualcamera3 = this.virtualcam3.GetComponent<CinemachineVirtualCamera>();
+        this.cvirtualcamera4 = this.virtualcam4.GetComponent<CinemachineVirtualCamera>();
 
 
         this.dolly2 = this.cvirtualcamera2.GetCinemachineComponent<CinemachineTrackedDolly>();
         this.dolly3 = this.cvirtualcamera3.GetCinemachineComponent<CinemachineTrackedDolly>();
         this.dolly3.m_PathPosition = this.dolly3.m_Path.MaxPos;
+        this.dolly4 = this.cvirtualcamera4.GetCinemachineComponent<CinemachineTrackedDolly>();
 
     }
-	
-	// Update is called once per frame
+
+
 	void Update () {
 
         if (this.startCamToHighscore && this.dolly2.m_PathPosition < (this.dolly2.m_Path.MaxPos))
@@ -75,14 +83,57 @@ public class HighscoreAnzeige : MonoBehaviour {
                 this.cvirtualcamera.enabled = true;
                 this.startCamToMainmenu = false;
             }
-             
-
-   
 
         }
 
+        if (this.startCamZoom && this.dolly4.m_PathPosition < (this.dolly4.m_Path.MaxPos))
+        {
+            if (this.startCamZoomOut)
+            {
+                this.startCamZoomOut = false;
+            }
 
-	}
+            this.dolly4.m_PathPosition += Time.deltaTime;
+        }
+
+        if (startCamZoomOut)
+        {
+            if (this.dolly4.m_PathPosition > (this.dolly4.m_Path.MinPos))
+            {
+                this.dolly4.m_PathPosition -= Time.deltaTime;
+            }
+            else
+            {
+                startCamZoomOut = false;
+                this.cvirtualcamera4.enabled = false;
+                this.cvirtualcamera.enabled = true;
+            }
+          
+        }
+
+
+    }
+
+    public void zoomCam()
+    {
+        if (this.startCamToMainmenu)
+        {
+            this.cvirtualcamera4.enabled = false;
+            this.startCamToMainmenu = false;
+        }
+
+        this.cvirtualcamera.enabled = false;
+        this.cvirtualcamera2.enabled = false;
+        this.cvirtualcamera3.enabled = false;
+        this.cvirtualcamera4.enabled = true;
+        this.startCamZoom = true;
+    }
+
+    public void zoomBack()
+    {
+        this.startCamZoom = false;
+        this.startCamZoomOut = true;
+    }
 
     public void resetAll()
     {
@@ -104,9 +155,17 @@ public class HighscoreAnzeige : MonoBehaviour {
       
     }
 
+  
+
 
     public void handleCam()
     {
+
+        if (this.startCamZoomOut)
+        {
+            this.cvirtualcamera4.enabled = false;
+            this.startCamZoomOut = false;
+        }
         this.cvirtualcamera.enabled = false;
         this.cvirtualcamera2.enabled = true;
         this.startCamToHighscore = true;
@@ -135,7 +194,7 @@ public class HighscoreAnzeige : MonoBehaviour {
 
             foreach (DictionaryEntry entry in sortedHighscore.Cast<DictionaryEntry>().OrderByDescending(entry => entry.Value))
             {
-                Debug.Log(entry.Value);
+                
                 Transform holder = Instantiate(this.entryPrefab, this.grid);
                 holder.GetChild(0).GetComponent<TextMeshProUGUI>().text = entry.Key.ToString();
                 holder.GetChild(1).GetComponent<TextMeshProUGUI>().text = entry.Value.ToString();
@@ -148,9 +207,12 @@ public class HighscoreAnzeige : MonoBehaviour {
 
     public void backToMainMenu()
     {
+
         this.startCamToMainmenu = true;
         this.cvirtualcamera2.enabled = false;
         this.cvirtualcamera3.enabled = true;
+
+
     }
 
 }

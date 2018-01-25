@@ -118,13 +118,13 @@ public class ShootedBubble : MonoBehaviour
         if (distanceBubblePosAfter > distanceBubblePosBefore)
         {
             this.insertBefore = true;
-            Debug.Log("before");
+         //   Debug.Log("before");
 
         }
         else if (distanceBubblePosAfter < distanceBubblePosBefore)
         {
             this.insertAfter = true;
-            Debug.Log("after");
+          //  Debug.Log("after");
 
         }
 

@@ -30,8 +30,6 @@ public class ExplosionProvider {
         this.bubbles = this.bubbleAttr.bubbles;
         this.waveSpawner = this.bubbleAttr.waveSpawner;
         this.bubbleTransform = this.bubbleAttr.transform;
-        
-
     }
 
 

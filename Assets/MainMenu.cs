@@ -8,6 +8,7 @@ public class MainMenu : MonoBehaviour {
     public GameObject mainmenuCamera;
     public bool cameraEndPosition = false;
 
+
     void Update()
     {
         if (this.cameraEndPosition == true)
@@ -21,8 +22,10 @@ public class MainMenu : MonoBehaviour {
     {
         Wavespawner.lostgame = false;
         this.mainmenuCamera.GetComponent<MoveCameraMenu>().startGame();
-        
     }
+
+
+ 
 
     public void QuitGame()
     {
