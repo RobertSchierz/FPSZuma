@@ -11,13 +11,10 @@ public class MoveCameraMenu : MonoBehaviour
     CinemachineVirtualCamera camera;
     CinemachineTrackedDolly cameraDolly;
 
-    //public bool helpmenu = false;
-
-
     private MainMenu mainMenu;
 
 
-    // Use this for initialization
+
     void Start()
     {
         this.mainMenu = this.mainmenuCanvas.GetComponent<MainMenu>();
@@ -46,16 +43,6 @@ public class MoveCameraMenu : MonoBehaviour
         this.mainMenu.cameraEndPosition = true;
     }
 
-   /* public void helpMenuTrue()
-    {
-        this.helpmenu = true;
-    }
-
-    public void helpMenuFalse()
-    {
-        this.helpmenu = false;
-    }*/
-
 
  
     void Update()
@@ -65,46 +52,6 @@ public class MoveCameraMenu : MonoBehaviour
         {
             this.cameraDolly.m_PathPosition += Time.deltaTime;
         }
-
-
-        /*  if (!this.mainMenu.startgame)
-          {
-              if (!this.helpmenu)
-              {
-                  if (this.cameraDolly.m_PathPosition <= this.cameraDolly.m_Path.MaxPos - 2)
-                  {
-                      Debug.Log("1");
-                      this.cameraDolly.m_PathPosition += Time.deltaTime;
-                  }
-                  else
-                  {
-                      if (this.cameraDolly.m_PathPosition > this.cameraDolly.m_Path.MaxPos - 2)
-                      {
-                          this.cameraDolly.m_PathPosition -= Time.deltaTime;
-                      }
-                  }
-              }
-
-
-
-              if (this.helpmenu)
-              {
-                  if (this.cameraDolly.m_PathPosition <= this.cameraDolly.m_Path.MaxPos - 1)
-                  {
-                      Debug.Log("2");
-                      this.cameraDolly.m_PathPosition += Time.deltaTime;
-                  }
-              }
-          }else
-          {
-              if (this.cameraDolly.m_PathPosition <= this.cameraDolly.m_Path.MaxPos)
-              {
-                 // this.cameraDolly.m_PathPosition += Time.deltaTime;
-              }else
-              {
-                  this.mainMenu.startgame = false;
-              }
-          }*/
 
     }
 }

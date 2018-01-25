@@ -291,7 +291,7 @@ public class MoveOnSpline : MonoBehaviour
                             this.rigidBodyAttr.MovePosition(transform.position + direction * (Time.deltaTime * 20));
                         }
 
-                        Debug.DrawRay(transform.position, direction, Color.red, Mathf.Infinity);
+                        //Debug.DrawRay(transform.position, direction, Color.red, Mathf.Infinity);
                         shootedBubbleAttr.distanceToInsertionspoint = Vector3.Distance(transform.position, this.mathe.CalcPositionByDistance(shootedBubbleAttr.targetMoveonspline.cursor.Distance + bubbleBeforeAfterCalcValue));
 
                     }
@@ -481,7 +481,7 @@ public class MoveOnSpline : MonoBehaviour
        
         if (!this.bubbleAttributes.interpolate && !this.bubbleAttributes.rollback && !this.bubbleAttributes.isShooted)
         {
-            Debug.Break();
+           // Debug.Break();
             MoveOnSpline tempMoveonSpline = this.bubbleAttributes.beforeBubble.GetComponent<MoveOnSpline>();
 
             this.distanceCalc = tempMoveonSpline.distanceCalc - this.gameMasterAttributes.bubbleSizeAverage;
