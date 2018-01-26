@@ -30,7 +30,8 @@ public class Wavespawner : MonoBehaviour
 
 
     // Bubble Attributes
-    public int bubbleCountPerWave = 10;
+    public int bubbleCountPerWave = 1000000;
+
     [Range(15, 100)]
     public float bubblespeed = 15.0f;
 
@@ -91,7 +92,7 @@ public class Wavespawner : MonoBehaviour
 
         MoveOnSpline.onLostGame += handleOnLostGame;
 
-        this.introBubbleNumber = this.bubbleCountPerWave / 10;
+        this.introBubbleNumber = /*this.bubbleCountPerWave */ 10;
         this.introBubblespeed = this.bubblespeed / 2f;
         this.actualBubblespeed = introBubblespeed;
 

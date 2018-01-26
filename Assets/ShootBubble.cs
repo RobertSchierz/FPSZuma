@@ -57,7 +57,7 @@ public class ShootBubble : MonoBehaviour
 
 
 
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+          /*  if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 this.nextBubbleIndex[0] = 0;
 
@@ -80,7 +80,7 @@ public class ShootBubble : MonoBehaviour
                 this.nextBubbleIndex[0] = 3;
 
                 this.nextBubble[0] = this.bubblePrefabs[3];
-            }
+            }*/
 
             if (Input.GetButtonDown("Fire1") && Time.time >= timestamp && !this.isSwitching && !PauseMenu.gameIsPaused)
             {
